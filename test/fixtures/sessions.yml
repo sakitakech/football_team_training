@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: one
+  datetime: 2025-03-25 23:29:48
+  part: MyString
+  content: MyText
+  memo: MyText
+  body_weight: 1
+  body_fat: 1
+
+two:
+  user: two
+  datetime: 2025-03-25 23:29:48
+  part: MyString
+  content: MyText
+  memo: MyText
+  body_weight: 1
+  body_fat: 1
