@@ -1,0 +1,38 @@
+https://techracho.bpsinc.jp/hachi8833/2023_09_01/133452
+
+user_signed_in?
+現在ログイン中のユーザーがいるかどうかを確認します。
+
+current_user
+現在ログイン中のユーザーを参照できます。たとえば、current_user.emailのようなコードスニペットを使って、現在ログイン中のユーザーのメールアドレスを取得できます。
+
+user_session
+現在ログイン中のユーザーセッションです。
+
+
+destroy_user_session_path
+ログイン中のユーザーセッションを破棄し、指定されたパスまたはrootパスにリダイレクトします。
+
+new_user_session_path
+ユーザーログイン画面を表示します。
+
+edit_user_registration_path
+現在ログイン中のユーザーに、登録の詳細を編集するビューへのアクセス権限を与えます。
+
+new_user_registration_path
+新規ユーザーの登録フォームを持つビューを表示します。
+
+
+
+before_action
+Deviseは、コントローラのアクセスを管理する便利なbefore_actionフィルタを提供しています。フィルタは以下のように利用可能です。
+
+# app/controllers/posts_controller.rb
+
+class  PostsController  <  ApplicationController
+
+  before_action :authenticate_user!    # モデル名がUserの場合
+  before_action :authenticate_member!  # モデル名がMemberの場合
+
+  ...
+end

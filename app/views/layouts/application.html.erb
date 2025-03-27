@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= content_for(:title) || "FTT" %></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= yield :head %>
+
+    <link rel="manifest" href="/manifest.json">
+    <link rel="icon" href="/icon.png" type="image/png">
+    <link rel="icon" href="/icon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/icon.png">
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_include_tag "application", "data-turbo-track": "reload", type: "module" %>
+  </head>
+
+  <body class="flex flex-col min-h-screen bg-white text-gray-900">
+
+  <%= render "shared/header" %>
+
+  <% if notice %>
+   <p class="bg-green-100 text-green-800 p-2 rounded mb-4"><%= notice %></p>
+   <% end %>
+   <% if alert %>
+     <p class="bg-red-100 text-red-800 p-2 rounded mb-4"><%= alert %></p>
+  <% end %>
+
+  
+
+
+  <main class="flex-grow">
+    <%= yield %>
+  </main>
+
+  <%= render "shared/footer" %>
+
+  </body>
+</html>
