@@ -67,4 +67,4 @@ class SessionsController < ApplicationController
     def session_params
       params.require(:session).permit(:user_id, :datetime, :part, :content, :memo, :body_weight, :body_fat)
     end
-end
+endq
