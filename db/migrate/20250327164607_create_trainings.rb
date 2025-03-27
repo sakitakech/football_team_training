@@ -1,7 +1,7 @@
-class CreateSessions < ActiveRecord::Migration[7.2]
+class CreateTrainings < ActiveRecord::Migration[7.2]
   def change
-    create_table :sessions do |t|
-      t.references :user, null: false
+    create_table :trainings do |t|
+      t.references :user, null: false, foreign_key: true
       t.datetime :datetime
       t.string :part
       t.text :content

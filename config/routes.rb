@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
+  resources :trainings
   devise_for :users
-  resources :sessions
   
   get "up" => "rails/health#show", as: :rails_health_check
 
