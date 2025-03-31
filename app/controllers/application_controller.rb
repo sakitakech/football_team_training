@@ -13,7 +13,7 @@ class ApplicationController < ActionController::Base
     # プロフィール編集用（任意）
     # devise_parameter_sanitizer.permit(:account_update, keys: [:first_name, :last_name])
   end
-  
+
   def after_sign_in_path_for(resource)
     puts "aaaaaaaaaaaaaaaaaaa"
     trainings_path  # ← 任意のルートに変更可能
