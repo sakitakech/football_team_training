@@ -36,3 +36,5 @@ class  PostsController  <  ApplicationController
 
   ...
 end
+
+https://github.com/heartcombo/devise

@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   resources :trainings
-  devise_for :users
+  devise_for :users, controllers: {
+    trainings: "users/trainigs"
+  }
 
   get "up" => "rails/health#show", as: :rails_health_check
 
