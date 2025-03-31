@@ -15,7 +15,6 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_in_path_for(resource)
-    puts "aaaaaaaaaaaaaaaaaaa"
     trainings_path  # ← 任意のルートに変更可能
   end
 end
