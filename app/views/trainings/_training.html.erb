@@ -1,37 +1,41 @@
-<div id="<%= dom_id training %>">
-  <p>
-    <strong>User:</strong>
-    <%= training.user_id %>
-  </p>
+<div id="<%= dom_id training %>" class="max-w-3xl mx-auto bg-gray-100 shadow-sm rounded-md p-4 text-sm text-gray-800 space-y-4">
 
-  <p>
-    <strong>Datetime:</strong>
-    <%= training.datetime %>
-  </p>
+  <!-- 日時 -->
+  <div>
+    <p><span class="text-gray-500 font-medium">日時:</span> <%= training.datetime.strftime("%Y/%m/%d %H:%M") %></p>
+  </div>
 
-  <p>
-    <strong>Part:</strong>
-    <%= training.part %>
-  </p>
+  <!-- トレーニング内容（メイン） -->
+  <div>
+    <h2 class="text-base font-semibold text-gray-700 mb-2">トレーニング</h2>
+    <p><span class="text-gray-500 font-medium">部位:</span> <%= training.part %></p>
+    <p><span class="text-gray-500 font-medium">内容:</span> <%= training.content %></p>
+    <p><span class="text-gray-500 font-medium">メモ:</span> <%= training.memo %></p>
+  </div>
 
-  <p>
-    <strong>Content:</strong>
-    <%= training.content %>
-  </p>
+  <!-- 身体情報 -->
+  <div>
+    <h2 class="text-base font-semibold text-gray-700 mb-2">身体情報</h2>
+    <p><span class="text-gray-500 font-medium">体重:</span> <%= training.body_weight %> kg</p>
+    <p><span class="text-gray-500 font-medium">体脂肪率:</span> <%= training.body_fat %> %</p>
+  </div>
 
-  <p>
-    <strong>Memo:</strong>
-    <%= training.memo %>
-  </p>
+  <!-- マックス記録 -->
+  <div>
+    <h2 class="text-base font-semibold text-gray-700 mb-2">マックス記録</h2>
+    <div class="grid grid-cols-2 gap-4">
+      <% bench = training.training_max_weights.find { |tw| tw.max_weight.name == "ベンチプレス" } %>
+      <p><span class="text-gray-500 font-medium">ベンチプレス:</span> <%= bench&.record || "-" %> kg</p>
 
-  <p>
-    <strong>Body weight:</strong>
-    <%= training.body_weight %>
-  </p>
+      <% squat = training.training_max_weights.find { |tw| tw.max_weight.name == "スクワット" } %>
+      <p><span class="text-gray-500 font-medium">スクワット:</span> <%= squat&.record || "-" %> kg</p>
 
-  <p>
-    <strong>Body fat:</strong>
-    <%= training.body_fat %>
-  </p>
+      <% deadlift = training.training_max_weights.find { |tw| tw.max_weight.name == "デッドリフト" } %>
+      <p><span class="text-gray-500 font-medium">デッドリフト:</span> <%= deadlift&.record || "-" %> kg</p>
+
+      <% clean = training.training_max_weights.find { |tw| tw.max_weight.name == "クリーン" } %>
+      <p><span class="text-gray-500 font-medium">クリーン:</span> <%= clean&.record || "-" %> kg</p>
+    </div>
+  </div>
 
 </div>
