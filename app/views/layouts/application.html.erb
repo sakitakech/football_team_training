@@ -19,7 +19,11 @@
 
   <body class="flex flex-col min-h-screen bg-white text-gray-900">
 
-  <%= render "shared/header" %>
+  <% if user_signed_in? %>
+    <%= render 'shared/header' %>
+    <% else %>
+    <%= render 'shared/before_login_header' %>
+  <% end %>
 
   <% if notice %>
    <p class="bg-green-100 text-green-800 p-2 rounded mb-4"><%= notice %></p>
@@ -35,7 +39,11 @@
     <%= yield %>
   </main>
 
-  <%= render "shared/footer" %>
+  <% if user_signed_in? %>
+    <%= render 'shared/footer' %>
+    <% else %>
+    <%= render 'shared/before_login_footer' %>
+  <% end %>
 
   </body>
 </html>
