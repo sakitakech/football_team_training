@@ -20,7 +20,6 @@ class TrainingsController < ApplicationController
     MaxWeight.all.each do |max_weight|
       @training.training_max_weights.find_or_initialize_by(max_weight: max_weight)
     end
-    
   end
 
   # GET /trainings/1/edit
@@ -33,7 +32,7 @@ class TrainingsController < ApplicationController
   # POST /trainings or /trainings.json
   def create
     @training = Training.new(training_params)
-    @training.user = current_user 
+    @training.user = current_user
 
 
     respond_to do |format|
@@ -78,11 +77,11 @@ class TrainingsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def training_params
-      params.require(:training).permit(:user_id, :datetime, :part, :content, :memo, :body_weight, :body_fat, training_max_weights_attributes: [:id,:max_weight_id, :record, :_destroy]).merge(user_id: current_user.id)
+      params.require(:training).permit(:user_id, :datetime, :part, :content, :memo, :body_weight, :body_fat, training_max_weights_attributes: [ :id, :max_weight_id, :record, :_destroy ]).merge(user_id: current_user.id)
     end
-    
-   
+
+
     def set_max_weight
-      @max_weights = MaxWeight.all.index_by(&:id) 
+      @max_weights = MaxWeight.all.index_by(&:id)
     end
 end

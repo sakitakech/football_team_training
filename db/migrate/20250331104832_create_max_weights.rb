@@ -1,8 +1,7 @@
 class CreateMaxWeights < ActiveRecord::Migration[7.2]
   def change
     create_table :max_weights do |t|
-      
-      t.string  :name
+      t.string :name
 
       t.timestamps
     end
