@@ -10,9 +10,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_03_27_164607) do
+ActiveRecord::Schema[7.2].define(version: 2025_03_31_111354) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "max_weights", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_max_weights_on_name"
+  end
+
+  create_table "training_max_weights", force: :cascade do |t|
+    t.integer "record"
+    t.bigint "training_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "max_weight_id", null: false
+    t.index ["max_weight_id"], name: "index_training_max_weights_on_max_weight_id"
+    t.index ["training_id"], name: "index_training_max_weights_on_training_id"
+  end
 
   create_table "trainings", force: :cascade do |t|
     t.bigint "user_id", null: false
@@ -38,5 +55,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_03_27_164607) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
+  add_foreign_key "training_max_weights", "max_weights"
+  add_foreign_key "training_max_weights", "trainings"
   add_foreign_key "trainings", "users"
 end

@@ -1,12 +1,10 @@
-<% content_for :title, "Editing training" %>
+<% content_for :title, "編集" %>
 
-<h1>Editing training</h1>
-
+<br>
 <%= render "form", training: @training %>
 
 <br>
 
-<div>
-  <%= link_to "Show this training", @training %> |
-  <%= link_to "Back to trainings", trainings_path %>
-</div>
+<div class="float-right flex flex-row mr-5 mb-5">
+  <span class="bg-blue-600 hover:bg-blue-700 text-white text-sm font-bold py-2 px-4 rounded transition"><%= link_to "戻る", training_path %></span>
+</div>         
