@@ -15,32 +15,32 @@
   <%= form.hidden_field :user_id, value: current_user.id %>
 
   <div>
-    <%= form.label :datetime, class: "block font-semibold mb-1" %>
+    <%= form.label :日付, class: "block font-semibold mb-1" %>
     <%= form.datetime_field :datetime, class: "w-full border rounded p-2 focus:outline-none focus:ring-2 focus:ring-blue-400" %>
   </div>
 
   <div>
-    <%= form.label :part, class: "block font-semibold mb-1" %>
+    <%= form.label :部位, class: "block font-semibold mb-1" %>
     <%= form.text_field :part, class: "w-full border rounded p-2 focus:outline-none focus:ring-2 focus:ring-blue-400" %>
   </div>
 
   <div>
-    <%= form.label :contents, class: "block font-semibold mb-1" %>
+    <%= form.label :内容, class: "block font-semibold mb-1" %>
     <%= form.text_area :content, rows: 3, class: "w-full border rounded p-2 focus:outline-none focus:ring-2 focus:ring-blue-400" %>
   </div>
 
   <div>
-    <%= form.label :memo, class: "block font-semibold mb-1" %>
+    <%= form.label :メモ, class: "block font-semibold mb-1" %>
     <%= form.text_area :memo, rows: 2, class: "w-full border rounded p-2 focus:outline-none focus:ring-2 focus:ring-blue-400" %>
   </div>
 
   <div>
-    <%= form.label :body_weight, class: "block font-semibold mb-1" %>
+    <%= form.label :体重, class: "block font-semibold mb-1" %>
     <%= form.number_field :body_weight, class: "w-full border rounded p-2 focus:outline-none focus:ring-2 focus:ring-blue-400" %>
   </div>
 
   <div>
-    <%= form.label :body_fat, class: "block font-semibold mb-1" %>
+    <%= form.label :体脂肪率, class: "block font-semibold mb-1" %>
     <%= form.number_field :body_fat, class: "w-full border rounded p-2 focus:outline-none focus:ring-2 focus:ring-blue-400" %>
   </div>
 
