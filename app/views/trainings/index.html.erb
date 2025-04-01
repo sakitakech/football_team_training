@@ -2,7 +2,7 @@
 
 <% content_for :title, "Trainings" %>
 
-<h1>Trainings</h1>
+<br>
 
 <div id="trainings" class="space-y-6">
   <% @trainings.each do |training| %>
@@ -10,5 +10,3 @@
    
   <% end %>
 </div>
-
-<%= link_to "New training", new_training_path %>
