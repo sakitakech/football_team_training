@@ -15,33 +15,33 @@
   <%= form.hidden_field :user_id, value: current_user.id %>
 
   <div>
-    <%= form.label :日付, class: "block font-semibold mb-1" %>
+    <%= form.label :＊日付, class: "block font-semibold mb-1" %>
     <%= form.datetime_field :datetime, class: "w-full border rounded p-2 focus:outline-none focus:ring-2 focus:ring-blue-400" %>
   </div>
 
   <div>
     <%= form.label :部位, class: "block font-semibold mb-1" %>
-    <%= form.text_field :part, class: "w-full border rounded p-2 focus:outline-none focus:ring-2 focus:ring-blue-400" %>
+    <%= form.text_field :part, placeholder: "胸・背中・足", class: "w-full border rounded p-2 focus:outline-none focus:ring-2 focus:ring-blue-400" %>
   </div>
 
   <div>
     <%= form.label :内容, class: "block font-semibold mb-1" %>
-    <%= form.text_area :content, rows: 3, class: "w-full border rounded p-2 focus:outline-none focus:ring-2 focus:ring-blue-400" %>
+    <%= form.text_area :content, placeholder: "ベンチプレス 100キロ 10回 10セット  スクワット 200キロ 10回 20セット", rows: 3, class: "w-full border rounded p-2 focus:outline-none focus:ring-2 focus:ring-blue-400" %>
   </div>
 
   <div>
     <%= form.label :メモ, class: "block font-semibold mb-1" %>
-    <%= form.text_area :memo, rows: 2, class: "w-full border rounded p-2 focus:outline-none focus:ring-2 focus:ring-blue-400" %>
+    <%= form.text_area :memo, placeholder: "楽しかった。", rows: 2, class: "w-full border rounded p-2 focus:outline-none focus:ring-2 focus:ring-blue-400" %>
   </div>
 
   <div>
     <%= form.label :体重, class: "block font-semibold mb-1" %>
-    <%= form.number_field :body_weight, class: "w-full border rounded p-2 focus:outline-none focus:ring-2 focus:ring-blue-400" %>
+    <%= form.number_field :body_weight, placeholder: "半角数字", class: "w-full border rounded p-2 focus:outline-none focus:ring-2 focus:ring-blue-400" %>
   </div>
 
   <div>
     <%= form.label :体脂肪率, class: "block font-semibold mb-1" %>
-    <%= form.number_field :body_fat, class: "w-full border rounded p-2 focus:outline-none focus:ring-2 focus:ring-blue-400" %>
+    <%= form.number_field :body_fat, placeholder: "半角数字", class: "w-full border rounded p-2 focus:outline-none focus:ring-2 focus:ring-blue-400" %>
   </div>
 
   <hr class="my-6 border-t border-gray-300">
@@ -58,7 +58,7 @@
       <p class="font-semibold text-gray-700 mb-2"><%= max_weight_name %></p>
 
       <%= tmw_fields.label :record, "重量 (kg)", class: "block mb-1 font-medium" %>
-      <%= tmw_fields.number_field :record, class: "w-full border rounded p-2 focus:outline-none focus:ring-2 focus:ring-blue-400" %>
+      <%= tmw_fields.number_field :record, placeholder: "半角数字", class: "w-full border rounded p-2 focus:outline-none focus:ring-2 focus:ring-blue-400" %>
     </div>
   <% end %>
 </div>
