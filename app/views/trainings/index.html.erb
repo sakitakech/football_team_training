@@ -4,12 +4,10 @@
 
 <h1>Trainings</h1>
 
-<div id="trainings">
+<div id="trainings" class="space-y-6">
   <% @trainings.each do |training| %>
     <%= render training %>
-    <p>
-      <%= link_to "Show this training", training %>
-    </p>
+   
   <% end %>
 </div>
 

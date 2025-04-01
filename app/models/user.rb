@@ -11,5 +11,5 @@ class User < ApplicationRecord
     validates :last_name, presence: true, length: { maximum: 255 }
     validates :email, presence: true, uniqueness: true
 
-    has_many :sessions,  dependent:  :destroy
+    has_many :trainings,  dependent:  :destroy
 end

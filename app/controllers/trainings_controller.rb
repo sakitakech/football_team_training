@@ -5,7 +5,7 @@ class TrainingsController < ApplicationController
 
   # GET /trainings or /trainings.json
   def index
-    @trainings = Training.all
+    @trainings = current_user.trainings.order(datetime: :desc)
   end
 
   # GET /trainings/1 or /trainings/1.json
