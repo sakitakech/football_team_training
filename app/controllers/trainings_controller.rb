@@ -29,6 +29,7 @@ class TrainingsController < ApplicationController
   def create
     @training = Training.new(training_params)
     @training.user = current_user 
+    @max_weights = MaxWeight.all.index_by(&:id) 
 
     respond_to do |format|
       if @training.save
