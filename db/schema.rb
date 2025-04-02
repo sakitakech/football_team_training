@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_03_31_111354) do
+ActiveRecord::Schema[7.2].define(version: 2025_04_01_171403) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -22,7 +22,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_03_31_111354) do
   end
 
   create_table "training_max_weights", force: :cascade do |t|
-    t.integer "record"
+    t.decimal "record", precision: 7, scale: 2
     t.bigint "training_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -37,8 +37,8 @@ ActiveRecord::Schema[7.2].define(version: 2025_03_31_111354) do
     t.string "part"
     t.text "content"
     t.text "memo"
-    t.integer "body_weight"
-    t.integer "body_fat"
+    t.decimal "body_weight", precision: 5, scale: 2
+    t.decimal "body_fat", precision: 5, scale: 2
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_trainings_on_user_id"
