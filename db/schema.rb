@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_04_01_171403) do
+ActiveRecord::Schema[7.2].define(version: 2025_04_04_053138) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -19,6 +19,13 @@ ActiveRecord::Schema[7.2].define(version: 2025_04_01_171403) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_max_weights_on_name"
+  end
+
+  create_table "positions", force: :cascade do |t|
+    t.string "name"
+    t.string "short_name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "training_max_weights", force: :cascade do |t|
@@ -52,10 +59,13 @@ ActiveRecord::Schema[7.2].define(version: 2025_04_01_171403) do
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "position_id"
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["position_id"], name: "index_users_on_position_id"
   end
 
   add_foreign_key "training_max_weights", "max_weights"
   add_foreign_key "training_max_weights", "trainings"
   add_foreign_key "trainings", "users"
+  add_foreign_key "users", "positions"
 end
