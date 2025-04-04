@@ -1,0 +1,38 @@
+id	name	short_name
+1	Quarterback	QB
+2	Wide Receiver	WR
+3	Running Back	RB
+4	Offensive Lineman	OL
+5	Tight End	TE
+6	Defensive Lineman	DL
+7	Linebacker	LB
+8	Cornerback	CB
+9	Safety	SF
+10	Kicker	K
+11	Punter	P
+12	Snapper	SN
+13	Others	OTHERS
+
+
+positions = [
+  { id: 1,  name: "Quarterback",       short_name: "QB" },
+  { id: 2,  name: "Wide Receiver",     short_name: "WR" },
+  { id: 3,  name: "Running Back",      short_name: "RB" },
+  { id: 4,  name: "Offensive Lineman", short_name: "OL" },
+  { id: 5,  name: "Tight End",         short_name: "TE" },
+  { id: 6,  name: "Defensive Lineman", short_name: "DL" },
+  { id: 7,  name: "Linebacker",        short_name: "LB" },
+  { id: 8,  name: "Cornerback",        short_name: "CB" },
+  { id: 9,  name: "Safety",            short_name: "SF" },
+  { id: 10, name: "Kicker",            short_name: "K" },
+  { id: 11, name: "Punter",            short_name: "P" },
+  { id: 12, name: "Snapper",           short_name: "SN" },
+  { id: 13, name: "Others",            short_name: "OTHERS" }
+]
+
+positions.each do |pos|
+  Position.find_or_create_by!(id: pos[:id]) do |p|
+    p.name = pos[:name]
+    p.short_name = pos[:short_name]
+  end
+end
