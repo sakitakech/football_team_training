@@ -12,5 +12,5 @@ class User < ApplicationRecord
     validates :email, presence: true, uniqueness: true
 
     has_many :trainings,  dependent:  :destroy
-    belongs_to :positions
+    belongs_to :position, optional: true 
 end
