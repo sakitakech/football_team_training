@@ -5,8 +5,8 @@ class User < ApplicationRecord
          :registerable, # ユーザーがアプリにアカウントを登録できるようにし、ユーザーによるアカウントの編集や削除も処理します。
          :recoverable, # パスワードのリセットとアカウントの復旧を処理します。
          :rememberable, # アカウント作成時にユーザーが提供するメールアドレスやパスワードをカスタムバリデーションするルールを定義できます。
-         :validatable # ユーザーの認証中に、ユーザーをcookieで記憶します（ログインを保存）。
-         :confirmable
+         :validatable, # ユーザーの認証中に、ユーザーをcookieで記憶します（ログインを保存）。
+         :confirmable 
 
     validates :first_name, presence: true, length: { maximum: 255 }
     validates :last_name, presence: true, length: { maximum: 255 }
