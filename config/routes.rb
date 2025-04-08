@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
-  resources :trainings
+  
   devise_for :users
+  resources :users, only: [:new, :index, :show, :update ]
+  get "profile/edit", to: "users#edit", as: :edit_profile
+ 
+  resources :trainings
 
   get "up" => "rails/health#show", as: :rails_health_check
 
