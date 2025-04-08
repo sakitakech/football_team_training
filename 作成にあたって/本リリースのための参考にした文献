@@ -1,0 +1,15 @@
+https://qiita.com/kawakami_shotaro/items/11a677bf34136cb7686d
+ポジション　セレクトボックスの作成
+
+https://toaru-kaihatsu.com/devise-customize-for-update-without-password/
+プロフィール変更
+
+https://github.com/heartcombo/devise/wiki/How-To:-Allow-users-to-edit-their-password#solution-3
+プロフィール変更のメイン文献
+
+このあとの問題点
+userテーブルのカラムに必要な項目が入っていない。
+editの部分に他の項目が入っていない。
+
+https://techracho.bpsinc.jp/hachi8833/2023_09_01/133452
+deviseについて

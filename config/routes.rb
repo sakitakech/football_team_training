@@ -1,6 +1,16 @@
 Rails.application.routes.draw do
+  devise_for :users, controllers: {
+    registrations: "users/registrations"
+  }
+  devise_scope :user do
+    get "users/confirm_delete", to: "users/registrations#confirm_delete", as: :confirm_delete_user
+  end
+
+
+  resources :users, only: [ :new, :index, :show, :update ]
+  get "profile/edit", to: "users#edit", as: :edit_profile
+
   resources :trainings
-  devise_for :users
 
   get "up" => "rails/health#show", as: :rails_health_check
 
@@ -9,4 +19,8 @@ Rails.application.routes.draw do
   get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
 
   root "static_pages#top"
+
+  if Rails.env.development?
+    mount LetterOpenerWeb::Engine, at: "/letter_opener"
+  end
 end
