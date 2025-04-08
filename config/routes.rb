@@ -1,9 +1,8 @@
 Rails.application.routes.draw do
-  
   devise_for :users
-  resources :users, only: [:new, :index, :show, :update ]
+  resources :users, only: [ :new, :index, :show, :update ]
   get "profile/edit", to: "users#edit", as: :edit_profile
- 
+
   resources :trainings
 
   get "up" => "rails/health#show", as: :rails_health_check
@@ -17,6 +16,4 @@ Rails.application.routes.draw do
   if Rails.env.development?
     mount LetterOpenerWeb::Engine, at: "/letter_opener"
   end
-
-
 end
