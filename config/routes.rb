@@ -1,5 +1,13 @@
 Rails.application.routes.draw do
-  devise_for :users
+
+  devise_for :users, controllers: {
+    registrations: "users/registrations"
+  }
+  devise_scope :user do
+    get "users/confirm_delete", to: "users/registrations#confirm_delete", as: :confirm_delete_user
+  end
+
+  
   resources :users, only: [ :new, :index, :show, :update ]
   get "profile/edit", to: "users#edit", as: :edit_profile
 

@@ -49,10 +49,7 @@
 <div class="max-w-md mx-auto mt-8 bg-white p-6 rounded shadow-md">
   <h3 class="text-lg font-bold text-red-600 mb-2">アカウント削除</h3>
   <p class="text-sm text-gray-600 mb-4">本当に退会しますか？この操作は取り消せません。</p>
-  <%= button_to "アカウントを削除", registration_path(resource_name),
-        method: :delete,
-        data: { confirm: "本当に削除しますか？" },
-        class: "w-full bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded" %>
+  <%= link_to "アカウントを削除",confirm_delete_user_path(current_user) ,class: "w-full  text-center bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded" %>
 </div>
 
 <!-- 戻るリンク -->
