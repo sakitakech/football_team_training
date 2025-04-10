@@ -36,3 +36,15 @@ positions.each do |pos|
     p.short_name = pos[:short_name]
   end
 end
+
+
+
+
+
+INSERT INTO
+	max_weights (name, created_at, updated_at)
+VALUES
+	('ベンチプレス', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+	('スクワット', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+	('デッドリフト', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+	('クリーン', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
