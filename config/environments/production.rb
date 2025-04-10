@@ -106,12 +106,12 @@ Rails.application.configure do
   config.action_mailer.smtp_settings = {
     port:                 587,
     address:              'smtp.gmail.com',
-    domain:               'smtp.gmail.com',
+    domain:               'football-team-training.onrender.com',
     user_name:            'peperotion.oyama@gmail.com',
-    password:             'nlnb gkpb dtft xmzw',
+    password:             ENV['GMAIL_PASSWORD'],
     authentication:       'login',
     enable_starttls_auto: true
   }
 
-    config.action_mailer.default_url_options = { host: 'gmail.com', protocol: 'https' }
+    config.action_mailer.default_url_options = { host: "football-team-training.onrender.com", protocol: 'https' }
 end
