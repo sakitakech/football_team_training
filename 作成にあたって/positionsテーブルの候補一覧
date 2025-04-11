@@ -48,3 +48,12 @@ VALUES
 	('スクワット', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
 	('デッドリフト', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
 	('クリーン', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+
+
+League.create!([
+  { name: "Xleague" },
+  { name: "プライベートリーグ" },
+  { name: "KCFA（大学）" },
+  { name: "高校" },
+  { name: "その他" }
+])
