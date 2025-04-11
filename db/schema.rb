@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_04_11_042718) do
+ActiveRecord::Schema[8.0].define(version: 2025_04_11_044241) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -32,6 +32,14 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_11_042718) do
     t.string "short_name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "teams", force: :cascade do |t|
+    t.string "name", null: false
+    t.bigint "league_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["league_id"], name: "index_teams_on_league_id"
   end
 
   create_table "training_max_weights", force: :cascade do |t|
@@ -77,6 +85,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_11_042718) do
     t.index ["position_id"], name: "index_users_on_position_id"
   end
 
+  add_foreign_key "teams", "leagues"
   add_foreign_key "training_max_weights", "max_weights"
   add_foreign_key "training_max_weights", "trainings"
   add_foreign_key "trainings", "users"
