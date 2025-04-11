@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_04_11_044241) do
+ActiveRecord::Schema[8.0].define(version: 2025_04_11_050248) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -81,8 +81,10 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_11_044241) do
     t.datetime "confirmation_sent_at"
     t.string "unconfirmed_email"
     t.text "introduction"
+    t.bigint "team_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["position_id"], name: "index_users_on_position_id"
+    t.index ["team_id"], name: "index_users_on_team_id"
   end
 
   add_foreign_key "teams", "leagues"
@@ -90,4 +92,5 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_11_044241) do
   add_foreign_key "training_max_weights", "trainings"
   add_foreign_key "trainings", "users"
   add_foreign_key "users", "positions"
+  add_foreign_key "users", "teams"
 end
