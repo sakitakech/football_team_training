@@ -16,6 +16,5 @@ class User < ApplicationRecord
     belongs_to :position
     belongs_to :team
 
-    enum role: { member: 0, admin: 1 }
-
+    enum :role, { member: 0, admin: 1 }
 end
