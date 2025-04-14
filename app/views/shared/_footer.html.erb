@@ -1,10 +1,9 @@
-<footer class="bg-gray-100 text-center py-4 text-sm text-gray-500">
-    <div class="flex bg-blue-500 text-white ">
-        <%= link_to "トレーニング登録", new_training_path, class: "flex-1 text-center py-4 hover:bg-blue-600" %>
-        <%= link_to "マイトレーニング", trainings_path, class: "flex-1 text-center py-4 hover:bg-blue-600" %>
-        <%= link_to "選手一覧", "#", class: "flex-1 text-center py-4 hover:bg-blue-600" %>
-        <%= link_to "カレンダー", "#", class: "flex-1 text-center py-4 hover:bg-blue-600" %>
-        <%= link_to "マイグラフ", "#", class: "flex-1 text-center py-4 hover:bg-blue-600" %>
-      </div>
+<footer class="<%= current_user&.admin? ? 'bg-green-100' : 'bg-gray-100' %> text-center py-4 text-sm text-gray-500">
+  <div class="flex bg-green-600 text-white">
+    <%= link_to "トレーニング登録", new_training_path, class: "flex-1 text-center py-4 hover:bg-green-700" %>
+    <%= link_to "マイトレーニング", trainings_path, class: "flex-1 text-center py-4 hover:bg-green-700" %>
+    <%= link_to "選手一覧", "#", class: "flex-1 text-center py-4 hover:bg-green-700" %>
+    <%= link_to "カレンダー", "#", class: "flex-1 text-center py-4 hover:bg-green-700" %>
+    <%= link_to "マイグラフ", "#", class: "flex-1 text-center py-4 hover:bg-green-700" %>
+  </div>
 </footer>
-

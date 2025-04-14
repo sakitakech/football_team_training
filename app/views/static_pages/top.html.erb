@@ -4,10 +4,9 @@
   <h2 class="text-gray-500 mb-8">~football team training~</h2>
 
   <div class="grid grid-cols-2 gap-3 mb-6">
-    <%= link_to "サインアップ", new_user_registration_path, class: "underline text-blue-600" %>
+    <%= link_to "サインアップ", new_member_registration_path, class: "underline text-blue-600" %>
     <%= link_to "ログイン", user_session_path, class: "underline text-blue-600" %>
-    <%= link_to "チーム作成", "#", class: "underline text-blue-600" %>
-    <%= link_to "管理者ログイン", "#", class: "underline text-blue-600" %>
+    <%= link_to "管理者サインアップ（チーム作成）", new_admin_registration_path, class: "underline text-blue-600" %>
   </div>
 
   <h2 class="mt-4">チームでトレーニング状況の記録、</h2>

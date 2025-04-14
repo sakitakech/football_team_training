@@ -1,0 +1,58 @@
+
+
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: "max-w-md mx-auto mt-12 bg-gray-200 p-8 rounded shadow-md space-y-6" }) do |f| %>
+    <h2 class="text-2xl font-bold text-center text-gray-800">新規登録</h2>
+  
+    <%= render "devise/shared/error_messages", resource: resource %>
+  
+    <div>
+      <%= f.label :last_name, "姓", class: "block text-sm font-medium text-gray-700 mb-1" %>
+      <%= f.text_field :last_name, autocomplete: "family-name", class: "w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" %>
+    </div>
+  
+    <div>
+      <%= f.label :first_name, "名", class: "block text-sm font-medium text-gray-700 mb-1" %>
+      <%= f.text_field :first_name, autocomplete: "given-name", class: "w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" %>
+    </div>
+  
+    <div>
+      <%= f.label :email, class: "block text-sm font-medium text-gray-700 mb-1" %>
+      <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" %>
+    </div>
+  
+    <div>
+      <%= f.label :password, class: "block text-sm font-medium text-gray-700 mb-1" %>
+      <% if @minimum_password_length %>
+        <em class="text-xs text-gray-500">（<%= @minimum_password_length %>文字以上）</em>
+      <% end %>
+      <%= f.password_field :password, autocomplete: "new-password", class: "w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" %>
+    </div>
+  
+    <div>
+      <%= f.label :password_confirmation, class: "block text-sm font-medium text-gray-700 mb-1" %>
+      <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" %>
+    </div>
+  
+    <div>
+      <%= f.label :position_id, "ポジション", class: "block text-sm font-medium text-gray-700 mb-1" %>
+     <%= f.collection_select :position_id, Position.all, :id, :name, include_blank: "選択して下さい", class: "w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" %>
+    </div>
+
+    <%= f.hidden_field :team_id, value: 1 %> 後で消して
+  
+    </br>
+    
+    <div>
+      <%= f.submit "Sign up", class: "w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded" %>
+    </div>
+  <% end %>
+  
+  <div class="text-center mt-4">
+    <%= render "devise/shared/links" %>
+  </div>
+  
+  
+
+<div>
+<%= "member_new.html" %>
+</div>

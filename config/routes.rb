@@ -4,6 +4,8 @@ Rails.application.routes.draw do
   }
   devise_scope :user do
     get "users/confirm_delete", to: "users/registrations#confirm_delete", as: :confirm_delete_user
+    get "users/sign_up/member", to: "users/registrations#new_member", as: :new_member_registration
+    get "users/sign_up/admin", to: "users/registrations#new_admin", as: :new_admin_registration
   end
 
 

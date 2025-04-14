@@ -14,6 +14,28 @@ class Users::RegistrationsController < Devise::RegistrationsController
   #   super
   # end
 
+  def new_member
+    build_resource({})
+    resource.role = :member
+    respond_with resource, location: after_sign_up_path_for(resource)
+  end
+
+  def new_admin
+    build_resource({})
+    resource.role = :admin
+    respond_with resource, location: after_sign_up_path_for(resource)
+  end
+
+  # def create
+  #   super do |resource|
+  #     # 管理者用登録画面から来ていたら admin にする
+  #     if request.path == new_admin_registration_path
+  #       resource.role = :admin
+  #       resource.save
+  #     end
+  #   end
+  # end
+
   # GET /resource/edit
   # def edit
   #   super
