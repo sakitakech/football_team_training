@@ -17,13 +17,13 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def new_member
     build_resource({})
     resource.role = :member
-    respond_with resource, location: after_sign_up_path_for(resource)
+    render :new_member
   end
 
   def new_admin
     build_resource({})
     resource.role = :admin
-    respond_with resource, location: after_sign_up_path_for(resource)
+    render :new_admin
   end
 
   # def create

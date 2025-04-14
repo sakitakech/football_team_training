@@ -14,7 +14,7 @@ class User < ApplicationRecord
 
     has_many :trainings,  dependent:  :destroy
     belongs_to :position
-    belongs_to :team
+    belongs_to :team, optional: true
 
     enum :role, { member: 0, admin: 1 }
 end

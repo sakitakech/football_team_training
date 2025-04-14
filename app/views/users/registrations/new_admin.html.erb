@@ -36,7 +36,7 @@
      <%= f.collection_select :position_id, Position.all, :id, :name, include_blank: "選択して下さい", class: "w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" %>
     </div>
    <%= f.hidden_field :role, value: "admin" %>
-    <%= f.hidden_field :team_id, value: 1 %> チームIDデフォルトで1にしてます後で消して
+  
 
   
     </br>
