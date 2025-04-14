@@ -1,6 +1,6 @@
 class TeamsController < ApplicationController
   before_action :ensure_admin!
-  before_action :redirect_admin_to_team_creation
+
 
   def new
   end
@@ -26,17 +26,11 @@ class TeamsController < ApplicationController
 
   def destroy
   end
-
+  
   private
-
-  def redirect_admin_to_team_creation
-    return unless user_signed_in?
-    return unless current_user.admin?
-    return if current_user.team_id.present?
-
-    # チーム作成ページ以外でのみリダイレクト
-    unless request.path == new_team_path
-      redirect_to new_team_path, alert: "まずはチームを作成してください"
+  def ensure_admin!
+    unless user_signed_in? && current_user.admin?
+      redirect_to root_path, alert: "管理者のみアクセスできます"
     end
   end
 
