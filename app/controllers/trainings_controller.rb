@@ -7,14 +7,14 @@ class TrainingsController < ApplicationController
   def index
     if params[:user_id] # 他人のトレーニング
       @user = User.find(params[:user_id])
-  
+
       if @user.team_id != current_user.team_id
         redirect_to users_path, alert: "他チームの選手の情報にはアクセスできません"
         return
       end
-  
+
       @trainings = @user.trainings.order(datetime: :desc)
-  
+
     else # 自分のトレーニング
       @user = current_user
       @trainings = current_user.trainings.order(datetime: :desc)
