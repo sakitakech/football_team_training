@@ -1,8 +1,9 @@
 class TeamsController < ApplicationController
   before_action :ensure_admin!
-
+  skip_before_action :redirect_admin_to_team_creation, only: [:new, :create]
 
   def new
+    @team = Team.new
   end
 
   def create
@@ -26,12 +27,16 @@ class TeamsController < ApplicationController
 
   def destroy
   end
-  
+
   private
   def ensure_admin!
     unless user_signed_in? && current_user.admin?
       redirect_to root_path, alert: "管理者のみアクセスできます"
     end
+  end
+
+  def team_params
+    params.require(:team).permit(:name, :league_id)
   end
 
 end
