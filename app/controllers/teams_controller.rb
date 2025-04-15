@@ -17,12 +17,20 @@ class TeamsController < ApplicationController
   end
 
   def show
+    @team = current_user.team
   end
 
   def edit
+    @team = current_user.team
   end
 
   def update
+    @team = current_user.team
+    if @team.update(team_params)
+      redirect_to team_path, notice: "チーム情報を更新しました"
+    else
+      render :edit, status: :unprocessable_entity
+    end
   end
 
   def destroy
