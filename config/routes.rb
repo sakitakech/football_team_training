@@ -1,7 +1,6 @@
 Rails.application.routes.draw do
+  resources :teams, only: [ :new, :create, :show, :edit, :update, :destroy ]
 
-  resources :teams, only: [:new, :create, :show, :edit, :update, :destroy]
-  
   devise_for :users, controllers: {
     registrations: "users/registrations"
   }

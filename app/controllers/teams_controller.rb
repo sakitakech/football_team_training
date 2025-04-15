@@ -1,6 +1,6 @@
 class TeamsController < ApplicationController
   before_action :ensure_admin!
-  skip_before_action :redirect_admin_to_team_creation, only: [:new, :create]
+  skip_before_action :redirect_admin_to_team_creation, only: [ :new, :create ]
 
   def new
     @team = Team.new
@@ -46,5 +46,4 @@ class TeamsController < ApplicationController
   def team_params
     params.require(:team).permit(:name, :league_id)
   end
-
 end
