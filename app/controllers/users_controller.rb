@@ -1,11 +1,14 @@
 class UsersController < ApplicationController
+  before_action :authenticate_user!
+
   def new
     @user = User.new
   end
 
   def index
-    @users = User.all
+    @positions = Position.includes(:users).where(users: { team_id: current_user.team_id })
   end
+
 
   def show
     @user = current_user

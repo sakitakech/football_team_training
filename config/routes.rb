@@ -11,7 +11,9 @@ Rails.application.routes.draw do
   end
 
 
-  resources :users, only: [ :new, :index, :show, :update ]
+  resources :users, only: [ :new, :index, :show, :update ] do
+    resources :trainings, only: [ :index ]
+  end
   get "profile/edit", to: "users#edit", as: :edit_profile
 
   resources :trainings
