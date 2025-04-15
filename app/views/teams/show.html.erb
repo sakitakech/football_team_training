@@ -1,0 +1,22 @@
+<div class="max-w-xl mx-auto bg-gray-100 shadow-md rounded-lg p-6 mt-8 space-y-4 text-gray-800">
+  <h2 class="text-2xl font-bold text-gray-800 mb-4">チーム詳細</h2>
+  <div>
+    <span class="font-semibold text-gray-700">チーム名：</span>
+    <span><%= @team.name %></span>
+  </div>
+
+  <div>
+    <span class="font-semibold text-gray-700">所属リーグ：</span>
+    <span><%= @team.league.name if @team.league %></span>
+  </div>
+
+  <div>
+    <span class="font-semibold text-gray-700">作成日：</span>
+    <span><%= l(@team.created_at, format: :long) %></span>
+  </div>
+
+  <div class="mt-6">
+    <%= link_to "編集", edit_team_path(@team), class: "bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded" %>
+    <%= link_to "戻る", trainings_path, class: "ml-2 text-blue-600 hover:underline" %>
+  </div>
+</div>

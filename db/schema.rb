@@ -10,9 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_04_08_103936) do
+ActiveRecord::Schema[8.0].define(version: 2025_04_11_063644) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
+
+  create_table "leagues", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "max_weights", force: :cascade do |t|
     t.string "name"
@@ -26,6 +32,14 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_08_103936) do
     t.string "short_name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "teams", force: :cascade do |t|
+    t.string "name", null: false
+    t.bigint "league_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["league_id"], name: "index_teams_on_league_id"
   end
 
   create_table "training_max_weights", force: :cascade do |t|
@@ -67,12 +81,17 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_08_103936) do
     t.datetime "confirmation_sent_at"
     t.string "unconfirmed_email"
     t.text "introduction"
+    t.bigint "team_id"
+    t.integer "role", default: 0, null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["position_id"], name: "index_users_on_position_id"
+    t.index ["team_id"], name: "index_users_on_team_id"
   end
 
+  add_foreign_key "teams", "leagues"
   add_foreign_key "training_max_weights", "max_weights"
   add_foreign_key "training_max_weights", "trainings"
   add_foreign_key "trainings", "users"
   add_foreign_key "users", "positions"
+  add_foreign_key "users", "teams"
 end
