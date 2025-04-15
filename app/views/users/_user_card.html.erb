@@ -1,0 +1,8 @@
+<div class="bg-gray-100 rounded shadow p-4">
+  <h3 class="text-lg font-semibold"><%= user.last_name %> <%= user.first_name %></h3>
+  <p class="text-sm text-gray-600">自己紹介：</p>
+  <p class="text-gray-800"><%= simple_format(user.introduction.presence || "") %></p>
+  <div class="mt-2">
+    <%= link_to "トレーニングを見る", user_trainings_path(user), class: "text-blue-600 hover:underline text-sm" %>
+  </div>
+</div>

@@ -4,9 +4,21 @@
 
 <br>
 
+<h2 class="text-xl font-bold mb-4">
+  <% if @user == current_user %>
+    あなたのトレーニング履歴
+  <% else %>
+    <%= @user.full_name || "#{@user.last_name} #{@user.first_name}" %> さんのトレーニング履歴
+  <% end %>
+</h2>
+
+
 <div id="trainings" class="space-y-6">
-  <% @trainings.each do |training| %>
-    <%= render training %>
-   
+  <% if @trainings.any? %>
+    <% @trainings.each do |training| %>
+      <%= render training %>
+    <% end %>
+  <% else %>
+    <p>履歴がありません</p>
   <% end %>
 </div>
