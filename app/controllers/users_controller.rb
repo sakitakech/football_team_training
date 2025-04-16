@@ -6,7 +6,7 @@ class UsersController < ApplicationController
   end
 
   def index
-    @positions = Position.includes(:users).where(users: { team_id: current_user.team_id })
+    @positions = Position.includes(:users).where(users: { team_id: current_user.team_id }).order(:id)
   end
 
 
