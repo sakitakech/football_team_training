@@ -20,4 +20,4 @@ daisyui
 https://zenn.dev/yukihaga/articles/3d49208638e397
 kaminari
 
-次すること、daisyUI用いて、パージネーションをきれいにすること。
+daisyUIのimport 少し問題あり。改善方法今の所不明。警告出ていているが特に問題ないので一旦放置。
