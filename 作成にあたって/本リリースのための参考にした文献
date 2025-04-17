@@ -1,5 +1,5 @@
 https://qiita.com/kawakami_shotaro/items/11a677bf34136cb7686d
-ポジション　セレクトボックスの作成
+ポジション セレクトボックスの作成
 
 https://toaru-kaihatsu.com/devise-customize-for-update-without-password/
 プロフィール変更
@@ -19,3 +19,5 @@ daisyui
 
 https://zenn.dev/yukihaga/articles/3d49208638e397
 kaminari
+
+次すること、daisyUI用いて、パージネーションをきれいにすること。
