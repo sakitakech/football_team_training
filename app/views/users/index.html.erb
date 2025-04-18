@@ -1,15 +1,21 @@
 <h1 class="text-2xl font-bold text-center mb-6">ポジション別メンバー一覧</h1>
 
-<div class="max-w-4xl mx-auto space-y-8">
-  <% @positions.each do |position| %>
-    <div>
-      <h2 class="text-xl font-semibold border-b pb-1 mb-4"><%= position.name %></h2>
+<%= render "search_form", q: @q, url: users_path %>
 
-      <div class="space-y-4">
-        <% position.users.where(team_id: current_user.team_id).each do |user| %>
+<% @users_grouped.each do |position, users| %>
+  <section class="mb-8">
+  <h2 class="text-xl font-bold mt-6 mb-2 ml-4"><%= position.name %></h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-4">
+      <% users.each do |user| %>
+        <div class="bg-white rounded-xl shadow-md p-4 hover:shadow-lg transition duration-200">
           <%= render partial: "user_card", locals: { user: user } %>
-        <% end %>
-      </div>
+
+          <% if user.introduction.present? %>
+            <p class="text-sm text-gray-600 mt-2">
+            </p>
+          <% end %>
+        </div>
+      <% end %>
     </div>
-  <% end %>
-</div>
+  </section>
+<% end %>

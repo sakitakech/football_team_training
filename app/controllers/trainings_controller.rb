@@ -13,11 +13,11 @@ class TrainingsController < ApplicationController
         return
       end
 
-      @trainings = @user.trainings.order(datetime: :desc)
+      @trainings = @user.trainings.order(datetime: :desc).page(params[:page])
 
     else # 自分のトレーニング
       @user = current_user
-      @trainings = current_user.trainings.order(datetime: :desc)
+      @trainings = current_user.trainings.order(datetime: :desc).page(params[:page])
     end
   end
 

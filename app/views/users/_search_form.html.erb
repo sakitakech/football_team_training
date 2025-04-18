@@ -1,0 +1,19 @@
+<%= search_form_for q, url: url, html: { class: "w-full max-w-xl mx-auto space-y-4" } do |f| %>
+  <div class="form-control">
+    <%= f.label :position_id_eq, "ポジションを選択", class: "label text-white" %>
+    <%= f.select :position_id_eq,
+          Position.all.map { |p| [p.name, p.id] },
+          { include_blank: "ポジション" },
+          class: "select select-bordered w-full bg-white text-black border-black" %>
+  </div>
+
+  <div class="join w-full">
+    <%= f.search_field :first_name_or_last_name_cont,
+          class: "input input-bordered join-item w-full bg-white text-black border-black placeholder-gray-500",
+          placeholder: "名前を検索" %>
+
+    <%= f.submit "検索", class: "btn btn-primary join-item text-white" %>
+  </div>
+
+
+<% end %>

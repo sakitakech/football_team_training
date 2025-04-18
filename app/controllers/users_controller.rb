@@ -6,7 +6,13 @@ class UsersController < ApplicationController
   end
 
   def index
-    @positions = Position.includes(:users).where(users: { team_id: current_user.team_id }).order(:id)
+    @q = User.ransack(params[:q])
+    @users = @q.result
+               .includes(:position)
+               .where(team_id: current_user.team_id)
+               .order("positions.id", "users.id")
+
+    @users_grouped = @users.group_by(&:position)
   end
 
 

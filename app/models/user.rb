@@ -21,4 +21,12 @@ class User < ApplicationRecord
     def full_name
       "#{last_name} #{first_name}"
     end
+
+    def self.ransackable_associations(auth_object = nil)
+      [ "position" ]
+    end
+
+    def self.ransackable_attributes(auth_object = nil)
+      [ "first_name", "last_name", "position_id" ]
+    end
 end
