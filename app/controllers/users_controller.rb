@@ -11,7 +11,7 @@ class UsersController < ApplicationController
                .includes(:position)
                .where(team_id: current_user.team_id)
                .order("positions.id", "users.id")
-  
+
     @users_grouped = @users.group_by(&:position)
   end
 
