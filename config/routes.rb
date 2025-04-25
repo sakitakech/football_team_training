@@ -26,6 +26,13 @@ Rails.application.routes.draw do
 
   root "static_pages#top"
 
+  namespace :api do
+    namespace :charts do
+      get 'max_weights', to: 'charts#max_weights'
+      get 'body_metrics', to: 'charts#body_metrics'
+    end
+  end
+
   if Rails.env.development?
     mount LetterOpenerWeb::Engine, at: "/letter_opener"
   end
