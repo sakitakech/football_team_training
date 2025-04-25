@@ -6,6 +6,7 @@ module Api
         training_max_weights = TrainingMaxWeight
           .joins(:training, :max_weight)
           .where(trainings: { user_id: @user.id })
+          .where.not(record: nil)
           .order('trainings.datetime ASC')
   
         render json: training_max_weights.map { |mw|
@@ -21,6 +22,7 @@ module Api
         trainings = Training
           .where(user_id: @user.id)
           .where.not(body_weight: nil)
+          .where.not(body_fat: nil)
           .order(datetime: :asc)
   
         render json: trainings.map { |t|
