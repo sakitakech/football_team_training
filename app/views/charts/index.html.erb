@@ -1,0 +1,40 @@
+<div class="p-4 space-y-8">
+  <!-- ✅ チェックボックス -->
+  <div class="bg-base-200 p-4 rounded shadow max-w-[70%] mx-auto">
+    <p class="mb-2 font-bold text-white">種目を選択:</p>
+    <div class="flex flex-wrap text-white gap-4 mb-4">
+      <label><input type="checkbox" class="event-check" value="ベンチプレス" checked> ベンチプレス</label>
+      <label><input type="checkbox" class="event-check" value="スクワット" checked> スクワット</label>
+      <label><input type="checkbox" class="event-check" value="デッドリフト"> デッドリフト</label>
+      <label><input type="checkbox" class="event-check" value="クリーン"> クリーン</label>
+    </div>
+    <canvas id="maxChart" class="w-full h-64 bg-white rounded"></canvas>
+  </div>
+
+  <!-- ✅ 体重・体脂肪 -->
+  <div class="bg-base-200 p-4 rounded shadow max-w-[70%] mx-auto">
+    <canvas id="bodyChart" class="w-full h-64 bg-white rounded"></canvas>
+  </div>
+</div>
+
+<div data-controller="date-preset" class="max-w-md mx-auto text-center">
+  <label class="block text-sm mb-2 text-gray-300">期間</label>
+  <select
+    data-date-preset-target="preset"
+    data-action="change->date-preset#update"
+    class="w-full bg-gray-100 text-gray-800 p-2 rounded shadow text-center">
+    <option value="7">直近7日間</option>
+    <option value="30">直近30日間</option>
+    <option value="90">直近3ヶ月</option>
+    <option value="180">直近6ヶ月</option>
+    <option value="custom">カスタム日付を選ぶ</option>
+  </select>
+
+  <div class="mt-2 grid grid-cols-2 gap-4">
+    <input type="date" data-date-preset-target="start" id="startDate"
+      class="bg-gray-100 text-gray-800 p-2 rounded shadow text-center" disabled />
+    <input type="date" data-date-preset-target="end" id="endDate"
+      class="bg-gray-100 text-gray-800 p-2 rounded shadow text-center" disabled />
+  </div>
+</div>
+
