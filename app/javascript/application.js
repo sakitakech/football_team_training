@@ -5,58 +5,83 @@ import "./controllers"
 import Chart from 'chart.js/auto'
 
 document.addEventListener("DOMContentLoaded", () => {
-  // ✅ 仮データ：日付＆マックス種目
-  const maxData = {
-    ベンチプレス: [{ date: '4/1', value: 100 }, { date: '4/5', value: 105 }, { date: '4/10', value: 110 }],
-    スクワット:   [{ date: '4/1', value: 140 }, { date: '4/5', value: 145 }, { date: '4/10', value: 150 }],
-    デッドリフト: [{ date: '4/1', value: 160 }, { date: '4/5', value: 165 }, { date: '4/10', value: 170 }],
-    クリーン:     [{ date: '4/1', value: 90 },{ date: '4/5', value: 95 },{ date: '4/10', value: 97 }]
-  }
-
-  const bodyData = [
-    { date: '4/1', weight: 78.5, fat: 15.2 },
-    { date: '4/5', weight: 79.0, fat: 15.0 },
-    { date: '4/10', weight: 78.2, fat: 14.8 }
-  ]
-
+  const userId = 23
+  let maxData = {}  // 種目別マックス値
+  let bodyData = [] // 体重・体脂肪率
   const maxCtx = document.getElementById("maxChart")
   const bodyCtx = document.getElementById("bodyChart")
   let maxChart, bodyChart
 
-  // ✅ マックスグラフ描画関数
+  // ✅ max_weights API からデータ取得
+  fetch(`/api/charts/max_weights?user_id=${userId}`)
+    .then(res => res.json())
+    .then(data => {
+      maxData = data.reduce((acc, cur) => {
+        if (!acc[cur.name]) acc[cur.name] = []
+        acc[cur.name].push({ date: cur.date, value: Number(cur.value) })
+        return acc
+      }, {})
+      renderMaxChart()
+    })
+    .catch(error => {
+      console.error("❌ マックスデータ取得エラー：", error)
+    })
+
+  // ✅ body_metrics API からデータ取得
+  fetch(`/api/charts/body_metrics?user_id=${userId}`)
+    .then(res => res.json())
+    .then(data => {
+      bodyData = data.map(d => ({
+        date: d.date,
+        weight: Number(d.weight),
+        fat: Number(d.body_fat)
+      }))
+      renderBodyChart()
+    })
+    .catch(error => {
+      console.error("❌ 体データ取得エラー：", error)
+    })
+
   const renderMaxChart = () => {
+    if (!Object.keys(maxData).length) return
     if (maxChart) maxChart.destroy()
+
     const checked = [...document.querySelectorAll(".event-check:checked")].map(cb => cb.value)
     const colorMap = {
-        ベンチプレス: 'rgba(255, 99, 132, 1)',    // 赤
-        スクワット:   'rgba(54, 162, 235, 1)',     // 青
-        デッドリフト: 'rgba(75, 192, 192, 1)',    // 緑
-        クリーン:     'rgba(153, 102, 255, 1)'     // 紫
-      }
-      
-      const datasets = checked.map(event => ({
-        label: event,
-        data: maxData[event].map(d => d.value),
-        borderColor: colorMap[event],
-        backgroundColor: colorMap[event],
-        tension: 0.3,
-        borderWidth: 2,
-        fill: false
-      }))
-    const labels = maxData[checked[0]].map(d => d.date)
+      ベンチプレス: 'rgba(255, 99, 132, 1)',
+      スクワット: 'rgba(54, 162, 235, 1)',
+      デッドリフト: 'rgba(75, 192, 192, 1)',
+      クリーン: 'rgba(153, 102, 255, 1)'
+    }
 
-
+    const datasets = checked.map(event => ({
+      label: event,
+      data: maxData[event].map(d => d.value),
+      borderColor: colorMap[event],
+      backgroundColor: colorMap[event],
+      tension: 0.3,
+      borderWidth: 2,
+      fill: false
+    }))
+    const labels = maxData[checked[0]]?.map(d => d.date) || []
 
     maxChart = new Chart(maxCtx, {
       type: 'line',
       data: { labels, datasets },
-      options: { responsive: true, backgroundColor: 'white', scales: { y: { beginAtZero: true } } }
+      options: {
+        responsive: true,
+        backgroundColor: 'white',
+        scales: {
+          y: { beginAtZero: true }
+        }
+      }
     })
   }
 
-
-  // ✅ 体重・体脂肪グラフ描画関数
   const renderBodyChart = () => {
+    if (!bodyData.length) return
+    if (bodyChart) bodyChart.destroy()
+
     const labels = bodyData.map(d => d.date)
 
     bodyChart = new Chart(bodyCtx, {
@@ -84,7 +109,11 @@ document.addEventListener("DOMContentLoaded", () => {
         responsive: true,
         backgroundColor: 'white',
         scales: {
-          y: { beginAtZero: true, position: 'left', title: { display: true, text: '体重 (kg)' } },
+          y: {
+            beginAtZero: true,
+            position: 'left',
+            title: { display: true, text: '体重 (kg)' }
+          },
           y2: {
             beginAtZero: true,
             position: 'right',
@@ -96,9 +125,7 @@ document.addEventListener("DOMContentLoaded", () => {
     })
   }
 
-  // ✅ 初期描画 & イベント
-  renderMaxChart()
-  renderBodyChart()
+  // ✅ チェックボックス変更時にマックスグラフ再描画
   document.querySelectorAll(".event-check").forEach(cb => {
     cb.addEventListener("change", renderMaxChart)
   })
