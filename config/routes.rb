@@ -26,11 +26,11 @@ Rails.application.routes.draw do
 
   root "static_pages#top"
 
-  resources :charts, only: [:index]
+  resources :charts, only: [ :index ]
 
   namespace :api do
-    get 'charts/max_weights', to: 'charts#max_weights'
-    get 'charts/body_metrics', to: 'charts#body_metrics'
+    get "charts/max_weights", to: "charts#max_weights"
+    get "charts/body_metrics", to: "charts#body_metrics"
   end
 
   if Rails.env.development?

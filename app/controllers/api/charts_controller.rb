@@ -1,14 +1,14 @@
 module Api
     class ChartsController < ApplicationController
       before_action :set_user
-  
+
       def max_weights
         training_max_weights = TrainingMaxWeight
           .joins(:training, :max_weight)
           .where(trainings: { user_id: @user.id })
           .where.not(record: nil)
-          .order('trainings.datetime ASC')
-  
+          .order("trainings.datetime ASC")
+
         render json: training_max_weights.map { |mw|
           {
             date: mw.training.datetime.to_date,
@@ -17,14 +17,14 @@ module Api
           }
         }
       end
-  
+
       def body_metrics
         trainings = Training
           .where(user_id: @user.id)
           .where.not(body_weight: nil)
           .where.not(body_fat: nil)
           .order(datetime: :asc)
-  
+
         render json: trainings.map { |t|
           {
             date: t.datetime.to_date,
@@ -33,16 +33,15 @@ module Api
           }
         }
       end
-  
+
       private
-  
+
       def set_user
         @user = User.find(params[:user_id])
-  
+
         if @user.team_id != current_user.team_id
           render json: { error: "他チームのデータにはアクセスできません" }, status: :forbidden
         end
       end
     end
-  end
-  
+end
