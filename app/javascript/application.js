@@ -4,11 +4,12 @@ import "./controllers"
 
 import Chart from 'chart.js/auto'
 
-document.addEventListener("turbo:load", () => {
-  const userId = 23
-  let maxData = {}  // 種目別マックス値
-  let bodyData = [] // 体重・体脂肪率
+let maxData = {}  // 種目別マックス値
+let bodyData = [] // 体重・体脂肪率
 
+document.addEventListener("turbo:load", () => {
+    
+  const userId = 23
   const now = new Date()
   let endDate = now
   let startDate = new Date(now)
@@ -198,3 +199,14 @@ document.addEventListener("turbo:load", () => {
     renderBodyChart()
   })
 })
+
+document.addEventListener("turbo:before-cache", () => {
+    if (maxChart) {
+      maxChart.destroy();
+      maxChart = null;
+    }
+    if (bodyChart) {
+      bodyChart.destroy();
+      bodyChart = null;
+    }
+  })
