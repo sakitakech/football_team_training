@@ -4,7 +4,7 @@ import "./controllers"
 
 import Chart from 'chart.js/auto'
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("turbo:load", () => {
   const userId = 23
   let maxData = {}  // 種目別マックス値
   let bodyData = [] // 体重・体脂肪率
