@@ -1,3 +1,15 @@
+<div class="max-w-md mx-auto mb-6">
+  <label for="userSelect" class="block text-sm font-bold text-white mb-2">選手を選択:</label>
+  <select id="userSelect" class="w-full p-2 rounded bg-gray-100 text-gray-800 shadow">
+    <% @team_members.each do |member| %>
+      <option value="<%= member.id %>" <%= "selected" if member.id == current_user.id %>>
+        <%= member.last_name %> <%= member.first_name %>
+      </option>
+    <% end %>
+  </select>
+</div>
+
+
 <div class="p-4 space-y-8">
   <!-- ✅ チェックボックス -->
   <div class="bg-base-200 p-4 rounded shadow max-w-[70%] mx-auto">
@@ -9,11 +21,13 @@
       <label><input type="checkbox" class="event-check" value="クリーン" checked> クリーン</label>
     </div>
     <canvas id="maxChart" class="w-full h-64 bg-white rounded"></canvas>
+    <div id="maxChartNoData" class="text-center text-gray-500 mt-4 hidden">データがありません</div>
   </div>
 
-  <!-- ✅ 体重・体脂肪 -->
+
   <div class="bg-base-200 p-4 rounded shadow max-w-[70%] mx-auto">
     <canvas id="bodyChart" class="w-full h-64 bg-white rounded"></canvas>
+    <div id="bodyChartNoData" class="text-center text-gray-500 mt-4 hidden">データがありません</div>
   </div>
 </div>
 

@@ -1,23 +1,30 @@
-// Entry point for the build script in your package.json
 import "@hotwired/turbo-rails"
 import "./controllers"
-
 import Chart from 'chart.js/auto'
 
-let maxData = {}  // 種目別マックス値
-let bodyData = [] // 体重・体脂肪率
+let maxData = {}
+let bodyData = []
+let maxChart = null
+let bodyChart = null
+let userId = null
 
 document.addEventListener("turbo:load", () => {
-    
-  const userId = 23
+  const userSelect = document.getElementById("userSelect")
+  const presetSelect = document.querySelector("select[data-date-preset-target='preset']")
+  const startInput = document.getElementById("startDate")
+  const endInput = document.getElementById("endDate")
+  const maxCtx = document.getElementById("maxChart")
+  const bodyCtx = document.getElementById("bodyChart")
+
+  const maxNoData = document.getElementById("maxChartNoData")
+  const bodyNoData = document.getElementById("bodyChartNoData")
+
+  userId = Number(userSelect.value)
+
   const now = new Date()
   let endDate = now
   let startDate = new Date(now)
   startDate.setDate(now.getDate() - 30)
-
-  const maxCtx = document.getElementById("maxChart")
-  const bodyCtx = document.getElementById("bodyChart")
-  let maxChart, bodyChart
 
   const filterByDate = (data, start, end) => {
     const startYMD = start.toISOString().slice(0, 10)
@@ -38,35 +45,56 @@ document.addEventListener("turbo:load", () => {
     return range
   }
 
-  fetch(`/api/charts/max_weights?user_id=${userId}`)
-    .then(res => res.json())
-    .then(data => {
-      maxData = data.reduce((acc, cur) => {
+  const fetchAndRender = async () => {
+    userId = Number(userSelect.value)
+
+    const now = new Date()
+    endDate = now
+    startDate = new Date(now)
+
+    if (presetSelect.value !== "custom") {
+      const days = Number(presetSelect.value || 30)
+      startDate.setDate(now.getDate() - days)
+      startInput.disabled = true
+      endInput.disabled = true
+    } else {
+      startDate = new Date(startInput.value)
+      endDate = new Date(endInput.value)
+    }
+
+    try {
+      const maxRes = await fetch(`/api/charts/max_weights?user_id=${userId}`)
+      const maxJson = await maxRes.json()
+      maxData = maxJson.reduce((acc, cur) => {
         if (!acc[cur.name]) acc[cur.name] = []
         acc[cur.name].push({ date: cur.date, value: Number(cur.value), timestamp: new Date(cur.date).getTime() })
         return acc
       }, {})
-      renderMaxChart()
-    })
-    .catch(error => console.error("❌ マックスデータ取得エラー：", error))
 
-  fetch(`/api/charts/body_metrics?user_id=${userId}`)
-    .then(res => res.json())
-    .then(data => {
-      bodyData = data.map(d => ({
+      const bodyRes = await fetch(`/api/charts/body_metrics?user_id=${userId}`)
+      const bodyJson = await bodyRes.json()
+      bodyData = bodyJson.map(d => ({
         date: d.date,
         weight: Number(d.weight),
         fat: Number(d.body_fat)
       }))
-      renderBodyChart()
-    })
-    .catch(error => console.error("❌ 体データ取得エラー：", error))
+
+      renderCharts()
+    } catch (error) {
+      console.error("❌ データ取得エラー：", error)
+    }
+  }
 
   const renderMaxChart = () => {
-    if (!Object.keys(maxData).length) return
     if (maxChart) maxChart.destroy()
 
     const checked = [...document.querySelectorAll(".event-check:checked")].map(cb => cb.value)
+    if (!checked.length || !Object.keys(maxData).length) {
+      maxCtx.classList.add("hidden")
+      maxNoData.classList.remove("hidden")
+      return
+    }
+
     const colorMap = {
       ベンチプレス: 'rgba(255, 99, 132, 1)',
       スクワット: 'rgba(54, 162, 235, 1)',
@@ -75,7 +103,6 @@ document.addEventListener("turbo:load", () => {
     }
 
     const allDates = generateDateRange(startDate, endDate)
-
     const datasets = checked.map(event => {
       const entries = maxData[event] || []
       const dateMap = {}
@@ -98,21 +125,27 @@ document.addEventListener("turbo:load", () => {
       }
     })
 
+    if (datasets.every(ds => ds.data.every(v => v === null))) {
+      maxCtx.classList.add("hidden")
+      maxNoData.classList.remove("hidden")
+      return
+    }
+
+    maxCtx.classList.remove("hidden")
+    maxNoData.classList.add("hidden")
+
     maxChart = new Chart(maxCtx, {
       type: 'line',
       data: { labels: allDates, datasets },
       options: {
         responsive: true,
         backgroundColor: 'white',
-        scales: {
-          y: { beginAtZero: true }
-        }
+        scales: { y: { beginAtZero: true } }
       }
     })
   }
 
   const renderBodyChart = () => {
-    if (!bodyData.length) return
     if (bodyChart) bodyChart.destroy()
 
     const allDates = generateDateRange(startDate, endDate)
@@ -123,90 +156,54 @@ document.addEventListener("turbo:load", () => {
       fatMap[entry.date] = entry.fat
     })
 
+    const weightData = allDates.map(date => weightMap[date] ?? null)
+    const fatData = allDates.map(date => fatMap[date] ?? null)
+
+    if (weightData.every(v => v === null) && fatData.every(v => v === null)) {
+      bodyCtx.classList.add("hidden")
+      bodyNoData.classList.remove("hidden")
+      return
+    }
+
+    bodyCtx.classList.remove("hidden")
+    bodyNoData.classList.add("hidden")
+
     bodyChart = new Chart(bodyCtx, {
       type: 'bar',
       data: {
         labels: allDates,
         datasets: [
-          {
-            type: 'bar',
-            label: '体重',
-            data: allDates.map(date => weightMap[date] ?? null),
-            backgroundColor: 'rgba(59,130,246,0.5)',
-            spanGaps: true
-          },
-          {
-            type: 'line',
-            label: '体脂肪率',
-            data: allDates.map(date => fatMap[date] ?? null),
-            borderColor: 'rgba(34,197,94,1)',
-            borderWidth: 2,
-            yAxisID: 'y2',
-            spanGaps: true
-          }
+          { type: 'bar', label: '体重', data: weightData, backgroundColor: 'rgba(59,130,246,0.5)', spanGaps: true },
+          { type: 'line', label: '体脂肪率', data: fatData, borderColor: 'rgba(34,197,94,1)', borderWidth: 2, yAxisID: 'y2', spanGaps: true }
         ]
       },
       options: {
         responsive: true,
         backgroundColor: 'white',
         scales: {
-          y: {
-            beginAtZero: true,
-            position: 'left',
-            title: { display: true, text: '体重 (kg)' }
-          },
-          y2: {
-            beginAtZero: true,
-            position: 'right',
-            grid: { drawOnChartArea: false },
-            title: { display: true, text: '体脂肪率 (%)' }
-          }
+          y: { beginAtZero: true, position: 'left', title: { display: true, text: '体重 (kg)' } },
+          y2: { beginAtZero: true, position: 'right', grid: { drawOnChartArea: false }, title: { display: true, text: '体脂肪率 (%)' } }
         }
       }
     })
   }
 
-  document.querySelectorAll(".event-check").forEach(cb => {
-    cb.addEventListener("change", renderMaxChart)
-  })
-
-  const presetSelect = document.querySelector("select[data-date-preset-target='preset']")
-  presetSelect.value = "30"
-
-  presetSelect.addEventListener("change", e => {
-    const value = e.target.value
-    if (value === "custom") {
-      document.getElementById("startDate").disabled = false
-      document.getElementById("endDate").disabled = false
-      return
-    }
-    const now = new Date()
-    endDate = now
-    startDate = new Date(now)
-    startDate.setDate(now.getDate() - Number(value))
+  const renderCharts = () => {
     renderMaxChart()
     renderBodyChart()
-  })
+  }
 
-  document.getElementById("startDate").addEventListener("change", () => {
-    startDate = new Date(document.getElementById("startDate").value)
-    renderMaxChart()
-    renderBodyChart()
-  })
-  document.getElementById("endDate").addEventListener("change", () => {
-    endDate = new Date(document.getElementById("endDate").value)
-    renderMaxChart()
-    renderBodyChart()
-  })
+  fetchAndRender()
+
+  document.querySelectorAll(".event-check").forEach(cb => cb.addEventListener("change", renderCharts))
+  userSelect.addEventListener("change", fetchAndRender)
+
+  presetSelect.addEventListener("change", () => fetchAndRender())
+  startInput.addEventListener("change", () => fetchAndRender())
+  endInput.addEventListener("change", () => fetchAndRender())
 })
 
 document.addEventListener("turbo:before-cache", () => {
-    if (maxChart) {
-      maxChart.destroy();
-      maxChart = null;
-    }
-    if (bodyChart) {
-      bodyChart.destroy();
-      bodyChart = null;
-    }
-  })
+  if (maxChart) { maxChart.destroy(); maxChart = null }
+  if (bodyChart) { bodyChart.destroy(); bodyChart = null }
+})
