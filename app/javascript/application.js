@@ -18,6 +18,20 @@ document.addEventListener("turbo:load", () => {
 
   const maxNoData = document.getElementById("maxChartNoData")
   const bodyNoData = document.getElementById("bodyChartNoData")
+  
+  
+  const orientationWarning = document.getElementById("orientationWarning")
+  const checkOrientation = () => {
+    if (window.innerWidth < 640 && window.innerHeight > window.innerWidth) {
+      orientationWarning.classList.remove("hidden")
+    } else {
+      orientationWarning.classList.add("hidden")
+    }
+  }
+
+  checkOrientation()
+  window.addEventListener("orientationchange", checkOrientation)
+  window.addEventListener("resize", checkOrientation)
 
   userId = Number(userSelect.value)
 
