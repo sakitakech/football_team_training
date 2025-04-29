@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+
   resources :teams, only: [ :new, :create, :show, :edit, :update, :destroy ]
 
   devise_for :users, controllers: {
@@ -32,6 +33,9 @@ Rails.application.routes.draw do
     get "charts/max_weights", to: "charts#max_weights"
     get "charts/body_metrics", to: "charts#body_metrics"
   end
+
+  get 'calendar', to: 'calendar#index'
+
 
   if Rails.env.development?
     mount LetterOpenerWeb::Engine, at: "/letter_opener"
