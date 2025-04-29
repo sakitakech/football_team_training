@@ -140,7 +140,18 @@ document.addEventListener("turbo:load", () => {
       options: {
         responsive: true,
         backgroundColor: 'white',
-        scales: { y: { beginAtZero: true } }
+        scales: { y:
+            {
+
+                beginAtZero: true,
+                ticks: {
+                  stepSize: 20 // 100刻み→20刻みに変更（例）
+                },
+                suggestedMin: 0,
+                suggestedMax: 200 // 目安最大値
+              
+            }
+          }
       }
     })
   }
@@ -169,24 +180,66 @@ document.addEventListener("turbo:load", () => {
     bodyNoData.classList.add("hidden")
 
     bodyChart = new Chart(bodyCtx, {
-      type: 'bar',
-      data: {
-        labels: allDates,
-        datasets: [
-          { type: 'bar', label: '体重', data: weightData, backgroundColor: 'rgba(59,130,246,0.5)', spanGaps: true },
-          { type: 'line', label: '体脂肪率', data: fatData, borderColor: 'rgba(34,197,94,1)', borderWidth: 2, yAxisID: 'y2', spanGaps: true }
-        ]
-      },
-      options: {
-        responsive: true,
-        backgroundColor: 'white',
-        scales: {
-          y: { beginAtZero: true, position: 'left', title: { display: true, text: '体重 (kg)' } },
-          y2: { beginAtZero: true, position: 'right', grid: { drawOnChartArea: false }, title: { display: true, text: '体脂肪率 (%)' } }
+        type: 'bar',
+        data: {
+          labels: allDates,
+          datasets: [
+            {
+              type: 'bar',
+              label: '体重',
+              data: weightData,
+              backgroundColor: 'rgba(59,130,246,0.5)',
+              spanGaps: true
+            },
+            {
+              type: 'line',
+              label: '体脂肪率',
+              data: fatData,
+              borderColor: 'rgba(34,197,94,1)',
+              borderWidth: 2,
+              yAxisID: 'y2',
+              spanGaps: true
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          backgroundColor: 'white',
+          scales: {
+            y: {
+              beginAtZero: true,
+              min: 0,
+              max: 140,
+              ticks: {
+                stepSize: 20
+              },
+              position: 'left',
+              title: {
+                display: true,
+                text: '体重 (kg)'
+              }
+            },
+            y2: {
+              beginAtZero: true,
+              min: 0,
+              max: 40,
+              ticks: {
+                stepSize: 5
+              },
+              position: 'right',
+              grid: {
+                drawOnChartArea: false
+              },
+              title: {
+                display: true,
+                text: '体脂肪率 (%)'
+            }
         }
       }
-    })
-  }
+    }
+  })
+    }
+
 
   const renderCharts = () => {
     renderMaxChart()
@@ -198,7 +251,18 @@ document.addEventListener("turbo:load", () => {
   document.querySelectorAll(".event-check").forEach(cb => cb.addEventListener("change", renderCharts))
   userSelect.addEventListener("change", fetchAndRender)
 
-  presetSelect.addEventListener("change", () => fetchAndRender())
+  presetSelect.addEventListener("change", () => {
+    const selected = presetSelect.value
+    if (selected === "custom") {
+      startInput.disabled = false
+      endInput.disabled = false
+    } else {
+      startInput.disabled = true
+      endInput.disabled = true
+    }
+    fetchAndRender()
+  })
+
   startInput.addEventListener("change", () => fetchAndRender())
   endInput.addEventListener("change", () => fetchAndRender())
 })
