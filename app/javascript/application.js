@@ -18,9 +18,8 @@ document.addEventListener("turbo:load", () => {
 
   const maxNoData = document.getElementById("maxChartNoData")
   const bodyNoData = document.getElementById("bodyChartNoData")
-  
-  
   const orientationWarning = document.getElementById("orientationWarning")
+
   const checkOrientation = () => {
     if (window.innerWidth < 640 && window.innerHeight > window.innerWidth) {
       orientationWarning.classList.remove("hidden")
@@ -39,15 +38,6 @@ document.addEventListener("turbo:load", () => {
   let endDate = now
   let startDate = new Date(now)
   startDate.setDate(now.getDate() - 30)
-
-  const filterByDate = (data, start, end) => {
-    const startYMD = start.toISOString().slice(0, 10)
-    const endYMD = end.toISOString().slice(0, 10)
-    return data.filter(d => {
-      const dateYMD = d.date
-      return dateYMD >= startYMD && dateYMD <= endYMD
-    })
-  }
 
   const generateDateRange = (start, end) => {
     const range = []
@@ -89,8 +79,8 @@ document.addEventListener("turbo:load", () => {
       const bodyJson = await bodyRes.json()
       bodyData = bodyJson.map(d => ({
         date: d.date,
-        weight: Number(d.weight),
-        fat: Number(d.body_fat)
+        weight: d.weight,
+        fat: d.body_fat
       }))
 
       renderCharts()
@@ -154,18 +144,14 @@ document.addEventListener("turbo:load", () => {
       options: {
         responsive: true,
         backgroundColor: 'white',
-        scales: { y:
-            {
-
-                beginAtZero: true,
-                ticks: {
-                  stepSize: 20 // 100刻み→20刻みに変更（例）
-                },
-                suggestedMin: 0,
-                suggestedMax: 200 // 目安最大値
-              
-            }
+        scales: {
+          y: {
+            beginAtZero: true,
+            ticks: { stepSize: 20 },
+            suggestedMin: 0,
+            suggestedMax: 200
           }
+        }
       }
     })
   }
@@ -184,7 +170,10 @@ document.addEventListener("turbo:load", () => {
     const weightData = allDates.map(date => weightMap[date] ?? null)
     const fatData = allDates.map(date => fatMap[date] ?? null)
 
-    if (weightData.every(v => v === null) && fatData.every(v => v === null)) {
+    const hasAnyWeight = weightData.some(v => v !== null)
+    const hasAnyFat = fatData.some(v => v !== null)
+
+    if (!hasAnyWeight && !hasAnyFat) {
       bodyCtx.classList.add("hidden")
       bodyNoData.classList.remove("hidden")
       return
@@ -193,67 +182,58 @@ document.addEventListener("turbo:load", () => {
     bodyCtx.classList.remove("hidden")
     bodyNoData.classList.add("hidden")
 
-    bodyChart = new Chart(bodyCtx, {
+    const datasets = []
+    if (hasAnyWeight) {
+      datasets.push({
         type: 'bar',
-        data: {
-          labels: allDates,
-          datasets: [
-            {
-              type: 'bar',
-              label: '体重',
-              data: weightData,
-              backgroundColor: 'rgba(59,130,246,0.5)',
-              spanGaps: true
-            },
-            {
-              type: 'line',
-              label: '体脂肪率',
-              data: fatData,
-              borderColor: 'rgba(34,197,94,1)',
-              borderWidth: 2,
-              yAxisID: 'y2',
-              spanGaps: true
-            }
-          ]
-        },
-        options: {
-          responsive: true,
-          backgroundColor: 'white',
-          scales: {
-            y: {
-              beginAtZero: true,
-              min: 0,
-              max: 140,
-              ticks: {
-                stepSize: 20
-              },
-              position: 'left',
-              title: {
-                display: true,
-                text: '体重 (kg)'
-              }
-            },
-            y2: {
-              beginAtZero: true,
-              min: 0,
-              max: 40,
-              ticks: {
-                stepSize: 5
-              },
-              position: 'right',
-              grid: {
-                drawOnChartArea: false
-              },
-              title: {
-                display: true,
-                text: '体脂肪率 (%)'
-            }
-        }
-      }
+        label: '体重',
+        data: weightData,
+        backgroundColor: 'rgba(59,130,246,0.5)',
+        spanGaps: true,
+        yAxisID: 'y',
+      })
     }
-  })
+    if (hasAnyFat) {
+      datasets.push({
+        type: 'line',
+        label: '体脂肪率',
+        data: fatData,
+        borderColor: 'rgba(34,197,94,1)',
+        backgroundColor: 'rgba(34,197,94,0.3)',
+        borderWidth: 2,
+        spanGaps: true,
+        yAxisID: 'y2',
+      })
     }
 
+    bodyChart = new Chart(bodyCtx, {
+      type: 'bar',
+      data: { labels: allDates, datasets },
+      options: {
+        responsive: true,
+        backgroundColor: 'white',
+        scales: {
+          y: {
+            beginAtZero: true,
+            min: 0,
+            max: 140,
+            ticks: { stepSize: 20 },
+            position: 'left',
+            title: { display: true, text: '体重 (kg)' }
+          },
+          y2: {
+            beginAtZero: true,
+            min: 0,
+            max: 40,
+            ticks: { stepSize: 5 },
+            position: 'right',
+            grid: { drawOnChartArea: false },
+            title: { display: true, text: '体脂肪率 (%)' }
+          }
+        }
+      }
+    })
+  }
 
   const renderCharts = () => {
     renderMaxChart()
@@ -277,8 +257,8 @@ document.addEventListener("turbo:load", () => {
     fetchAndRender()
   })
 
-  startInput.addEventListener("change", () => fetchAndRender())
-  endInput.addEventListener("change", () => fetchAndRender())
+  startInput.addEventListener("change", fetchAndRender)
+  endInput.addEventListener("change", fetchAndRender)
 })
 
 document.addEventListener("turbo:before-cache", () => {

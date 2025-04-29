@@ -21,8 +21,9 @@ module Api
       def body_metrics
         trainings = Training
           .where(user_id: @user.id)
-          .where.not(body_weight: nil)
-          .where.not(body_fat: nil)
+          .where.not(body_weight: nil).or(
+            Training.where(user_id: @user.id).where.not(body_fat: nil)
+          )
           .order(datetime: :asc)
 
         render json: trainings.map { |t|
