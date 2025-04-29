@@ -20,18 +20,21 @@
   </div>
 
   <div>
-    <%= form.label :部位, class: "block font-semibold mb-1" %>
-    <%= form.text_field :part, placeholder: "胸・背中・足", class: "w-full border rounded p-2 focus:outline-none focus:ring-2 focus:ring-blue-400" %>
+    <%= form.label :部位・分割, class: "block font-semibold mb-1" %>
+    <%= form.text_field :part, placeholder: "胸・背中 or プル種目  など", class: "w-full border rounded p-2 focus:outline-none focus:ring-2 focus:ring-blue-400" %>
   </div>
 
   <div>
     <%= form.label :内容, class: "block font-semibold mb-1" %>
-    <%= form.text_area :content, placeholder: "ベンチプレス 100キロ 10回 10セット  スクワット 200キロ 10回 20セット", rows: 3, class: "w-full border rounded p-2 focus:outline-none focus:ring-2 focus:ring-blue-400" %>
+    <%= form.text_area :content, placeholder: "ベンチプレス 100キロ 10回 40セット  スクワット 200キロ 10回 20セット", rows: 3, class: "w-full border rounded p-2 focus:outline-none focus:ring-2 focus:ring-blue-400" %>
+    <div class="text-sm">
+      カレンダーのカウントは上記の『内容』で行なっています。トレーニングを行った場合は何かしら記載してください。
+    </div>
   </div>
 
   <div>
     <%= form.label :メモ, class: "block font-semibold mb-1" %>
-    <%= form.text_area :memo, placeholder: "楽しかった。", rows: 2, class: "w-full border rounded p-2 focus:outline-none focus:ring-2 focus:ring-blue-400" %>
+    <%= form.text_area :memo, placeholder: "体調  感想  明日の抱負", rows: 2, class: "w-full border rounded p-2 focus:outline-none focus:ring-2 focus:ring-blue-400" %>
   </div>
 
   <div>

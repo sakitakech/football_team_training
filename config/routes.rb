@@ -35,6 +35,10 @@ Rails.application.routes.draw do
   end
 
   get 'calendar', to: 'calendar#index'
+  
+  namespace :api do
+    get 'calendar/histories', to: 'calendar#histories'
+  end
 
 
   if Rails.env.development?
