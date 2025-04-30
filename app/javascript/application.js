@@ -2,4 +2,4 @@ import "@hotwired/turbo-rails"
 import "./controllers"
 
 import "./function/chart"
-// import "./function/calender"
+import "./function/calendar"
