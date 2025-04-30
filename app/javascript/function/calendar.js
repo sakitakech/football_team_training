@@ -6,32 +6,34 @@ document.addEventListener("turbo:load", () => {
   if (!calendarEl) return
 
   const positionSelect = document.getElementById("positionSelect")
-  let allEvents = [] // ← フィルタ用に全データを保存しておく
+  const memberSelect = document.getElementById("memberSelect")
+  const userLabel = document.getElementById("selectedUserLabel")
+
+  let allEvents = []
 
   fetch('/api/calendar/histories')
     .then(response => response.json())
     .then(data => {
-      // データを保存（後でフィルタに使う）
       allEvents = data.map(item => ({
         title: item.name,
         date: item.date,
-        position_id: item.position_id // ← フィルタに必要
+        position_id: item.position_id,
+        user_id: item.user_id
       }))
 
-      // 初期表示（全イベント）
       const calendar = new Calendar(calendarEl, {
         plugins: [dayGridPlugin],
         initialView: 'dayGridMonth',
         locale: 'ja',
         height: 'auto',
-        events: allEvents, // ← 最初は全表示
+        events: allEvents,
         eventDisplay: 'auto',
         displayEventTime: false
       })
 
       calendar.render()
 
-      // ポジション選択でフィルタリング
+      // ポジションフィルター
       positionSelect?.addEventListener("change", () => {
         const selected = positionSelect.value
         const filtered = selected
@@ -41,8 +43,28 @@ document.addEventListener("turbo:load", () => {
         calendar.removeAllEvents()
         calendar.addEventSource(filtered)
       })
+
+      // 選手フィルター
+      memberSelect?.addEventListener("change", () => {
+        const selectedUser = memberSelect.value
+
+        const filtered = selectedUser
+          ? allEvents.filter(e => e.user_id == selectedUser)
+          : allEvents
+
+        calendar.removeAllEvents()
+        calendar.addEventSource(filtered)
+
+        if (selectedUser) {
+          const selectedName = filtered[0]?.title || "選手"
+          userLabel.textContent = `${selectedName}のトレーニング履歴`
+          userLabel.classList.remove("hidden")
+        } else {
+          userLabel.classList.add("hidden")
+        }
+      })
     })
     .catch(error => {
-      console.error("❌ カレンダーデータ取得エラー:", error)
+      console.error("\u274c カレンダーデータ取得エラー:", error)
     })
 })
