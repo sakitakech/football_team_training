@@ -9,6 +9,6 @@ class CalendarController < ApplicationController
       .group_by(&:position)
 
     @selected_user_id = params[:user_id].to_i if params[:user_id].present?
-    @user_position_map = @team_members.map { |u| [u.id, u.position_id] }.to_h
+    @user_position_map = @team_members.map { |u| [ u.id, u.position_id ] }.to_h
   end
 end
