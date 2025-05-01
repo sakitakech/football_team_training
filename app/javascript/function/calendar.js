@@ -28,7 +28,13 @@ document.addEventListener("turbo:load", () => {
         height: 'auto',
         events: allEvents,
         eventDisplay: 'auto',
-        displayEventTime: false
+        displayEventTime: false,
+        eventClick: function(info) {
+          const userId = info.event.extendedProps.user_id
+          if (userId) {
+            window.location.href = `/users/${userId}/trainings`
+          }
+        }
       })
 
       calendar.render()
@@ -65,6 +71,6 @@ document.addEventListener("turbo:load", () => {
       })
     })
     .catch(error => {
-      console.error("\u274c カレンダーデータ取得エラー:", error)
+      console.error("❌ カレンダーデータ取得エラー:", error)
     })
 })
