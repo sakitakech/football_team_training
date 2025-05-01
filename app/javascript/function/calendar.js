@@ -11,7 +11,7 @@ document.addEventListener("turbo:load", () => {
   const defaultUserId = calendarEl.dataset.userId || null
 
   let allEvents = []
-  let userToPosition = {} // ✅ 追加: user_id → position_id のマップ
+  let userToPosition = {} // ✅ user_id -> position_id マッピング
 
   fetch("/api/calendar/histories")
     .then(response => response.json())
@@ -23,7 +23,7 @@ document.addEventListener("turbo:load", () => {
           position_id: Number(item.position_id),
           user_id: String(item.user_id)
         }
-        userToPosition[event.user_id] = event.position_id // ✅ マップ作成
+        userToPosition[event.user_id] = event.position_id
         return event
       })
 
@@ -34,7 +34,15 @@ document.addEventListener("turbo:load", () => {
         height: "auto",
         events: [],
         eventDisplay: "auto",
-        displayEventTime: false
+        displayEventTime: false,
+
+       
+        eventClick: function(info) {
+          const userId = info.event.extendedProps.user_id
+          if (userId) {
+            window.location.href = `/users/${userId}/trainings`
+          }
+        }
       })
 
       calendar.render()
@@ -48,14 +56,12 @@ document.addEventListener("turbo:load", () => {
         userLabel.textContent = `${selectedName}のトレーニング履歴`
         userLabel.classList.remove("hidden")
 
-        // ✅ 初期状態でもポジション切り替え
         const posId = userToPosition[defaultUserId]
         if (posId && positionSelect) positionSelect.value = posId
       } else {
         calendar.addEventSource(allEvents)
       }
 
-      // ✅ ポジション変更時の挙動
       positionSelect?.addEventListener("change", () => {
         const selected = positionSelect.value
         const filtered = selected
@@ -65,30 +71,24 @@ document.addEventListener("turbo:load", () => {
         calendar.removeAllEvents()
         calendar.addEventSource(filtered)
 
-        // 🔁 選手セレクトを全員に戻す
         if (memberSelect) memberSelect.value = ""
-
-        // 🔁 ラベルも非表示に
         userLabel.classList.add("hidden")
       })
 
-      // ✅ 選手変更時の挙動
       memberSelect?.addEventListener("change", () => {
         const selectedUser = memberSelect.value
-      
-        // ✅ ここで user_id → position_id のマップから取得
+
         const userPositionMap = JSON.parse(calendarEl.dataset.userPositionMap || "{}")
-        const posId = userPositionMap[selectedUser]
+        const posId = userPositionMap[selectedUser] || userToPosition[selectedUser]
         if (posId && positionSelect) positionSelect.value = posId
-      
-        // イベントフィルタリングなど既存の処理
+
         const filtered = selectedUser
           ? allEvents.filter(e => e.user_id === selectedUser)
           : allEvents
-      
+
         calendar.removeAllEvents()
         calendar.addEventSource(filtered)
-      
+
         if (selectedUser) {
           const selectedName = filtered[0]?.title || "選手"
           userLabel.textContent = `${selectedName}のトレーニング履歴`
@@ -99,6 +99,6 @@ document.addEventListener("turbo:load", () => {
       })
     })
     .catch(error => {
-      console.error("❌ カレンダーデータ取得エラー:", error)
+      console.error("\u274c カレンダーデータ取得エラー:", error)
     })
 })
