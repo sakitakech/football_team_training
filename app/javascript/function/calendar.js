@@ -75,22 +75,24 @@ document.addEventListener("turbo:load", () => {
       // ✅ 選手変更時の挙動
       memberSelect?.addEventListener("change", () => {
         const selectedUser = memberSelect.value
-
+      
+        // ✅ ここで user_id → position_id のマップから取得
+        const userPositionMap = JSON.parse(calendarEl.dataset.userPositionMap || "{}")
+        const posId = userPositionMap[selectedUser]
+        if (posId && positionSelect) positionSelect.value = posId
+      
+        // イベントフィルタリングなど既存の処理
         const filtered = selectedUser
           ? allEvents.filter(e => e.user_id === selectedUser)
           : allEvents
-
+      
         calendar.removeAllEvents()
         calendar.addEventSource(filtered)
-
+      
         if (selectedUser) {
           const selectedName = filtered[0]?.title || "選手"
           userLabel.textContent = `${selectedName}のトレーニング履歴`
           userLabel.classList.remove("hidden")
-
-          // ✅ 選手に応じてポジションも切り替え
-          const posId = userToPosition[selectedUser]
-          if (posId && positionSelect) positionSelect.value = posId
         } else {
           userLabel.classList.add("hidden")
         }
