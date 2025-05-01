@@ -3,7 +3,6 @@
   <select id="userSelect" class="w-full p-2 rounded bg-gray-100 text-gray-800 shadow">
     <% @team_members.each do |member| %>
       <option value="<%= member.id %>" <%= "selected" if params[:user_id].to_i == member.id %>>
-
         <%= member.last_name %> <%= member.first_name %>
       </option>
     <% end %>
