@@ -9,9 +9,10 @@ document.addEventListener("turbo:load", () => {
   const memberSelect = document.getElementById("memberSelect")
   const userLabel = document.getElementById("selectedUserLabel")
 
+  const userId = calendarEl.dataset.userId
   let allEvents = []
 
-  fetch('/api/calendar/histories')
+  fetch(`/api/calendar/histories${userId ? `?user_id=${userId}` : ''}`)
     .then(response => response.json())
     .then(data => {
       allEvents = data.map(item => ({
@@ -39,7 +40,7 @@ document.addEventListener("turbo:load", () => {
 
       calendar.render()
 
-      // ポジションフィルター
+      // ✅ ポジションフィルター
       positionSelect?.addEventListener("change", () => {
         const selected = positionSelect.value
         const filtered = selected
@@ -50,7 +51,7 @@ document.addEventListener("turbo:load", () => {
         calendar.addEventSource(filtered)
       })
 
-      // 選手フィルター
+      // ✅ 選手フィルター
       memberSelect?.addEventListener("change", () => {
         const selectedUser = memberSelect.value
 
