@@ -33,6 +33,8 @@ document.addEventListener("turbo:load", () => {
         locale: "ja",
         height: "auto",
         events: [],
+        dayMaxEvents: 5,
+        moreLinkClick: "popover",
         eventDisplay: "auto",
         displayEventTime: false,
 
