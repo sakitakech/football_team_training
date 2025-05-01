@@ -33,6 +33,13 @@ Rails.application.routes.draw do
     get "charts/body_metrics", to: "charts#body_metrics"
   end
 
+  get "calendar", to: "calendar#index"
+
+  namespace :api do
+    get "calendar/histories", to: "calendar#histories"
+  end
+
+
   if Rails.env.development?
     mount LetterOpenerWeb::Engine, at: "/letter_opener"
   end

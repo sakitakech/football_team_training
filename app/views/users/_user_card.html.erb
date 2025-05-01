@@ -6,6 +6,8 @@
   <p class="text-sm text-gray-600">自己紹介：</p>
   <p class="text-gray-800"><%= simple_format(user.introduction.presence || "") %></p>
   <div class="mt-2">
-    <%= link_to "トレーニングを見る", user_trainings_path(user), class: "text-blue-600 hover:underline text-sm" %>
+    <%= link_to "トレーニング", user_trainings_path(user), class: "text-blue-600 hover:underline text-sm" %> | 
+    <%= link_to "カレンダー", calendar_path(user_id: user.id), class: "text-blue-600 hover:underline text-sm" %> | 
+    <%= link_to "チャート", charts_path(user_id: user.id), class: "text-blue-600 hover:underline text-sm" %>
   </div>
 </div>
