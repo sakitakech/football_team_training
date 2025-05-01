@@ -6,6 +6,12 @@ let maxChart = null
 let bodyChart = null
 let userId = null
 
+// ✅ URLのパラメータから user_id を取得する関数
+const getUserIdFromParams = () => {
+  const params = new URLSearchParams(window.location.search)
+  return params.get("user_id") || null
+}
+
 document.addEventListener("turbo:load", () => {
   const userSelect = document.getElementById("userSelect")
   const presetSelect = document.querySelector("select[data-date-preset-target='preset']")
@@ -13,24 +19,21 @@ document.addEventListener("turbo:load", () => {
   const endInput = document.getElementById("endDate")
   const maxCtx = document.getElementById("maxChart")
   const bodyCtx = document.getElementById("bodyChart")
-
   const maxNoData = document.getElementById("maxChartNoData")
   const bodyNoData = document.getElementById("bodyChartNoData")
   const orientationWarning = document.getElementById("orientationWarning")
 
   const checkOrientation = () => {
     if (window.innerWidth < 640 && window.innerHeight > window.innerWidth) {
-      orientationWarning.classList.remove("hidden")
+      orientationWarning?.classList.remove("hidden")
     } else {
-      orientationWarning.classList.add("hidden")
+      orientationWarning?.classList.add("hidden")
     }
   }
 
   checkOrientation()
   window.addEventListener("orientationchange", checkOrientation)
   window.addEventListener("resize", checkOrientation)
-
-  userId = Number(userSelect.value)
 
   const now = new Date()
   let endDate = now
@@ -48,7 +51,8 @@ document.addEventListener("turbo:load", () => {
   }
 
   const fetchAndRender = async () => {
-    userId = Number(userSelect.value)
+    const paramUserId = getUserIdFromParams()
+    userId = Number(paramUserId || userSelect?.value)
 
     const now = new Date()
     endDate = now
@@ -83,7 +87,7 @@ document.addEventListener("turbo:load", () => {
 
       renderCharts()
     } catch (error) {
-      console.error("❌ データ取得エラー：", error)
+      console.error("\u274c データ取得エラー：", error)
     }
   }
 
@@ -241,9 +245,9 @@ document.addEventListener("turbo:load", () => {
   fetchAndRender()
 
   document.querySelectorAll(".event-check").forEach(cb => cb.addEventListener("change", renderCharts))
-  userSelect.addEventListener("change", fetchAndRender)
+  userSelect?.addEventListener("change", fetchAndRender)
 
-  presetSelect.addEventListener("change", () => {
+  presetSelect?.addEventListener("change", () => {
     const selected = presetSelect.value
     if (selected === "custom") {
       startInput.disabled = false
@@ -255,8 +259,8 @@ document.addEventListener("turbo:load", () => {
     fetchAndRender()
   })
 
-  startInput.addEventListener("change", fetchAndRender)
-  endInput.addEventListener("change", fetchAndRender)
+  startInput?.addEventListener("change", fetchAndRender)
+  endInput?.addEventListener("change", fetchAndRender)
 })
 
 document.addEventListener("turbo:before-cache", () => {
