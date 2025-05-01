@@ -2,7 +2,7 @@ module Api
     class ChartsController < ApplicationController
       before_action :set_user
 
-    
+
       def max_weights
         training_max_weights = TrainingMaxWeight
           .joins(:training, :max_weight)

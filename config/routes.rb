@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-
   resources :teams, only: [ :new, :create, :show, :edit, :update, :destroy ]
 
   devise_for :users, controllers: {
@@ -34,10 +33,10 @@ Rails.application.routes.draw do
     get "charts/body_metrics", to: "charts#body_metrics"
   end
 
-  get 'calendar', to: 'calendar#index'
-  
+  get "calendar", to: "calendar#index"
+
   namespace :api do
-    get 'calendar/histories', to: 'calendar#histories'
+    get "calendar/histories", to: "calendar#histories"
   end
 
 

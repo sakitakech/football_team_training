@@ -8,37 +8,44 @@ document.addEventListener("turbo:load", () => {
   const positionSelect = document.getElementById("positionSelect")
   const memberSelect = document.getElementById("memberSelect")
   const userLabel = document.getElementById("selectedUserLabel")
+  const defaultUserId = calendarEl.dataset.userId || null
 
-  const userId = calendarEl.dataset.userId
   let allEvents = []
 
-  fetch(`/api/calendar/histories${userId ? `?user_id=${userId}` : ''}`)
+  fetch("/api/calendar/histories")
     .then(response => response.json())
     .then(data => {
       allEvents = data.map(item => ({
         title: item.name,
         date: item.date,
-        position_id: item.position_id,
-        user_id: item.user_id
+        position_id: Number(item.position_id),
+        user_id: String(item.user_id) // ← 統一して文字列化
       }))
 
       const calendar = new Calendar(calendarEl, {
         plugins: [dayGridPlugin],
-        initialView: 'dayGridMonth',
-        locale: 'ja',
-        height: 'auto',
-        events: allEvents,
-        eventDisplay: 'auto',
-        displayEventTime: false,
-        eventClick: function(info) {
-          const userId = info.event.extendedProps.user_id
-          if (userId) {
-            window.location.href = `/users/${userId}/trainings`
-          }
-        }
+        initialView: "dayGridMonth",
+        locale: "ja",
+        height: "auto",
+        events: [], // 初期空
+        eventDisplay: "auto",
+        displayEventTime: false
       })
 
       calendar.render()
+
+      // ✅ 初期状態：user_id指定があればそれだけ表示
+      if (defaultUserId) {
+        memberSelect.value = defaultUserId
+        const filtered = allEvents.filter(e => e.user_id === defaultUserId)
+        calendar.addEventSource(filtered)
+
+        const selectedName = filtered[0]?.title || "選手"
+        userLabel.textContent = `${selectedName}のトレーニング履歴`
+        userLabel.classList.remove("hidden")
+      } else {
+        calendar.addEventSource(allEvents)
+      }
 
       // ✅ ポジションフィルター
       positionSelect?.addEventListener("change", () => {
@@ -56,7 +63,7 @@ document.addEventListener("turbo:load", () => {
         const selectedUser = memberSelect.value
 
         const filtered = selectedUser
-          ? allEvents.filter(e => e.user_id == selectedUser)
+          ? allEvents.filter(e => e.user_id === selectedUser)
           : allEvents
 
         calendar.removeAllEvents()

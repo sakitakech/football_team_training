@@ -4,14 +4,8 @@ let maxData = {}
 let bodyData = []
 let maxChart = null
 let bodyChart = null
-let userId = null
 
-// ✅ URLのパラメータから user_id を取得する関数
-const getUserIdFromParams = () => {
-  const params = new URLSearchParams(window.location.search)
-  return params.get("user_id") || null
-}
-
+// ✅ turbo:load 内部で全て実行
 document.addEventListener("turbo:load", () => {
   const userSelect = document.getElementById("userSelect")
   const presetSelect = document.querySelector("select[data-date-preset-target='preset']")
@@ -25,9 +19,9 @@ document.addEventListener("turbo:load", () => {
 
   const checkOrientation = () => {
     if (window.innerWidth < 640 && window.innerHeight > window.innerWidth) {
-      orientationWarning?.classList.remove("hidden")
+      orientationWarning.classList.remove("hidden")
     } else {
-      orientationWarning?.classList.add("hidden")
+      orientationWarning.classList.add("hidden")
     }
   }
 
@@ -35,7 +29,7 @@ document.addEventListener("turbo:load", () => {
   window.addEventListener("orientationchange", checkOrientation)
   window.addEventListener("resize", checkOrientation)
 
-  const now = new Date()
+  let now = new Date()
   let endDate = now
   let startDate = new Date(now)
   startDate.setDate(now.getDate() - 30)
@@ -51,10 +45,8 @@ document.addEventListener("turbo:load", () => {
   }
 
   const fetchAndRender = async () => {
-    const paramUserId = getUserIdFromParams()
-    userId = Number(paramUserId || userSelect?.value)
-
-    const now = new Date()
+    const userId = Number(userSelect.value) // ✅ 毎回取得する！
+    now = new Date()
     endDate = now
     startDate = new Date(now)
 
@@ -93,7 +85,6 @@ document.addEventListener("turbo:load", () => {
 
   const renderMaxChart = () => {
     if (maxChart) maxChart.destroy()
-
     const checked = [...document.querySelectorAll(".event-check:checked")].map(cb => cb.value)
     if (!checked.length || !Object.keys(maxData).length) {
       maxCtx.classList.add("hidden")
@@ -160,7 +151,6 @@ document.addEventListener("turbo:load", () => {
 
   const renderBodyChart = () => {
     if (bodyChart) bodyChart.destroy()
-
     const allDates = generateDateRange(startDate, endDate)
     const weightMap = {}
     const fatMap = {}
@@ -171,11 +161,10 @@ document.addEventListener("turbo:load", () => {
 
     const weightData = allDates.map(date => weightMap[date] ?? null)
     const fatData = allDates.map(date => fatMap[date] ?? null)
+    const hasWeight = weightData.some(v => v !== null)
+    const hasFat = fatData.some(v => v !== null)
 
-    const hasAnyWeight = weightData.some(v => v !== null)
-    const hasAnyFat = fatData.some(v => v !== null)
-
-    if (!hasAnyWeight && !hasAnyFat) {
+    if (!hasWeight && !hasFat) {
       bodyCtx.classList.add("hidden")
       bodyNoData.classList.remove("hidden")
       return
@@ -185,17 +174,17 @@ document.addEventListener("turbo:load", () => {
     bodyNoData.classList.add("hidden")
 
     const datasets = []
-    if (hasAnyWeight) {
+    if (hasWeight) {
       datasets.push({
         type: 'bar',
         label: '体重',
         data: weightData,
         backgroundColor: 'rgba(59,130,246,0.5)',
         spanGaps: true,
-        yAxisID: 'y',
+        yAxisID: 'y'
       })
     }
-    if (hasAnyFat) {
+    if (hasFat) {
       datasets.push({
         type: 'line',
         label: '体脂肪率',
@@ -204,7 +193,7 @@ document.addEventListener("turbo:load", () => {
         backgroundColor: 'rgba(34,197,94,0.3)',
         borderWidth: 2,
         spanGaps: true,
-        yAxisID: 'y2',
+        yAxisID: 'y2'
       })
     }
 
@@ -245,11 +234,9 @@ document.addEventListener("turbo:load", () => {
   fetchAndRender()
 
   document.querySelectorAll(".event-check").forEach(cb => cb.addEventListener("change", renderCharts))
-  userSelect?.addEventListener("change", fetchAndRender)
-
-  presetSelect?.addEventListener("change", () => {
-    const selected = presetSelect.value
-    if (selected === "custom") {
+  userSelect.addEventListener("change", fetchAndRender)
+  presetSelect.addEventListener("change", () => {
+    if (presetSelect.value === "custom") {
       startInput.disabled = false
       endInput.disabled = false
     } else {
@@ -258,9 +245,8 @@ document.addEventListener("turbo:load", () => {
     }
     fetchAndRender()
   })
-
-  startInput?.addEventListener("change", fetchAndRender)
-  endInput?.addEventListener("change", fetchAndRender)
+  startInput.addEventListener("change", fetchAndRender)
+  endInput.addEventListener("change", fetchAndRender)
 })
 
 document.addEventListener("turbo:before-cache", () => {
