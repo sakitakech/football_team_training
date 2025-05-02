@@ -16,7 +16,7 @@ class ApplicationController < ActionController::Base
     return if devise_controller? # ← Deviseのログイン・登録画面では実行しない
 
     redirect_to new_team_path, alert: "まずはチームを作成してください"
-end
+  end
 
   def configure_permitted_parameters
     # 新規登録用

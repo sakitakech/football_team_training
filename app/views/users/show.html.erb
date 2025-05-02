@@ -3,7 +3,9 @@
 
   <div>
     <p class="text-sm text-gray-500 mb-1">所属チーム</p>
-    <p class="text-lg font-medium"><%=  @user.team.name %></p>
+    <p class="text-lg font-medium"> <%= @user.team.present? ? @user.team.name : "チームに所属していません" %>
+  </p>
+
   </div>
 
   <div>
