@@ -8,8 +8,8 @@ class ChartsController < ApplicationController
         .order("positions.id ASC", "last_name ASC")
         .group_by(&:position)
     else
-      @team_members = []
-      @grouped_members = {}
+      @team_members = [current_user]
+      @grouped_members = { current_user.position => [current_user] }
     end
 
     @max_weights = MaxWeight.all

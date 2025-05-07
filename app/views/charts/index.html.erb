@@ -1,20 +1,18 @@
-<% if current_user.team_id.present? %>
+
   <div class="max-w-md mx-auto mb-6">
     <label for="userSelect" class="block text-sm font-bold text-white mb-2">選手を選択:</label>
     <select id="userSelect" class="w-full p-2 rounded bg-gray-100 text-gray-800 shadow">
-      <option value="">全員表示</option>
       <% @grouped_members.each do |position, members| %>
         <optgroup label="--- <%= position.short_name %> ---">
           <% members.each do |member| %>
             <option value="<%= member.id %>" <%= "selected" if @selected_user_id == member.id %>>
               <%= member.last_name %> <%= member.first_name %>
-            </option>
           <% end %>
         </optgroup>
       <% end %>
     </select>
   </div>
-<% end %>
+
 
 
 <div id="orientationWarning" class="text-orange-300 text-sm text-center mt-2 hidden sm:hidden">
