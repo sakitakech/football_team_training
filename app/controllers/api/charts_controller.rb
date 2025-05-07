@@ -39,19 +39,19 @@ module Api
       private
 
       def set_user
-  @user = User.find(params[:user_id])
+        @user = User.find(params[:user_id])
 
   # ✅ チームに所属している場合だけチームIDを比較
-  if current_user.team_id.present?
-    if @user.team_id != current_user.team_id
+        if current_user.team_id.present?
+          if @user.team_id != current_user.team_id
       render json: { error: "他チームのデータにはアクセスできません" }, status: :forbidden
-    end
-  else
-    # ✅ current_userがチーム未所属 → 自分以外のデータにはアクセスできない
-    if @user.id != current_user.id
-      render json: { error: "他ユーザーのデータにはアクセスできません" }, status: :forbidden
-    end
-  end
-end
+          end
+        else
+         # ✅ current_userがチーム未所属 → 自分以外のデータにはアクセスできない
+          if @user.id != current_user.id
+            render json: { error: "他ユーザーのデータにはアクセスできません" }, status: :forbidden
+          end
+        end
+      end
     end
 end
