@@ -1,2 +1,17 @@
-<h1>TeamJoinRequests#new</h1>
-<p>Find me in app/views/team_join_requests/new.html.erb</p>
+<div class="max-w-xl mx-auto p-6 bg-white shadow rounded space-y-4">
+  <h2 class="text-xl font-bold mb-4">チーム参加の申請</h2>
+
+  <%= form_with url: team_join_requests_path, method: :post, local: true do |f| %>
+    <%= hidden_field_tag :token, @token %>
+
+    <div class="mb-4">
+      <label for="message" class="block text-sm font-bold text-gray-700 mb-1">申請メッセージ</label>
+      <%= text_area_tag :message, @join_request.message, rows: 4, class: "w-full p-2 border rounded bg-gray-50" %>
+      <p class="text-sm text-gray-500 mt-1">例: 「25歳WRのくぼです。よろしくお願いします！」</p>
+    </div>
+
+    <div class="text-center">
+      <%= submit_tag "申請を送信", class: "bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700" %>
+    </div>
+  <% end %>
+</div>
