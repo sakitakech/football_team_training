@@ -14,12 +14,14 @@ class UsersController < ApplicationController
 
     @users_grouped = @users.group_by(&:position)
 
-    if current_user.admin?
-      @pending_requests = TeamJoinRequest.where(team_id: current_user.team_id, status: "pending").includes(:user)
+    if current_user.admin? && current_user.team_id.present?
+      @pending_requests = TeamJoinRequest
+        .includes(:user)
+        .where(team_id: current_user.team_id, status: :pending)
     end
-    
+  
+    @team_members = User.where(team_id: current_user.team_id).order(:position_id, :last_name)
   end
-
 
   def show
     @user = current_user

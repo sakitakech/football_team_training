@@ -58,8 +58,23 @@ class TeamJoinRequestsController < ApplicationController
   end
 
   def update
+    @request = TeamJoinRequest.find(params[:id])
+
+    if params[:decision] == "approve"
+      @request.user.update!(team_id: @request.team_id)
+      @request.update!(status: :approved)
+      flash[:notice] = "#{@request.user.full_name}さんをチームに追加しました"
+    elsif params[:decision] == "reject"
+      @request.update!(status: :rejected)
+      flash[:alert] = "#{@request.user.full_name}さんの参加を拒否しました"
+    else
+      flash[:alert] = "無効な操作です"
+    end
+
+    redirect_to users_path
   end
 
+  
   private
 
   def require_admin!
