@@ -19,7 +19,7 @@ class User < ApplicationRecord
     enum :role, { member: 0, admin: 1 }
 
     def full_name
-      "#{last_name} #{first_name}"
+      "#{last_name}#{first_name}"
     end
 
     def self.ransackable_associations(auth_object = nil)
@@ -27,6 +27,11 @@ class User < ApplicationRecord
     end
 
     def self.ransackable_attributes(auth_object = nil)
-      [ "first_name", "last_name", "position_id" ]
+      [ "first_name", "last_name", "full_name", "position_id" ]
     end
+
+    ransacker :full_name do
+      Arel.sql("CONCAT(users.last_name, users.first_name)")
+    end
+    
 end
