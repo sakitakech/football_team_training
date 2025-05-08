@@ -54,9 +54,16 @@ class TeamJoinRequestsController < ApplicationController
   end
 
   def index
+   @pending_requests = TeamJoinRequest.where(team_id: current_user.team_id, status: "pending").includes(:user)
   end
 
   def update
+  end
+
+  private
+
+  def require_admin!
+    redirect_to root_path, alert: "権限がありません" unless current_user.admin?
   end
 end
 

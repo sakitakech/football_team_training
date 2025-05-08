@@ -1,5 +1,22 @@
 <h1 class="text-2xl font-bold text-center mb-6">ポジション別メンバー一覧</h1>
 
+<% if current_user.admin? && @pending_requests.present? %>
+  <div class="bg-white rounded shadow p-4 mb-6">
+    <h2 class="text-lg font-bold mb-4">参加リクエスト一覧</h2>
+
+    <% @pending_requests.each do |req| %>
+      <div class="border-b pb-2 mb-2">
+        <p><strong><%= req.user.full_name %></strong>（<%= req.user.position&.short_name %>）</p>
+        <p class="text-sm text-gray-600"><%= req.message %></p>
+        <div class="mt-2">
+          <%= button_to "承認", team_join_request_path(req), method: :patch, params: { decision: "approve" }, class: "bg-green-500 text-white px-3 py-1 rounded mr-2" %>
+          <%= button_to "否認", team_join_request_path(req), method: :patch, params: { decision: "reject" }, class: "bg-red-500 text-white px-3 py-1 rounded" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% end %>
+
 <%= render "search_form", q: @q, url: users_path %>
 
 <% @users_grouped.each do |position, users| %>

@@ -13,6 +13,11 @@ class UsersController < ApplicationController
                .order("positions.id", "users.id")
 
     @users_grouped = @users.group_by(&:position)
+
+    if current_user.admin?
+      @pending_requests = TeamJoinRequest.where(team_id: current_user.team_id, status: "pending").includes(:user)
+    end
+    
   end
 
 
