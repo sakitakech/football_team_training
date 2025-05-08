@@ -3,17 +3,18 @@ class TeamJoinRequestsController < ApplicationController
   before_action :require_admin!
 
   def new
-    @token = params[:token]
+    @invite = InviteToken.find_by(token: params[:token])
 
-    unless @token.present?
-      redirect_to root_path, alert: "無効な招待リンクです"
+    if @invite.nil? || @invite.expires_at < Time.current
+      redirect_to root_path, alert: "この招待リンクは期限切れです"
       return
     end
 
+    @token = @invite.token
+
     # 仮の参加リクエストオブジェクト（Structで作る）
-    TeamJoinRequest = Struct.new(:message, keyword_init: true)
-    # 名前付き引数にでき可読性が高まる
-    @join_request = TeamJoinRequest.new
+    @join_request = Struct.new(:message, keyword_init: true).new
+
     # 空のオブジェクト作成
 
   end
@@ -74,7 +75,7 @@ class TeamJoinRequestsController < ApplicationController
     redirect_to users_path
   end
 
-  
+
   private
 
   def require_admin!
