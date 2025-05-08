@@ -15,6 +15,7 @@ class User < ApplicationRecord
     has_many :trainings,  dependent:  :destroy
     belongs_to :position
     belongs_to :team, optional: true
+    has_many :team_join_requests
 
     enum :role, { member: 0, admin: 1 }
 
@@ -33,5 +34,5 @@ class User < ApplicationRecord
     ransacker :full_name do
       Arel.sql("CONCAT(users.last_name, users.first_name)")
     end
-    
+
 end

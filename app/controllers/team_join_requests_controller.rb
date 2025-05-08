@@ -1,7 +1,6 @@
 class TeamJoinRequestsController < ApplicationController
   before_action :authenticate_user!
-  before_action :require_admin!
-
+  before_action :require_admin!, only: [:index, :update]
   def new
     @invite = InviteToken.find_by(token: params[:token])
 
