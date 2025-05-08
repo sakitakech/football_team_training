@@ -3,12 +3,18 @@ class TeamJoinRequestsController < ApplicationController
 
   def new
     @token = params[:token]
-    if @token.blank?
-      redirect_to root_path, alert: "不正な招待URLです"
+
+    unless @token.present?
+      redirect_to root_path, alert: "無効な招待リンクです"
+      return
     end
 
-    # いちいちDBにカラムを作らない簡単にオブジェクトを作る方法
-    @join_request = OpenStruct.new(message: "")
+    # 仮の参加リクエストオブジェクト（Structで作る）
+    TeamJoinRequest = Struct.new(:message, keyword_init: true)
+    # 名前付き引数にでき可読性が高まる
+    @join_request = TeamJoinRequest.new
+    # 空のオブジェクト作成
+
   end
 
   def create
@@ -20,3 +26,4 @@ class TeamJoinRequestsController < ApplicationController
   def update
   end
 end
+
