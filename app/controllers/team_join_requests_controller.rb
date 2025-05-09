@@ -1,6 +1,7 @@
 class TeamJoinRequestsController < ApplicationController
   before_action :authenticate_user!
   before_action :require_admin!, only: [:index, :update]
+
   def new
     @invite = InviteToken.find_by(token: params[:token])
 
@@ -10,22 +11,18 @@ class TeamJoinRequestsController < ApplicationController
     end
 
     @token = @invite.token
-
-    # 仮の参加リクエストオブジェクト（Structで作る）
     @join_request = Struct.new(:message, keyword_init: true).new
-
-    # 空のオブジェクト作成
-
   end
 
   def create
-    token = params[:token]
-    team = Team.find_by(invite_token: token)
+    invite = InviteToken.find_by(token: params[:token])
 
-    unless team
+    if invite.nil? || invite.expires_at < Time.current
       redirect_to root_path, alert: "招待リンクが無効または期限切れです"
       return
     end
+
+    team = invite.team
 
     if current_user.team_id.present?
       redirect_to root_path, alert: "すでにチームに所属しています"
@@ -41,7 +38,7 @@ class TeamJoinRequestsController < ApplicationController
     @join_request = TeamJoinRequest.new(
       user: current_user,
       team: team,
-      message: params[:team_join_request][:message],
+      message: params[:message],
       status: :pending,
       expires_at: 12.hours.from_now
     )
@@ -54,7 +51,7 @@ class TeamJoinRequestsController < ApplicationController
   end
 
   def index
-   @pending_requests = TeamJoinRequest.where(team_id: current_user.team_id, status: "pending").includes(:user)
+    @pending_requests = TeamJoinRequest.where(team_id: current_user.team_id, status: "pending").includes(:user)
   end
 
   def update
@@ -74,12 +71,9 @@ class TeamJoinRequestsController < ApplicationController
     redirect_to users_path
   end
 
-
   private
 
   def require_admin!
     redirect_to root_path, alert: "権限がありません" unless current_user.admin?
   end
 end
-
-
