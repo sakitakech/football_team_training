@@ -40,6 +40,18 @@ class UsersController < ApplicationController
     end
   end
 
+  def remove_from_team
+    user = User.find(params[:id])
+  
+    unless current_user.admin?
+      redirect_to users_path, alert: "権限がありません"
+      return
+    end
+  
+    user.update(team_id: nil)
+    redirect_to users_path, notice: "#{user.full_name} さんをチームから外しました"
+  end
+
   private
 
   def user_params
