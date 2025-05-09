@@ -4,10 +4,11 @@ class TeamInvitationsController < ApplicationController
 
   def new
     @token = SecureRandom.hex(10)
-    @team = current_user.team
-    expires_at = 12.hours.from_now
-
-    # 同じチームで既存の未期限切れの招待は再利用もOK
+    @invite = InviteToken.create!(
+      token: @token,
+      team: current_user.team,
+      expires_at: 12.hours.from_now
+    )
     @invite_url = new_team_join_request_url(token: @token)
   end
 
