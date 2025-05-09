@@ -4,6 +4,7 @@
   <div class="mb-4">
     <p class="text-sm text-gray-500 mb-1">所属チーム</p>
 
+
     <% if @user == current_user && current_user.team_id.nil? && TeamJoinRequest.exists?(user_id: current_user.id, status: :pending) %>
       <p class="text-lg font-medium text-orange-500">申請中</p>
 
@@ -40,6 +41,13 @@
   <div>
     <p class="text-sm text-gray-500 mb-1">最終更新日</p>
     <p class="text-lg"><%= @user.updated_at.strftime("%Y年%m月%d日 %H:%M") %></p>
+  </div>
+
+  <div class="pt-4">
+  <%= button_to "チームを脱退する", leave_team_users_path,
+        method: :patch,
+        data: { confirm: "本当に脱退しますか？" },
+        class: "inline-block text-blue-600 hover:underline font-semibold bg-transparent border-none p-0" %>
   </div>
 
   <div class="pt-4">

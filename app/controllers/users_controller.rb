@@ -58,6 +58,14 @@ class UsersController < ApplicationController
     redirect_to users_path, notice: "#{user.full_name} さんをチームから外しました"
   end
 
+  def leave_team
+    if current_user.update(team_id: nil)
+      redirect_to root_path, notice: "チームを脱退しました"
+    else
+      redirect_to request.referer || root_path, alert: "脱退に失敗しました"
+    end
+  end
+
   private
 
   def user_params

@@ -17,6 +17,9 @@ Rails.application.routes.draw do
     member do
       patch :remove_from_team
     end
+    collection do
+      patch :leave_team 
+    end
   end
   
   get "profile/edit", to: "users#edit", as: :edit_profile
