@@ -1,4 +1,4 @@
-<div class="max-w-lg mx-auto p-6 bg-white rounded shadow">
+<div class="mt-10 max-w-lg mx-auto p-6 bg-gray-200 rounded shadow">
   <h2 class="text-xl font-bold mb-4">チーム参加リクエスト</h2>
 
   <%= form_with url: team_join_requests_path, method: :post, local: true do %>
@@ -6,14 +6,14 @@
     <%= hidden_field_tag :token, @token %>
 
     <div class="mb-4">
-      <%= label_tag :message, "情報", class: "block font-medium mb-1" %>
-      <%= text_field_tag :message, nil, class: "w-full border rounded p-2", placeholder: "例）4年WRの西岡です。よろしくお願いします。" %>
+      <%= label_tag :message, "情報 100文字以下", class: "block font-medium mb-1" %>
+      <%= text_field_tag :message, nil, class: "w-full border rounded p-2", placeholder: "例）4年WRの西岡です。よろしくお願いします。" ,maxlength: 100 %>
     </div>
 
-    <%= submit_tag "リクエストを送信", class: "bg-blue-600 text-white px-4 py-2 rounded" %>
+    <%= submit_tag "リクエストを送信", class: "bg-blue-600 text-white  px-4 py-2 rounded" %>
   <% end %>
 </div>
 
-<div class="mx-auto font-bold mb-4">
+<div class="flex justify-center mx-auto font-bold mb-4">
   <%= link_to "キャンセル", root_path, class: "text-gray-500 hover:underline mt-4 inline-block" %>
 </div>
