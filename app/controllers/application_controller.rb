@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
 
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :redirect_admin_to_team_creation
+  before_action :store_user_location!, if: :storable_location?
 
   protected
 
@@ -26,7 +27,21 @@ class ApplicationController < ActionController::Base
     # devise_parameter_sanitizer.permit(:account_update, keys: [:first_name, :last_name])
   end
 
-  def after_sign_in_path_for(resource)
-    trainings_path  # ← 任意のルートに変更可能
+  def storable_location?
+    request.get? &&
+      is_navigational_format? &&
+      !devise_controller? &&
+      !request.xhr?
   end
+
+  def store_user_location!
+    # Deviseのリダイレクト用に保存
+    store_location_for(:user, request.fullpath)
+  end
+
+  def after_sign_in_path_for(resource)
+    stored_location_for(resource) || root
+  end
+
+  
 end
