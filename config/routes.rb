@@ -13,7 +13,14 @@ Rails.application.routes.draw do
 
   resources :users, only: [ :new, :index, :show, :update ] do
     resources :trainings, only: [ :index ]
+    member do
+      patch :remove_from_team
+    end
+    collection do
+      patch :leave_team
+    end
   end
+
   get "profile/edit", to: "users#edit", as: :edit_profile
 
   resources :trainings
@@ -39,6 +46,8 @@ Rails.application.routes.draw do
     get "calendar/histories", to: "calendar#histories"
   end
 
+  resources :team_invitations, only: [ :new ]
+  resources :team_join_requests, only: [ :new, :create, :index, :update ]
 
   if Rails.env.development?
     mount LetterOpenerWeb::Engine, at: "/letter_opener"
