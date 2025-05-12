@@ -34,5 +34,4 @@ class User < ApplicationRecord
     ransacker :full_name do
       Arel.sql("CONCAT(users.last_name, users.first_name)")
     end
-
 end

@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-
   resources :teams, only: [ :new, :create, :show, :edit, :update, :destroy ]
 
   devise_for :users, controllers: {
@@ -18,10 +17,10 @@ Rails.application.routes.draw do
       patch :remove_from_team
     end
     collection do
-      patch :leave_team 
+      patch :leave_team
     end
   end
-  
+
   get "profile/edit", to: "users#edit", as: :edit_profile
 
   resources :trainings
@@ -47,8 +46,8 @@ Rails.application.routes.draw do
     get "calendar/histories", to: "calendar#histories"
   end
 
-  resources :team_invitations, only: [:new]
-  resources :team_join_requests, only: [:new, :create, :index, :update]
+  resources :team_invitations, only: [ :new ]
+  resources :team_join_requests, only: [ :new, :create, :index, :update ]
 
   if Rails.env.development?
     mount LetterOpenerWeb::Engine, at: "/letter_opener"
