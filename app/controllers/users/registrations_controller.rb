@@ -76,9 +76,16 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # end
 
   # DELETE /resource
-  # def destroy
-  #   super
-  # end
+  def destroy
+    if current_user.admin? && only_one_admin?(current_user)
+      redirect_to root_path, alert: "チームに1人しか管理者がいないため、アカウントを削除できません。"
+      return
+    end
+  
+    current_user.destroy
+    redirect_to root_path, notice: "アカウントを削除しました。"
+  end
+  
 
   # GET /resource/cancel
   # Forces the session data which is usually expired after sign
@@ -113,4 +120,11 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # def after_inactive_sign_up_path_for(resource)
   #   super(resource)
   # end
+
+  private
+
+  def only_one_admin?(user)
+      User.where(team_id: current_user.team_id, role: "admin").count == 1
+  end
+
 end
