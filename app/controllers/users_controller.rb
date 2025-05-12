@@ -58,7 +58,17 @@ class UsersController < ApplicationController
     redirect_to users_path, notice: "#{user.full_name} さんをチームから外しました"
   end
 
+
+
+
+
+
   def leave_team
+    if current_user.admin? && only_one_admin?(current_user)
+      redirect_to user_path(current_user), alert: "チームに1人しか管理者がいないため、チームを脱退できません。"
+      return
+    end
+
     if current_user.update(team_id: nil)
       redirect_to root_path, notice: "チームを脱退しました"
     else
@@ -71,4 +81,6 @@ class UsersController < ApplicationController
   def user_params
     params.require(:user).permit(:first_name, :last_name, :position_id, :introduction)
   end
+
+
 end
