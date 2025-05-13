@@ -12,13 +12,13 @@
         class: "bg-blue-600 hover:bg-blue-700 text-white text-sm font-bold py-2 px-4 rounded transition" %>
 
           
-<%= button_to "削除", @training,
+  <%= button_to "削除", @training,
       {
         method: :delete,
         data: { turbo_confirm: "削除してもよろしいですか？" },
         class: "bg-blue-600 hover:bg-blue-700 text-white text-sm font-bold py-2 px-4 rounded transition"
-      } %>
-    <%= link_to "一覧に戻る", trainings_path,
+   } %>
+  <%= link_to "一覧に戻る", trainings_path,
         class: "text-sm mt-2" %>
   </div>
 <% end %>
