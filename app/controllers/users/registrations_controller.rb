@@ -81,11 +81,11 @@ class Users::RegistrationsController < Devise::RegistrationsController
       redirect_to confirm_delete_user_path, alert: "チームに1人しか管理者がいないため、アカウントを削除できません。"
       return
     end
-  
+
     current_user.destroy
     redirect_to root_path, notice: "アカウントを削除しました。"
   end
-  
+
 
   # GET /resource/cancel
   # Forces the session data which is usually expired after sign
@@ -126,5 +126,4 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def only_one_admin?(user)
       User.where(team_id: current_user.team_id, role: "admin").count == 1
   end
-
 end
