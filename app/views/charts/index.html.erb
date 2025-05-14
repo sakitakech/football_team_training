@@ -24,21 +24,23 @@
 <div class="p-4 space-y-8">
   <!-- ✅ チェックボックス -->
   <div class="bg-gray-800 p-4 rounded shadow max-w-full mx-auto">
-    <p class="mb-2 font-bold text-white">種目を選択:</p>
     <div class="flex flex-wrap text-white gap-4 mb-4">
       <label><input type="checkbox" class="event-check" value="ベンチプレス" checked> ベンチプレス</label>
       <label><input type="checkbox" class="event-check" value="スクワット" checked> スクワット</label>
       <label><input type="checkbox" class="event-check" value="デッドリフト" checked> デッドリフト</label>
       <label><input type="checkbox" class="event-check" value="クリーン" checked> クリーン</label>
     </div>
-    <canvas id="maxChart" class="w-full min-h-[300px] sm:min-h-[400px] md:min-h-[500px] bg-white rounded"></canvas>
-
+    <div class="w-full overflow-x-auto">
+  <div class="min-w-[600px]">
+    <canvas id="maxChart" class="w-full h-[300px] sm:h-[300px] md:h-[400px] bg-white rounded"></canvas>
+  </div>
+</div>
     <div id="maxChartNoData" class="text-center text-gray-500 mt-4 hidden">データがありません</div>
   </div>
 
 
   <div class="bg-gray-800 p-4 rounded shadow max-w-full mx-auto">
-    <canvas id="bodyChart" class="w-full min-h-[300px] sm:min-h-[400px] md:min-h-[500px] bg-white rounded"></canvas>
+    <canvas id="bodyChart" class="w-full min-h-[300px] sm:min-h-[300px] md:min-h-[400px] bg-white rounded"></canvas>
     <div id="bodyChartNoData" class="text-center text-gray-500 mt-4 hidden">データがありません</div>
   </div>
 </div>
