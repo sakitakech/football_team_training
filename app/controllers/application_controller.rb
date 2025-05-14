@@ -42,4 +42,8 @@ class ApplicationController < ActionController::Base
   def after_sign_in_path_for(resource)
     stored_location_for(resource) || root
   end
+
+  def only_one_admin?(user)
+    User.where(team_id: current_user.team_id, role: "admin").count == 1
+  end
 end
