@@ -24,7 +24,7 @@ module Myapp
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
     config.generators do |g|
-      g.factory_bot suffix: 'factory', dir: 'spec/factories'
+      g.factory_bot suffix: "factory", dir: "spec/factories"
     end
   end
 end

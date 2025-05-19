@@ -1,7 +1,7 @@
 FactoryBot.define do
     factory :training do
       association :user  # ユーザーと紐づけ（必須）
-  
+
       datetime { Time.current }
       part     { "上半身" }
       content  { "ベンチプレス、懸垂" }
@@ -10,4 +10,3 @@ FactoryBot.define do
       body_fat    { |n| "#{n}" }
     end
   end
-  
