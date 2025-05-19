@@ -41,3 +41,19 @@ League.create!([
   { name: "高校" },
   { name: "その他" }
 ])
+
+テストコード
+
+# チームを作成（リーグID 1〜5に1チームずつ）
+teams = (1..5).map { |i| create(:team, sequence_id: i) }
+
+# チーム1に所属するユーザーを3人
+users_team1 = create_list(:user, 3, :team1)
+
+# チーム2に所属するユーザーを3人
+users_team2 = create_list(:user, 3, :team2)
+
+# それぞれのユーザーにtrainingを2件ずつ
+users_team1.each do |user|
+  create_list(:training, 2, user: user)
+end
