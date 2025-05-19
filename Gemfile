@@ -40,6 +40,12 @@ gem "devise"
 gem "kaminari"
 gem "ransack"
 
+gem 'omniauth-line'
+gem 'omniauth-rails_csrf_protection'
+# LINEのSNS認証
+gem 'dotenv-rails'
+#  環境変数を設定するためらしい
+
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"
