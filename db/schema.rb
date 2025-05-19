@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_05_14_054528) do
+ActiveRecord::Schema[8.0].define(version: 2025_05_19_141728) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -104,7 +104,9 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_14_054528) do
     t.string "unconfirmed_email"
     t.text "introduction"
     t.bigint "team_id"
-    t.integer "role"
+    t.integer "role", default: 0, null: false
+    t.string "provider"
+    t.string "uid"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["position_id"], name: "index_users_on_position_id"
     t.index ["team_id"], name: "index_users_on_team_id"
