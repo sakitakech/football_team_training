@@ -83,4 +83,8 @@ Rails.application.configure do
 
   config.action_mailer.delivery_method = :letter_opener_web
   config.action_mailer.perform_deliveries = true
+
+  Rails.application.configure do
+    config.hosts.clear
+  end
 end
