@@ -113,5 +113,5 @@ Rails.application.configure do
     enable_starttls_auto: true
   }
 
-    config.action_mailer.default_url_options = { host: "football-team-training.onrender.com", protocol: "https" }
+    config.action_mailer.default_url_options = { host: "footballteamtraining.jp", protocol: "https" }
 end
