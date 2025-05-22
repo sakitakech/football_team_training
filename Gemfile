@@ -39,6 +39,7 @@ gem "bootsnap", require: false
 gem "devise"
 gem "kaminari"
 gem "ransack"
+gem "meta-tags"
 
 gem "omniauth-line"
 gem "omniauth-rails_csrf_protection"
