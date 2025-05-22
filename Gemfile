@@ -40,10 +40,10 @@ gem "devise"
 gem "kaminari"
 gem "ransack"
 
-gem 'omniauth-line'
-gem 'omniauth-rails_csrf_protection'
+gem "omniauth-line"
+gem "omniauth-rails_csrf_protection"
 # LINEのSNS認証
-gem 'dotenv-rails'
+gem "dotenv-rails"
 #  環境変数を設定するためらしい
 
 group :development, :test do

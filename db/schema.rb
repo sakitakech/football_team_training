@@ -104,7 +104,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_19_141728) do
     t.string "unconfirmed_email"
     t.text "introduction"
     t.bigint "team_id"
-    t.integer "role", default: 0, null: false
+    t.integer "role"
     t.string "provider"
     t.string "uid"
     t.index ["email"], name: "index_users_on_email", unique: true
