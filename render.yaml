@@ -20,7 +20,7 @@ services:
       - key: GMAIL_PASSWORD
         sync: false
       - key: WEB_CONCURRENCY
-        value: "2"
+        sync: false
 
   - type: cron
     name: football_team_training_schedule
@@ -46,4 +46,4 @@ services:
       - key: GMAIL_PASSWORD
         sync: false
       - key: WEB_CONCURRENCY
-        value: "2"
+        sync: false
