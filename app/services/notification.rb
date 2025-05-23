@@ -7,4 +7,4 @@ class Notification
         end
       end
     end
-  end
+end

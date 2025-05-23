@@ -1,6 +1,6 @@
 class NotificationMailer < ApplicationMailer
     default from: ENV["GMAIL_USERNAME"]
-  
+
     def remind_user_to_train(user)
       @user = user
       mail(
@@ -8,4 +8,4 @@ class NotificationMailer < ApplicationMailer
         subject: "先週トレーニングが登録されていません"
       )
     end
-  end
+end
