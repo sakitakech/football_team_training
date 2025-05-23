@@ -1,0 +1,32 @@
+services:
+  - type: web
+    name: football-training-app
+    env: ruby
+    plan: starter
+    region: singapore
+    buildCommand: bundle install && yarn install && bundle exec rake assets:precompile
+    startCommand: bundle exec puma -C config/puma.rb
+    envVars:
+      - key: RAILS_ENV
+        value: production
+      - key: DATABASE_URL
+        fromDatabase:
+          name: myapp-db
+          property: connectionString
+      - key: SECRET_KEY_BASE
+        sync: false  # Renderダッシュボードで手動入力（安全）
+
+cronJobs:
+  - name: training-inactivity-notifier
+    schedule: "0 3 * * 1"  # 毎週月曜12:00 JST（UTC 3:00）
+    command: bundle exec rails runner "Notification.check_training_inactivity"
+    env: ruby
+    plan: starter
+    region: singapore
+    envVars:
+      - key: RAILS_ENV
+        value: production
+      - key: DATABASE_URL
+        fromDatabase:
+          name: myapp-db
+          property: connectionString
