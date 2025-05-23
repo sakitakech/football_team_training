@@ -16,13 +16,16 @@ services:
       - key: SECRET_KEY_BASE
         sync: false  # Renderダッシュボードで手動入力（安全）
 
-cronJobs:
-  - name: training-inactivity-notifier
-    schedule: "0 3 * * 1"  # 毎週月曜12:00 JST（UTC 3:00）
-    command: bundle exec rails runner "Notification.check_training_inactivity"
-    env: ruby
+  - type: cron
+    name: football_team_training_schedule
+    runtime: ruby
+    repo: https://github.com/sakitakech/football_team_training
     plan: starter
     region: singapore
+    buildCommand: bundle install && yarn install && bundle exec rake assets:precompile && bundle exec rake assets:clean
+    startCommand: bundle exec rails runner "Notification.check_training_inactivity"
+    schedule: "0 4 * * 1"  # JST 月曜13:00 に実行（UTC+9 → UTC 4:00）
+    autoDeployTrigger: commit
     envVars:
       - key: RAILS_ENV
         value: production
@@ -30,3 +33,11 @@ cronJobs:
         fromDatabase:
           name: myapp-db
           property: connectionString
+      - key: SECRET_KEY_BASE
+        sync: false
+      - key: GMAIL_USERNAME
+        sync: false
+      - key: GMAIL_PASSWORD
+        sync: false
+      - key: WEB_CONCURRENCY
+        sync: false
