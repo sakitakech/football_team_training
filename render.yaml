@@ -14,7 +14,13 @@ services:
           name: fft-postgres
           property: connectionString
       - key: SECRET_KEY_BASE
-        sync: false  # Renderダッシュボードで手動入力（安全）
+        sync: false
+      - key: GMAIL_USERNAME
+        sync: false
+      - key: GMAIL_PASSWORD
+        sync: false
+      - key: WEB_CONCURRENCY
+        value: "2"
 
   - type: cron
     name: football_team_training_schedule
@@ -40,4 +46,4 @@ services:
       - key: GMAIL_PASSWORD
         sync: false
       - key: WEB_CONCURRENCY
-        sync: false
+        value: "2"
