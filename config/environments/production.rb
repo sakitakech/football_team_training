@@ -95,6 +95,12 @@ Rails.application.configure do
   # Only use :id for inspections in production.
   config.active_record.attributes_for_inspect = [ :id ]
 
+
+
+  config.action_mailer.perform_deliveries = true
+
+
+  
   # Enable DNS rebinding protection and other `Host` header attacks.
   config.hosts << "footballteamtraining.jp"
   config.hosts << "football-team-training.onrender.com"
@@ -110,7 +116,7 @@ Rails.application.configure do
     domain:               "gmail.com",
     user_name:            ENV["GMAIL_USERNAME"],
     password:             ENV["GMAIL_PASSWORD"],
-    authentication:       "login",
+    authentication: "plain",
     enable_starttls_auto: true
   }
 
