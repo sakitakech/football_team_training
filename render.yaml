@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: football-training-app
+    name: football_team_training
     env: ruby
     plan: starter
     region: singapore
