@@ -69,7 +69,7 @@ class UsersController < ApplicationController
       return
     end
 
-    if current_user.update(team_id: nil)
+    if current_user.update(team_id: nil, role: "member")
       redirect_to root_path, notice: "チームを脱退しました"
     else
       redirect_to request.referer || root_path, alert: "脱退に失敗しました"
