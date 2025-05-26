@@ -100,7 +100,7 @@ Rails.application.configure do
   config.action_mailer.perform_deliveries = true
 
 
-  
+
   # Enable DNS rebinding protection and other `Host` header attacks.
   config.hosts << "footballteamtraining.jp"
   config.hosts << "football-team-training.onrender.com"

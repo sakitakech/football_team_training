@@ -59,10 +59,6 @@ class UsersController < ApplicationController
   end
 
 
-
-
-
-
   def leave_team
     if current_user.admin? && only_one_admin?(current_user)
       redirect_to user_path(current_user), alert: "チームに1人しか管理者がいないため、チームを脱退できません。"
@@ -76,7 +72,41 @@ class UsersController < ApplicationController
     end
   end
 
+  def promote_admin
+    authorize_admin_action!
+    user = User.find(params[:id])
+
+    if admin_count_for_team >= 5
+      redirect_to users_path, alert: "このチームにはすでに5人の管理者がいます。"
+      return
+    end
+
+    if user.update(role: "admin")
+      redirect_to users_path, notice: "#{user.last_name} を管理者に昇格させました"
+    else
+      redirect_to users_path, alert: "昇格に失敗しました"
+    end
+  end
+
+  def transfer_admin
+    authorize_admin_action!
+    user = User.find(params[:id])
+
+    ActiveRecord::Base.transaction do
+      current_user.update!(role: "member")
+      user.update!(role: "admin")
+    end
+
+    redirect_to users_path, notice: "管理者権限を #{user.last_name} に譲渡しました"
+  rescue => e
+    redirect_to users_path, alert: "譲渡に失敗しました: #{e.message}"
+  end
+
   private
+
+  def admin_count_for_team
+    User.where(team_id: current_user.team_id, role: "admin").count
+  end
 
   def user_params
     params.require(:user).permit(:first_name, :last_name, :position_id, :introduction)

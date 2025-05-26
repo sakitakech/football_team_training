@@ -17,6 +17,8 @@ Rails.application.routes.draw do
     resources :trainings, only: [ :index ]
     member do
       patch :remove_from_team
+      patch :promote_admin
+      patch :transfer_admin
     end
     collection do
       patch :leave_team
