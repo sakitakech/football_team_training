@@ -62,7 +62,7 @@ class User < ApplicationRecord
       self.save!
     end
 
-    def only_admin_in_team?
+    def only_one_admin?
       User.where(team_id: self.team_id, role: "admin").count == 1
     end
 end

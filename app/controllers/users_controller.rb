@@ -61,14 +61,17 @@ class UsersController < ApplicationController
 
   def leave_team
     if current_user.admin? && only_one_admin?(current_user)
+      puts "aaaaaaaaaaaaaaaa"
       redirect_to user_path(current_user), alert: "チームに1人しか管理者がいないため、チームを脱退できません。"
       return
     end
 
     if current_user.update(team_id: nil, role: "member")
       redirect_to root_path, notice: "チームを脱退しました"
+      puts "aaaaaaaaabbbbbbbbb"
     else
       redirect_to request.referer || root_path, alert: "脱退に失敗しました"
+      puts "aaaaaaaaacccccccccc"
     end
   end
 
@@ -112,7 +115,7 @@ class UsersController < ApplicationController
 
   def demote_admin
     if current_user.admin?
-      if current_user.only_admin_in_team?
+      if current_user.only_one_admin?
         redirect_to users_path, alert: "管理者が1人しかいないため、降格できません。"
       else
         current_user.update(role: "member")
@@ -133,4 +136,10 @@ class UsersController < ApplicationController
   def user_params
     params.require(:user).permit(:first_name, :last_name, :position_id, :introduction)
   end
+
+  def only_one_admin?(user)
+    User.where(team_id: current_user.team_id, role: "admin").count == 1
+  end
 end
+
+
