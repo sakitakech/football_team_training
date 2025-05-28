@@ -88,6 +88,14 @@ class UsersController < ApplicationController
     end
   end
 
+  def self_promote_admin
+    if current_user.role == "member" && current_user.team_id.nil?
+      current_user.update(role: "admin")
+    else
+      redirect_to root_path, alert: "エラーが起きました。"
+    end
+  end
+
   def transfer_admin
     authorize_admin_action!
     user = User.find(params[:id])

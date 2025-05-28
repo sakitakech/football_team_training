@@ -20,6 +20,7 @@ Rails.application.routes.draw do
       patch :promote_admin
       patch :transfer_admin
       patch :demote_admin
+      patch :self_promote_admin
     end
     collection do
       patch :leave_team
