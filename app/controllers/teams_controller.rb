@@ -40,11 +40,19 @@ class TeamsController < ApplicationController
       if team.present?
         User.where(team_id: team.id).update_all(team_id: nil, role: "member")
         team.destroy
-        redirect_to root_path, notice: "チームを削除しました。全員がメンバーに戻りました。"
+        redirect_to root_path, notice: "チームを削除しました。全員が無所属になりました。"
       else
         redirect_to root_path, alert: "エラーが起きました。"
       end
     else
+      redirect_to root_path, alert: "この操作は許可されていません。"
+    end
+  end
+
+  def confirm_destroy
+    @team = Team.find(params[:id])
+  
+    unless current_user.admin? && current_user.team_id == @team.id
       redirect_to root_path, alert: "この操作は許可されていません。"
     end
   end

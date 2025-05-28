@@ -21,9 +21,9 @@
   </div>
 </div>
 
+<div class="text-center pt-5">
 <% if current_user.admin? && current_user.team_id.present? %>
-  <%= button_to "チームを削除する",team_path,
-      method: :delete,
-      data: { turbo_confirm: "本当にこのチームを削除しますか？全員の所属が解除されます。" },
-      class: "btn btn-error text-white" %>
+  <%= link_to "チームを削除する", confirm_destroy_team_path(current_user.team_id),
+      class: "bg-red-600 text-white px-6 py-2 rounded hover:bg-red-700" %>
 <% end %>
+</div>
