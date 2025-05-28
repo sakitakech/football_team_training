@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
-  resources :teams, only: [ :new, :create, :show, :edit, :update, :destroy ]
-
+  resources :teams, only: [ :new, :create, :show, :edit, :update, :destroy ]do
+    member do
+      get :confirm_destroy
+    end
+  end
   devise_for :users, controllers: {
     registrations: "users/registrations",
     omniauth_callbacks: "omniauth_callbacks"
@@ -17,6 +20,10 @@ Rails.application.routes.draw do
     resources :trainings, only: [ :index ]
     member do
       patch :remove_from_team
+      patch :promote_admin
+      patch :transfer_admin
+      patch :demote_admin
+      patch :self_promote_admin
     end
     collection do
       patch :leave_team

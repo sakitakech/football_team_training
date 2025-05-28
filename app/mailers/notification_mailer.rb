@@ -5,7 +5,7 @@ class NotificationMailer < ApplicationMailer
       @user = user
       mail(
         to: @user.email,
-        subject: "FTT 先週トレーニングが登録されていません"
+        subject: "FTT 約１ヶ月トレーニングが登録されていません"
       )
     end
 end

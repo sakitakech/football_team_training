@@ -43,7 +43,10 @@ class ApplicationController < ActionController::Base
     stored_location_for(resource) || root
   end
 
-  def only_one_admin?(user)
-    User.where(team_id: current_user.team_id, role: "admin").count == 1
+
+  def authorize_admin_action!
+    unless current_user&.admin?
+      redirect_to root_path, alert: "管理者のみ実行可能です。"
+    end
   end
 end

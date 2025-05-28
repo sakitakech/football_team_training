@@ -4,7 +4,6 @@
   <div class="mb-4">
     <p class="text-sm text-gray-500 mb-1">所属チーム</p>
 
-
     <% if @user == current_user && current_user.team_id.nil? && TeamJoinRequest.exists?(user_id: current_user.id, status: :pending) %>
       <p class="text-lg font-medium text-orange-500">申請中</p>
 
@@ -14,6 +13,13 @@
     <% else %>
       <p class="text-lg font-medium text-gray-500">チームに所属していません</p>
    <% end %>
+
+    <% if current_user.role == "member" && current_user.team_id.nil? %>
+       <%= button_to "自分でチームを作成する", self_promote_admin_user_path,
+          method: :patch,
+          data: { turbo_confirm: "管理者になってチームを作成しますか？" },
+          class: " cursor-pointer rounded-[8px] bg-neutral-200 px-3 py-1 text-sm text-neutral-950 transition-colors hover:bg-neutral-100 active:bg-neutral-50" %>
+    <% end %>
   </div>
 
   <div>
@@ -43,6 +49,9 @@
     <p class="text-lg"><%= @user.updated_at.strftime("%Y年%m月%d日 %H:%M") %></p>
   </div>
 
+  <div class="pt-4">
+    <%= link_to "プロフィール編集", edit_profile_path(current_user), class: "inline-block text-blue-600 hover:underline font-semibold" %>
+  </div>
 
   <% if current_user.team_id.present? %>
   <div class="pt-4">
@@ -55,11 +64,9 @@
   </div>
   <% end %>
 
-  <div class="pt-4">
-    <%= link_to "プロフィール編集", edit_profile_path(current_user), class: "inline-block text-blue-600 hover:underline font-semibold" %>
-  </div>
+
 
   <div class="pt-4">
-    <%= link_to "パスワード・メールアドレス の変更 / アカウントの削除", edit_user_registration_path(current_user), class: "inline-block text-blue-600 hover:underline font-semibold" %>
+    <%= link_to "重要事項の変更・削除（パスワード/メールアドレス/アカウント）", edit_user_registration_path(current_user), class: "inline-block text-red-500 hover:underline font-semibold" %>
   </div>
 </div>

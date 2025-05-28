@@ -86,3 +86,6 @@ CSS: Tailwind で〇表示調整
 
 https://qiita.com/kumaryoya/items/fa0debae1da92eb125a2
 独自ドメイン
+
+本来メールの送信をするのはdelever_laterにするべき。それをsidekiqで非同期で処理をしないと、メールの処理が完了するまで画面が止まってしまう。
+railsではバックエンドの命令までできないので、それを行うためにはrenderのWorker Serviceが必要。

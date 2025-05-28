@@ -20,3 +20,10 @@
     <%= link_to "戻る", trainings_path, class: "ml-2 text-blue-600 hover:underline" %>
   </div>
 </div>
+
+<div class="text-center pt-5">
+<% if current_user.admin? && current_user.team_id.present? %>
+  <%= link_to "チームを削除する", confirm_destroy_team_path(current_user.team_id),
+      class: "bg-red-600 text-white px-6 py-2 rounded hover:bg-red-700" %>
+<% end %>
+</div>
