@@ -49,6 +49,9 @@
     <p class="text-lg"><%= @user.updated_at.strftime("%Y年%m月%d日 %H:%M") %></p>
   </div>
 
+  <div class="pt-4">
+    <%= link_to "プロフィール編集", edit_profile_path(current_user), class: "inline-block text-blue-600 hover:underline font-semibold" %>
+  </div>
 
   <% if current_user.team_id.present? %>
   <div class="pt-4">
@@ -61,11 +64,9 @@
   </div>
   <% end %>
 
-  <div class="pt-4">
-    <%= link_to "プロフィール編集", edit_profile_path(current_user), class: "inline-block text-blue-600 hover:underline font-semibold" %>
-  </div>
+
 
   <div class="pt-4">
-    <%= link_to "パスワード・メールアドレス の変更 / アカウントの削除", edit_user_registration_path(current_user), class: "inline-block text-blue-600 hover:underline font-semibold" %>
+    <%= link_to "重要事項の変更・削除（パスワード/メールアドレス/アカウント）", edit_user_registration_path(current_user), class: "inline-block text-red-500 hover:underline font-semibold" %>
   </div>
 </div>
