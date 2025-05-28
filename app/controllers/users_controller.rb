@@ -102,6 +102,20 @@ class UsersController < ApplicationController
     redirect_to users_path, alert: "譲渡に失敗しました: #{e.message}"
   end
 
+  def demote_admin
+    if current_user.admin?
+      if current_user.only_admin_in_team?
+        redirect_to users_path, alert: "管理者が1人しかいないため、降格できません。"
+      else
+        current_user.update(role: "member")
+        redirect_to users_path, notice: "あなたは管理者を降りました。"
+      end
+    else
+      redirect_to root_path, alert: "この操作は許可されていません。"
+    end
+  end
+  
+
   private
 
   def admin_count_for_team

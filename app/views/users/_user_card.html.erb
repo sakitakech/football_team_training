@@ -12,6 +12,14 @@
     <%= link_to "チャート", charts_path(user_id: user.id), class: "text-blue-600 hover:underline" %>
   </div>
 
+  <% if current_user.admin? && user.team_id.present? && user == current_user %>
+   <div class="absolute bottom-2 right-2 text-xs text-red-600 space-y-1 text-right">
+  <%= button_to "管理者を降りる", demote_admin_user_path(current_user), method: :patch,
+      data: { turbo_confirm: "本当に管理者を降りますか？" },
+      class: "hover:underline"%>
+   </div>
+  <% end %>
+
   <% if current_user.admin? && user.team_id.present? && user != current_user %>
     <div class="absolute bottom-2 right-2 text-xs text-red-600 space-y-1 text-right">
       <%= button_to "チームから外す", remove_from_team_user_path(user),

@@ -19,6 +19,7 @@ Rails.application.routes.draw do
       patch :remove_from_team
       patch :promote_admin
       patch :transfer_admin
+      patch :demote_admin
     end
     collection do
       patch :leave_team

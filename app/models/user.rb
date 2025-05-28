@@ -61,4 +61,10 @@ class User < ApplicationRecord
       self.raw_info = raw_info.to_json
       self.save!
     end
+    
+    def only_admin_in_team?
+      User.where(team_id: self.team_id, role: "admin").count == 1
+    end
+
+
 end
