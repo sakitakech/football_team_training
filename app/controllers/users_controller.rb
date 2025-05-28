@@ -94,6 +94,7 @@ class UsersController < ApplicationController
   def self_promote_admin
     if current_user.role == "member" && current_user.team_id.nil?
       current_user.update(role: "admin")
+      redirect_to new_team_path
     else
       redirect_to root_path, alert: "エラーが起きました。"
     end
@@ -125,7 +126,7 @@ class UsersController < ApplicationController
       redirect_to root_path, alert: "この操作は許可されていません。"
     end
   end
-  
+
 
   private
 
@@ -141,5 +142,3 @@ class UsersController < ApplicationController
     User.where(team_id: current_user.team_id, role: "admin").count == 1
   end
 end
-
-
