@@ -20,12 +20,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
     render :new_member
   end
 
-  def new_admin
-    build_resource({})
-    resource.role = :admin
-    render :new_admin
-  end
-
   # def create
   #   super do |resource|
   #     # 管理者用登録画面から来ていたら admin にする
