@@ -16,7 +16,7 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
         uid: uid,
         email: email,
         password: Devise.friendly_token[0, 20],
-        position_id: nil
+        position_id: 13
       )
       user.set_values(omniauth) if user.respond_to?(:set_values)
       user.skip_confirmation!

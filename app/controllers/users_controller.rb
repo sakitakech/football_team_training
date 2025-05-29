@@ -155,7 +155,7 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:first_name, :last_name, :position_id, :introduction)
+    params.require(:user).permit(:first_name, :last_name, :position_id, :password, :password_confirmation)
   end
 
   def only_one_admin?(user)
