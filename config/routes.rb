@@ -15,6 +15,10 @@ Rails.application.routes.draw do
     get "users/sign_up/admin", to: "users/registrations#new_admin", as: :new_admin_registration
   end
 
+  get "/users/complete_profile", to: "users#complete_profile", as: :complete_profile
+  patch "/users/complete_profile", to: "users#update_profile"
+
+
 
   resources :users, only: [ :new, :index, :show, :update ] do
     resources :trainings, only: [ :index ]

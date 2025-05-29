@@ -1,0 +1,20 @@
+<h2>プロフィールを完成させてください</h2>
+
+<%= form_with model: @user, url: complete_profile_path, method: :patch do |f| %>
+  <div>
+    <%= f.label :first_name, "名" %>
+    <%= f.text_field :first_name %>
+  </div>
+
+  <div>
+    <%= f.label :last_name, "姓" %>
+    <%= f.text_field :last_name %>
+  </div>
+
+  <div>
+    <%= f.label :position_id, "ポジション" %>
+    <%= f.collection_select :position_id, Position.all, :id, :name %>
+  </div>
+
+  <%= f.submit "登録完了" %>
+<% end %>

@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, except: [:complete_profile, :update_profile]
+  before_action :set_user_from_session, only: [:complete_profile, :update_profile]
 
   def new
     @user = User.new
@@ -61,17 +62,14 @@ class UsersController < ApplicationController
 
   def leave_team
     if current_user.admin? && only_one_admin?(current_user)
-      puts "aaaaaaaaaaaaaaaa"
       redirect_to user_path(current_user), alert: "チームに1人しか管理者がいないため、チームを脱退できません。"
       return
     end
 
     if current_user.update(team_id: nil, role: "member")
       redirect_to root_path, notice: "チームを脱退しました"
-      puts "aaaaaaaaabbbbbbbbb"
     else
       redirect_to request.referer || root_path, alert: "脱退に失敗しました"
-      puts "aaaaaaaaacccccccccc"
     end
   end
 
@@ -127,8 +125,30 @@ class UsersController < ApplicationController
     end
   end
 
+  def complete_profile
+    @user = User.find(session[:user_id])
+  end
+
+  def update_profile
+    @user = User.find(session[:user_id])
+    if @user.update(user_params)
+      session.delete(:user_id)
+      sign_in(@user)
+      redirect_to root_path, notice: "プロフィールが更新されました。"
+    else
+      render :complete_profile
+    end
+  end
+
 
   private
+
+  def set_user_from_session
+    @user = User.find_by(id: session[:user_id])
+    unless @user
+      redirect_to root_path, alert: "不正なアクセスです。"
+    end
+  end
 
   def admin_count_for_team
     User.where(team_id: current_user.team_id, role: "admin").count
