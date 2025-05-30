@@ -128,18 +128,18 @@ class UsersController < ApplicationController
   def complete_profile
     @user = User.find(session[:user_id])
   end
-
+  
   def update_profile
     @user = User.find(session[:user_id])
-    if @user.update(user_params)
-      session.delete(:user_id)
-      sign_in(@user)
-      redirect_to root_path, notice: "プロフィールが更新されました。"
-    else
-      render :complete_profile
+  
+    unless @user.update(user_params)
+      render :complete_profile, status: :unprocessable_entity and return
     end
+  
+    session.delete(:user_id)
+    sign_in(@user)
+    redirect_to root_path, notice: "プロフィールが更新されました。"
   end
-
 
   private
 

@@ -13,6 +13,10 @@ class User < ApplicationRecord
     validates :last_name, presence: true, length: { maximum: 255 }
     validates :email, presence: true, uniqueness: true
 
+    with_options on: :complete_profile do
+      validates :password, presence: true, length: { minimum: 6 }, confirmation: true
+    end
+
     has_many :trainings,  dependent:  :destroy
     belongs_to :position
     belongs_to :team, optional: true
