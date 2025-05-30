@@ -51,7 +51,7 @@ class TeamsController < ApplicationController
 
   def confirm_destroy
     @team = Team.find(params[:id])
-  
+
     unless current_user.admin? && current_user.team_id == @team.id
       redirect_to root_path, alert: "この操作は許可されていません。"
     end

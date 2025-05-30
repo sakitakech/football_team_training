@@ -6,6 +6,13 @@
   <%= render "devise/shared/error_messages", resource: resource %>
 
   <!-- Email -->
+  <% if resource.uid.present? %>
+  <div>
+    <%= f.label :email, class: "block text-sm font-medium text-gray-700 mb-1" %>
+    <p class="bg-gray-100 border border-gray-300 px-4 py-2 rounded"><%= resource.email %></p>
+    <small class="text-gray-500">SNSログインユーザーのため、メールアドレスは変更できません</small>
+  </div>
+<% else %>
   <div>
     <%= f.label :email, class: "block text-sm font-medium text-gray-700 mb-1" %>
     <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" %>
@@ -16,6 +23,7 @@
       確認待ちのメールアドレス: <%= resource.unconfirmed_email %>
     </div>
   <% end %>
+<% end %>
 
   <!-- 新しいパスワード -->
   <div>
