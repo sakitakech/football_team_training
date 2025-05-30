@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
-  before_action :authenticate_user!, except: [:complete_profile, :update_profile]
-  before_action :set_user_from_session, only: [:complete_profile, :update_profile]
+  before_action :authenticate_user!, except: [ :complete_profile, :update_profile ]
+  before_action :set_user_from_session, only: [ :complete_profile, :update_profile ]
 
   def new
     @user = User.new
@@ -128,14 +128,14 @@ class UsersController < ApplicationController
   def complete_profile
     @user = User.find(session[:user_id])
   end
-  
+
   def update_profile
     @user = User.find(session[:user_id])
-  
+
     unless @user.update(user_params)
       render :complete_profile, status: :unprocessable_entity and return
     end
-  
+
     session.delete(:user_id)
     sign_in(@user)
     redirect_to root_path, notice: "プロフィールが更新されました。"

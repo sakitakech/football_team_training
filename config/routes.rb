@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :teams, only: [ :new, :create, :show, :edit, :update, :destroy ]do
+  resources :teams, only: [ :new, :create, :show, :edit, :update, :destroy ] do
     member do
       get :confirm_destroy
     end

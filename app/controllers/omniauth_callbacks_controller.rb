@@ -1,10 +1,10 @@
 class OmniauthCallbacksController < Devise::OmniauthCallbacksController
   def line
-    omniauth = request.env['omniauth.auth']
-    provider = omniauth['provider']
-    uid = omniauth['uid']
-    info = omniauth['info']
-    email = info['email'] || fake_email(uid, provider)
+    omniauth = request.env["omniauth.auth"]
+    provider = omniauth["provider"]
+    uid = omniauth["uid"]
+    info = omniauth["info"]
+    email = info["email"] || fake_email(uid, provider)
 
     # email を優先して既存ユーザーを検索し、次に provider + uid を試す
     user = User.find_by(email: email) || User.find_by(provider: provider, uid: uid)
