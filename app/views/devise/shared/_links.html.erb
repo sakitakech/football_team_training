@@ -31,7 +31,15 @@
 
 <% if devise_mapping.omniauthable? %>
   <% resource_class.omniauth_providers.each do |provider| %>
-    <br><br>
-    <%= button_to "#{OmniAuth::Utils.camelize(provider)}でログイン", user_line_omniauth_authorize_path(role: "member"), method: :post, data: { turbo: false }, class: button_class %><br>
+    <div class="flex justify-center">
+      <%= button_to user_line_omniauth_authorize_path(role: "member"), method: :post, data: { turbo: false }, class: "line-login-button" do %>
+        <div class="line-login-logo">
+          <%= image_tag 'line/line_32.png', alt: 'LINEロゴ', size: "24x24" %>
+        </div>
+        <div class="line-login-text">
+          LINEでログイン
+        </div>
+      <% end %>
+    </div>
   <% end %>
 <% end %>
