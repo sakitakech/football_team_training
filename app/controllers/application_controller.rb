@@ -23,8 +23,7 @@ class ApplicationController < ActionController::Base
     # 新規登録用
     devise_parameter_sanitizer.permit(:sign_up, keys: [ :first_name, :last_name, :position_id, :team_id, :role ])
 
-    # プロフィール編集用（任意）
-    # devise_parameter_sanitizer.permit(:account_update, keys: [:first_name, :last_name])
+
   end
 
   def storable_location?
