@@ -24,4 +24,8 @@ module ApplicationHelper
         }
       }
     end
+
+    def button_class
+     "relative h-6 overflow-hidden rounded-md border border-neutral-600 bg-transparent px-6 text-neutral-950 transition-transform duration-150 ease-in-out active:scale-95 active:bg-neutral-100"
+    end
 end
