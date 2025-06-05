@@ -1,4 +1,4 @@
-<footer class="<%= current_user&.admin? ? 'bg-green-100' : 'bg-gray-100' %> text-center py-4 text-sm text-gray-500 z-50">
+<footer class="<%= current_user&.admin? ? 'bg-green-100' : 'bg-gray-100' %> text-center py-4 text-sm text-gray-500 z-40">
   <div class="flex <%= current_user&.admin? ? 'bg-green-600' : 'bg-blue-600' %> text-white">
     <%= link_to "トレーニング登録", new_training_path, class: "flex-1 text-center py-4 hover:bg-gray-700" %>
     <%= link_to "マイトレーニング", trainings_path, class: "flex-1 text-center py-4 hover:bg-gray-700" %>
