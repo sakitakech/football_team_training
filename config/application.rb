@@ -26,5 +26,6 @@ module Myapp
     config.generators do |g|
       g.factory_bot suffix: "factory", dir: "spec/factories"
     end
+    config.i18n.default_locale = :ja
   end
 end

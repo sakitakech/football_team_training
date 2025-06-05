@@ -10,8 +10,8 @@
     <div>
       <h2 class="text-base font-semibold text-gray-700 mb-2">トレーニング</h2>
       <p><span class="text-gray-500 font-medium">部位:</span> <%= training.part %></p>
-      <p><span class="text-gray-500 font-medium">内容:</span> <%= training.content %></p>
-      <p><span class="text-gray-500 font-medium">メモ:</span> <%= training.memo %></p>
+      <p><span class="text-gray-500 font-medium">内容:</span> <%= simple_format(training.content) %></p>
+      <p><span class="text-gray-500 font-medium">メモ:</span> <%= simple_format(training.memo) %></p>
     </div>
 
     <!-- 身体情報 -->

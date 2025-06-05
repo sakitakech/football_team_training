@@ -1,0 +1,131 @@
+ja:
+  devise:
+    sessions:
+      signed_in: "ログインしました。"
+      signed_out: "ログアウトしました。"
+      already_signed_out: "既にログアウトしています。"
+    registrations:
+      signed_up: "アカウント登録が完了しました。"
+      signed_up_but_unconfirmed: "メールアドレスの確認が必要です。メールをご確認ください。"
+      signed_up_but_inactive: "アカウントが有効化されていません。"
+      signed_up_but_locked: "アカウントがロックされています。"
+      updated: "アカウント情報を変更しました。"
+      update_needs_confirmation: "アカウント情報を変更しましたが、確認が必要です。新しいメールアドレスをご確認ください。"
+      destroyed: "アカウントを削除しました。"
+    passwords:
+      send_instructions: "パスワード再設定の案内メールを送信しました。"
+      updated: "パスワードを変更しました。"
+      updated_not_active: "パスワードを変更しましたが、アカウントが有効化されていません。"
+    confirmations:
+      send_instructions: "確認メールを送信しました。"
+      confirmed: "メールアドレスの確認が完了しました。"
+    unlocks:
+      send_instructions: "アカウントのロック解除方法を記載したメールを送信しました。"
+      unlocked: "アカウントのロックを解除しました。"
+    omniauth_callbacks:
+      success: "%{kind}アカウントで認証に成功しました。"
+      failure: "%{kind}アカウントでの認証に失敗しました。理由：%{reason}"
+    failure:
+      already_authenticated: "すでにログインしています。"
+      inactive: "アカウントが有効化されていません。"
+      invalid: "メールアドレスまたはパスワードが違います。"
+      locked: "アカウントがロックされています。"
+      last_attempt: "あと1回誤るとアカウントがロックされます。"
+      not_found_in_database: "メールアドレスまたはパスワードが違います。"
+      timeout: "セッションがタイムアウトしました。もう一度ログインしてください。"
+      unauthenticated: "ログインまたはアカウント登録してください。"
+      unconfirmed: "アカウントの確認が必要です。"
+  activerecord:
+    models:
+      invite_token: 招待トークン
+      league: リーグ
+      max_weight: 最大重量種目
+      position: ポジション
+      team_join_request: チーム参加リクエスト
+      team: チーム
+      training_max_weight: トレーニング最大重量
+      training: トレーニング
+      user: ユーザー
+    attributes:
+      invite_token:
+        token: トークン
+        expires_at: 有効期限
+        team: チーム
+      league:
+        name: リーグ名
+      max_weight:
+        name: 種目名
+      position:
+        name: ポジション名
+        short_name: 略称
+      team_join_request:
+        user: ユーザー
+        team: チーム
+        token: トークン
+        expires_at: 有効期限
+        message: メッセージ
+        status: ステータス
+      team:
+        name: チーム名
+        league: 所属リーグ
+      training_max_weight:
+        record: 記録（kg）
+        max_weight: 種目
+        training: トレーニング
+      training:
+        user: ユーザー
+        datetime: 日時
+        part: 部位
+        content: 内容
+        memo: メモ
+        body_weight: 体重（kg）
+        body_fat: 体脂肪率（%）
+      user:
+        first_name: 名
+        last_name: 姓
+        email: メールアドレス
+        encrypted_password: 暗号化パスワード
+        remember_created_at: ログイン保持作成日時
+        position: ポジション
+        reset_password_token: パスワードリセットトークン
+        reset_password_sent_at: パスワードリセット送信日時
+        confirmation_token: 確認トークン
+        confirmed_at: 確認日時
+        confirmation_sent_at: 確認送信日時
+        unconfirmed_email: 未確認メールアドレス
+        introduction: 自己紹介
+        team: チーム
+        role: 権限
+        provider: プロバイダー
+        uid: UID
+  errors:
+    format: "%{attribute}を%{message}"
+    messages:
+      accepted: "受け入れてください"
+      blank: "入力してください"
+      present: "は空である必要があります"
+      confirmation: "と一致しません"
+      empty: "を入力してください"
+      equal_to: "%{count}にしてください"
+      even: "は偶数にしてください"
+      exclusion: "は予約されています"
+      greater_than: "%{count}より大きい値にしてください"
+      greater_than_or_equal_to: "%{count}以上の値にしてください"
+      inclusion: "は一覧にありません"
+      invalid: "は無効です"
+      less_than: "%{count}より小さい値にしてください"
+      less_than_or_equal_to: "%{count}以下の値にしてください"
+      not_a_number: "は数値で入力してください"
+      not_an_integer: "は整数で入力してください"
+      odd: "は奇数にしてください"
+      taken: "はすでに存在します"
+      too_long:
+        one: "は1文字以内で入力してください"
+        other: "は%{count}文字以内で入力してください"
+      too_short:
+        one: "は1文字以上で入力してください"
+        other: "は%{count}文字以上で入力してください"
+      wrong_length:
+        one: "は1文字で入力してください"
+        other: "は%{count}文字で入力してください"
+      other_than: "%{count}以外の値にしてください"

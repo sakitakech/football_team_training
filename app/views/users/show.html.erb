@@ -35,8 +35,8 @@
   </div>
 
   <div>
-    <p class="text-sm text-gray-500 mb-1">情報</p>
-    <p class="text-lg font-medium"><%= @user.introduction %></p>
+    <p class="text-sm text-gray-500 mb-1">自己紹介</p>
+    <p class="text-lg font-medium"><%= simple_format(@user.introduction) %></p>
   </div>
 
   <div>

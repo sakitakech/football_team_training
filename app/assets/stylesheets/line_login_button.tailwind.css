@@ -1,0 +1,23 @@
+@layer components {
+  .line-login-button {
+    @apply flex items-center justify-center w-[280px] h-[45px] bg-[#00C300] rounded-[8px] font-bold text-white text-lg font-sans;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+  }
+
+  .line-login-logo {
+    @apply flex items-center justify-center;
+    width: 45px;
+    height: 45px;
+  }
+
+  .line-login-logo img {
+    height: 24px;
+    width: 24px;
+  }
+
+  .line-login-text {
+    @apply flex-1 text-center;
+  }
+}

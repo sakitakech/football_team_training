@@ -6,43 +6,39 @@
   <p class="text-sm text-gray-600">自己紹介：</p>
   <p class="text-gray-800"><%= simple_format(user.introduction.presence || "") %></p>
 
-  <div class="mt-2 text-sm">
-    <%= link_to "トレーニング", user_trainings_path(user), class: "text-blue-600 hover:underline" %> |
-    <%= link_to "カレンダー", calendar_path(user_id: user.id), class: "text-blue-600 hover:underline" %> |
-    <%= link_to "チャート", charts_path(user_id: user.id), class: "text-blue-600 hover:underline" %>
+  <div class="mt-2 flex flex-wrap gap-2 text-sm">
+    <%= link_to "トレーニング", user_trainings_path(user),
+      class: "text-xs px-3 py-1 rounded border border-gray-300 bg-white text-gray-700 hover:bg-gray-100 hover:border-gray-400 transition" %>
+    <%= link_to "カレンダー", calendar_path(user_id: user.id),
+      class: "text-xs px-3 py-1 rounded border border-gray-300 bg-white text-gray-700 hover:bg-gray-100 hover:border-gray-400 transition" %>
+    <%= link_to "チャート", charts_path(user_id: user.id),
+      class: "text-xs px-3 py-1 rounded border border-gray-300 bg-white text-gray-700 hover:bg-gray-100 hover:border-gray-400 transition" %>
   </div>
 
-  <% if current_user.admin? && user.team_id.present? && user == current_user %>
-   <div class="absolute bottom-2 right-2 text-xs text-red-600 space-y-1 text-right">
-  <%= button_to "管理者を降りる", demote_admin_user_path(current_user), method: :patch,
-      data: { turbo_confirm: "本当に管理者を降りますか？" },
-      class: "hover:underline"%>
-   </div>
-  <% end %>
-
-  <% if current_user.admin? && user.team_id.present? && user != current_user %>
-    <div class="absolute bottom-2 right-2 text-xs text-red-600 space-y-1 text-right">
-      <%= button_to "チームから外す", remove_from_team_user_path(user),
-        {
+  <% if current_user.admin? && user.team_id.present? %>
+    <div class="mt-4 flex flex-wrap gap-2 justify-end">
+      <% if user == current_user %>
+        <%= button_to "管理者を降りる", demote_admin_user_path(current_user),
+          method: :patch,
+          data: { turbo_confirm: "本当に管理者を降りますか？" },
+          class: "text-xs px-3 py-1 rounded border border-gray-300 bg-white text-red-600 hover:bg-gray-100 hover:border-gray-400 transition" %>
+      <% else %>
+        <%= button_to "チームから外す", remove_from_team_user_path(user),
           method: :patch,
           data: { turbo_confirm: "本当に退団させますか？" },
-          class: "hover:underline"
-        } %>
+          class: "text-xs px-3 py-1 rounded border border-gray-300 bg-white text-red-600 hover:bg-gray-100 hover:border-gray-400 transition" %>
 
-      <% if user.member? %>
-        <%= button_to "管理者に昇格", promote_admin_user_path(user),
-          {
+        <% if user.member? %>
+          <%= button_to "管理者に昇格", promote_admin_user_path(user),
             method: :patch,
             data: { turbo_confirm: "#{user.last_name}さんを管理者にしますか？（管理者は各チーム５人までです。）" },
-            class: "hover:underline"
-          } %>
+            class: "text-xs px-3 py-1 rounded border border-gray-300 bg-white text-red-600 hover:bg-gray-100 hover:border-gray-400 transition" %>
 
-        <%= button_to "管理者を譲渡", transfer_admin_user_path(user),
-          {
+          <%= button_to "管理者を譲渡", transfer_admin_user_path(user),
             method: :patch,
             data: { turbo_confirm: "本当に管理者権限を譲渡しますか？あなたは管理者ではなくなります。" },
-            class: "hover:underline"
-          } %>
+            class: "text-xs px-3 py-1 rounded border border-gray-300 bg-white text-red-600 hover:bg-gray-100 hover:border-gray-400 transition" %>
+        <% end %>
       <% end %>
     </div>
   <% end %>
