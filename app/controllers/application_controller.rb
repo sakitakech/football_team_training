@@ -22,8 +22,6 @@ class ApplicationController < ActionController::Base
   def configure_permitted_parameters
     # 新規登録用
     devise_parameter_sanitizer.permit(:sign_up, keys: [ :first_name, :last_name, :position_id, :team_id, :role ])
-
-
   end
 
   def storable_location?

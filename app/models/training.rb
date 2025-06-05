@@ -8,5 +8,4 @@ class Training < ApplicationRecord
   validates :body_fat, numericality: { less_than: 100, allow_blank: true }
 
   accepts_nested_attributes_for :training_max_weights, allow_destroy: true
-
 end

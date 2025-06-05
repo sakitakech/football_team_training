@@ -52,7 +52,7 @@ class TrainingsController < ApplicationController
 
     respond_to do |format|
       if @training.save
-        format.html { redirect_to @training, notice: t('trainings.create.success') }
+        format.html { redirect_to @training, notice: t("trainings.create.success") }
         format.json { render :show, status: :created, location: @training }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -65,7 +65,7 @@ class TrainingsController < ApplicationController
   def update
     respond_to do |format|
       if @training.update(training_params)
-        format.html { redirect_to @training, notice: t('trainings.update.success') }
+        format.html { redirect_to @training, notice: t("trainings.update.success") }
         format.json { render :show, status: :ok, location: @training }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -79,7 +79,7 @@ class TrainingsController < ApplicationController
     @training.destroy!
 
     respond_to do |format|
-      format.html { redirect_to trainings_path, status: :see_other, notice: t('trainings.destroy.success') }
+      format.html { redirect_to trainings_path, status: :see_other, notice: t("trainings.destroy.success") }
       format.json { head :no_content }
     end
   end
