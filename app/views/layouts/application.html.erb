@@ -26,7 +26,15 @@
     <%= render 'shared/before_login_header' %>
   <% end %>
 
-  
+    <div class="hidden lg:block">
+    <% if user_signed_in? %>
+      <%= render 'shared/footer' %>
+    <% else %>
+      <%= render 'shared/before_login_footer' %>
+    <% end %>
+  </div>
+
+
 
   <% if notice %>
    <p class="bg-green-100 text-green-800 p-2 rounded mb-4"><%= notice %></p>
@@ -42,11 +50,13 @@
     <%= yield %>
   </main>
 
-  <% if user_signed_in? %>
-    <%= render 'shared/footer' %>
+  <div class="block lg:hidden">
+    <% if user_signed_in? %>
+      <%= render 'shared/footer' %>
     <% else %>
-    <%= render 'shared/before_login_footer' %>
-  <% end %>
+      <%= render 'shared/before_login_footer' %>
+    <% end %>
+  </div>
 
   </body>
 </html>
