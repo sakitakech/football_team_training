@@ -1,0 +1,12 @@
+ja:
+  trainings:
+    form:
+      error_message:
+        one: "%{count}件、エラーが発生しました。"
+        other: "%{count}件、エラーが発生しました。"
+    create:
+      success: 登録しました。
+    update:
+      success: 更新しました。
+    destroy:
+      success: 削除しました。
