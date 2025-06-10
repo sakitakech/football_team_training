@@ -58,5 +58,8 @@
     <% end %>
   </div>
 
+  <% unless user_signed_in? %>
+    <%= render 'shared/before_login_privacy' %>
+  <% end %>
   </body>
 </html>
