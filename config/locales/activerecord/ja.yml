@@ -40,7 +40,7 @@ ja:
       position: ポジション
       team_join_request: チーム参加リクエスト
       team: チーム
-      training_max_weight: トレーニング最大重量
+      training_max_weights: トレーニング最大重量
       training: トレーニング
       user: ユーザー
     attributes:
@@ -66,10 +66,8 @@ ja:
       team:
         name: チーム名
         league: 所属リーグ
-      training_max_weight:
-        record: 記録（kg）
-        max_weight: 最大重量
-        training: トレーニング
+      training_max_weights:
+        record: 最大重量の記録
       training:
         user: ユーザー
         datetime: 日時
