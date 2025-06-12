@@ -4,7 +4,9 @@
     <% if user.admin? %>(管理者)<% end %>
   </h3>
   <p class="text-sm text-gray-600">自己紹介：</p>
-  <p class="text-gray-800"><%= simple_format(user.introduction.presence || "") %></p>
+  <div class="break-words whitespace-pre-wrap">
+    <p class="text-gray-800"><%= simple_format(user.introduction.presence || "") %></p>
+  </div>
 
   <div class="mt-2 flex flex-wrap gap-2 text-sm">
     <%= link_to "トレーニング", user_trainings_path(user),

@@ -19,9 +19,6 @@ ja:
     confirmations:
       send_instructions: "確認メールを送信しました。"
       confirmed: "メールアドレスの確認が完了しました。"
-    unlocks:
-      send_instructions: "アカウントのロック解除方法を記載したメールを送信しました。"
-      unlocked: "アカウントのロックを解除しました。"
     omniauth_callbacks:
       success: "%{kind}アカウントで認証に成功しました。"
       failure: "%{kind}アカウントでの認証に失敗しました。理由：%{reason}"
@@ -39,11 +36,11 @@ ja:
     models:
       invite_token: 招待トークン
       league: リーグ
-      max_weight: 最大重量種目
+      max_weight: 最大重量
       position: ポジション
       team_join_request: チーム参加リクエスト
       team: チーム
-      training_max_weight: トレーニング最大重量
+      training_max_weights: トレーニング最大重量
       training: トレーニング
       user: ユーザー
     attributes:
@@ -55,6 +52,7 @@ ja:
         name: リーグ名
       max_weight:
         name: 種目名
+        record: 記録
       position:
         name: ポジション名
         short_name: 略称
@@ -68,10 +66,8 @@ ja:
       team:
         name: チーム名
         league: 所属リーグ
-      training_max_weight:
-        record: 記録（kg）
-        max_weight: 種目
-        training: トレーニング
+      training_max_weights:
+        record: 最大重量の記録
       training:
         user: ユーザー
         datetime: 日時
@@ -84,6 +80,8 @@ ja:
         first_name: 名
         last_name: 姓
         email: メールアドレス
+        password: パスワード
+        password_confirmation: パスワード（確認）
         encrypted_password: 暗号化パスワード
         remember_created_at: ログイン保持作成日時
         position: ポジション
@@ -101,10 +99,12 @@ ja:
   errors:
     format: "%{attribute}を%{message}"
     messages:
+      already_confirmed: "このメールアドレスはすでに確認済みです。"
+      not_saved: "%{count}件のエラーがあります。"
       accepted: "受け入れてください"
       blank: "入力してください"
       present: "は空である必要があります"
-      confirmation: "と一致しません"
+      confirmation: "パスワードを一致させてください"
       empty: "を入力してください"
       equal_to: "%{count}にしてください"
       even: "は偶数にしてください"
