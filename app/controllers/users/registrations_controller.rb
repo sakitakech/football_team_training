@@ -18,7 +18,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
     build_resource({})
     resource.role = :member
     render :new_member
-    
   end
 
   # def create
