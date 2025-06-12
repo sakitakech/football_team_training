@@ -9,10 +9,10 @@ class User < ApplicationRecord
          :confirmable,
          :omniauthable, omniauth_providers: %i[line]
 
-    validates :first_name, presence: true, length: { maximum: 255 }
-    validates :last_name, presence: true, length: { maximum: 255 }
-    validates :email, presence: true, uniqueness: true
-
+    validates :first_name, presence: true, length: { maximum: 15 }
+    validates :last_name, presence: true, length: { maximum: 15 }
+    validates :email, presence: true, uniqueness: true, length: { maximum: 70 }
+    validates :introduction, length: {maximum: 150}
     with_options on: :complete_profile do
       validates :password, presence: true, length: { minimum: 6 }, confirmation: true
     end
