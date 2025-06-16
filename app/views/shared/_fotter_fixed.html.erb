@@ -1,5 +1,5 @@
-<div class="bg-gray-100 text-center py-2 text-gray-500 z-40">
-  <div class="bg-blue-500 text-white py-2">
+<div class="text-center py-2 bg-gray-200 text-gray-500 z-40">
+  <div class="<%= current_user&.admin? ? 'bg-green-600' : 'bg-blue-600' %> text-white py-2">
     <div class="flex justify-center space-x-6">
       <%= link_to "<<プライバシーポリシー>>", privacy_path, class: "text-sm text-white hover:underline" %>
       <%= link_to "<<利用規約>>", "#", class: "text-sm text-white hover:underline" %>

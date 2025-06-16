@@ -43,7 +43,6 @@
 
   
 
-
   <main class="flex-grow pb-12">
     <%= yield %>
   </main>
@@ -54,8 +53,8 @@
     <% end %>
   </div>
 
-  <% unless user_signed_in? %>
-    <%= render 'shared/before_login_privacy' %>
-  <% end %>
+
+    <%= render 'shared/fotter_fixed' %>
+
   </body>
 </html>
