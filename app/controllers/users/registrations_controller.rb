@@ -72,7 +72,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # DELETE /resource
   def destroy
     if current_user.admin? && only_one_admin?(current_user)
-      redirect_to confirm_delete_user_path, alert: "チームに1人しか管理者がいないため、アカウントを削除できません。"
+      redirect_to confirm_delete_user_path, alert: "チームに1人しか管理者がいないため、アカウントを削除できません。管理者を増やすか、チームを削除してください。"
       return
     end
 

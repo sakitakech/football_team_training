@@ -62,7 +62,7 @@ class UsersController < ApplicationController
 
   def leave_team
     if current_user.admin? && only_one_admin?(current_user)
-      redirect_to user_path(current_user), alert: "チームに1人しか管理者がいないため、チームを脱退できません。"
+      redirect_to user_path(current_user), alert: "チームに1人しか管理者がいないため、アカウントを削除できません。管理者を追加、もしくは権限を譲渡してください。"
       return
     end
 
@@ -78,7 +78,7 @@ class UsersController < ApplicationController
     user = User.find(params[:id])
 
     if admin_count_for_team >= 5
-      redirect_to users_path, alert: "このチームにはすでに5人の管理者がいます。"
+      redirect_to users_path, alert: "管理者はチームに５名までです。"
       return
     end
 

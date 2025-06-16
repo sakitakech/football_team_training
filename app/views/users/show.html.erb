@@ -20,12 +20,7 @@
       <p class="text-lg font-medium text-gray-500">チームに所属していません</p>
    <% end %>
 
-    <% if current_user.role == "member" && current_user.team_id.nil? %>
-       <%= button_to "自分でチームを作成する", self_promote_admin_user_path,
-          method: :patch,
-          data: { turbo_confirm: "管理者になってチームを作成しますか？" },
-          class: " cursor-pointer rounded-[8px] bg-neutral-200 px-3 py-1 text-sm text-neutral-950 transition-colors hover:bg-neutral-100 active:bg-neutral-50" %>
-    <% end %>
+   
   </div>
 
   <div>

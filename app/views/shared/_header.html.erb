@@ -14,9 +14,13 @@
                    <li class="p-3"><%= link_to "チーム編集", team_path(current_user.team_id) %></li>
                   <% end %>
                 <% end %>
-
-
                 <li class="p-3"><%= link_to "ログアウト", destroy_user_session_path,data: { turbo_method: :delete }%></li>
+                <% if current_user.role == "member" && current_user.team_id.nil? %>
+                <%= button_to "自分でチームを作成する", self_promote_admin_user_path(current_user),
+                   method: :patch,
+                   data: { turbo_confirm: "管理者になってチームを作成しますか？" },
+                   class: "p-3"  %>
+             <% end %>
                 <li class="p-3"><%= link_to "招待", new_team_invitation_path %></li>
             </ul>
         </nav>
