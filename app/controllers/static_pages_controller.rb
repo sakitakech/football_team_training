@@ -4,7 +4,7 @@ class StaticPagesController < ApplicationController
   def privacy; end
 
   def terms_of_service; end
-  
+
   def how_to_use; end
 end
 # ルートページ

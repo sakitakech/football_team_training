@@ -32,5 +32,4 @@ module ApplicationHelper
     def login_button_class
       "relative h-6 overflow-hidden rounded-md border border-blue-600 bg-blue-600 text-white px-6 transition-transform duration-150 ease-in-out hover:bg-blue-700 active:scale-95"
     end
-    
 end
