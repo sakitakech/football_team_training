@@ -29,8 +29,6 @@
     <div class="hidden lg:block">
     <% if user_signed_in? %>
       <%= render 'shared/footer' %>
-    <% else %>
-      <%= render 'shared/before_login_footer' %>
     <% end %>
   </div>
 
@@ -53,8 +51,6 @@
   <div class="block lg:hidden">
     <% if user_signed_in? %>
       <%= render 'shared/footer' %>
-    <% else %>
-      <%= render 'shared/before_login_footer' %>
     <% end %>
   </div>
 
