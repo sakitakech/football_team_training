@@ -3,8 +3,8 @@
         <h1 class="text-2xl font-bold"> F T T <%= "(管理者)" if current_user&.admin? %></h1>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <nav>
-            <button id="button" type="button" class="fixed z-10 top-6 right-6">
-                <i id="bars" class="fa-solid fa-bars fa-2x"></i>
+            <button id="button" type="button" class="fixed z-10 top-5 right-6">
+                <i id="bars" class="fa-solid fa-bars fa-2x text-gray-400"></i>
             </button>
             <ul id="menu" class="fixed top-0 left-0 w-full text-center <%= current_user&.admin? ? 'bg-green-800' : 'bg-gray-800' %> z-0 transition transform translate-x-full hidden">
                 <li class="p-3"><%= link_to "プロフィール", user_path(current_user) %></li>
