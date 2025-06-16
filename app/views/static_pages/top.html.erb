@@ -6,10 +6,10 @@
   <% if user_signed_in? %>
    <div class="text-7xl font-bold text-gray-400"> WELCOME </div>
    <% else %>
-   <div class="grid grid-cols-2 gap-3 mb-6">
-    <%= link_to "サインアップ", new_member_registration_path, class: button_class %>
-    <%= link_to "ログイン", user_session_path, class: button_class %>
-   </div>
+   <div class="flex flex-col gap-3 mb-6">
+     <%= link_to "ログイン", user_session_path, class: login_button_class %>
+     <%= link_to "サインアップ", new_member_registration_path, class: button_class %>
+  </div>
   <% end %>
 
   <h2 class="mt-4">チームでトレーニング状況の記録、</h2>

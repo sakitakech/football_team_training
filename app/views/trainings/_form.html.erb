@@ -15,8 +15,10 @@
 
   <%= form.hidden_field :user_id, value: current_user.id %>
 
+  <h3 class="text-xl font-bold text-gray-800 mb-4">トレーニング詳細</h3>
+
   <div>
-    <%= form.label :＊日付, class: "block font-semibold mb-1" %>
+    <%= form.label :＊日付, class: "block font-semibold mb-1 " %>
     <%= form.datetime_field :datetime, class: "w-full border rounded p-2 focus:outline-none focus:ring-2 focus:ring-blue-400" %>
   </div>
 
@@ -38,14 +40,17 @@
     <%= form.text_area :memo, placeholder: "体調  感想  明日の抱負", rows: 2, class: "w-full border rounded p-2 focus:outline-none focus:ring-2 focus:ring-blue-400" %>
   </div>
 
+  <hr class="my-6 border-t border-gray-300">
+  <h3 class="text-xl font-bold text-gray-800 mb-4">身体情報</h3>
+
   <div>
     <%= form.label :体重, class: "block font-semibold mb-1" %>
-    <%= form.number_field :body_weight, step: '0.01', placeholder: "半角数字", class: "w-full border rounded p-2 focus:outline-none focus:ring-2 focus:ring-blue-400" %>
+    <%= form.number_field :body_weight, step: '0.01', placeholder: "半角数字(kg)", class: "w-full border rounded p-2 focus:outline-none focus:ring-2 focus:ring-blue-400" %>
   </div>
 
   <div>
     <%= form.label :体脂肪率, class: "block font-semibold mb-1" %>
-    <%= form.number_field :body_fat, step: '0.01', placeholder: "半角数字", class: "w-full border rounded p-2 focus:outline-none focus:ring-2 focus:ring-blue-400" %>
+    <%= form.number_field :body_fat, step: '0.01', placeholder: "半角数字(%)", class: "w-full border rounded p-2 focus:outline-none focus:ring-2 focus:ring-blue-400" %>
   </div>
 
   <hr class="my-6 border-t border-gray-300">
@@ -54,16 +59,14 @@
 
   <div class="grid gap-4">
   <%= form.fields_for :training_max_weights do |tmw_fields| %>
-    <div class="border p-4 rounded shadow-sm">
       <%= tmw_fields.hidden_field :id %>
       <%= tmw_fields.hidden_field :max_weight_id %>
 
       <% max_weight_name = @max_weights[tmw_fields.object.max_weight_id]&.name || "種目" %>
       <p class="font-semibold text-gray-700 mb-2"><%= max_weight_name %></p>
 
-      <%= tmw_fields.label :record, "重量 (kg)", class: "block mb-1 font-medium" %>
-      <%= tmw_fields.number_field :record, step: '0.01',  placeholder: "半角数字", class: "w-full border rounded p-2 focus:outline-none focus:ring-2 focus:ring-blue-400" %>
-    </div>
+    
+      <%= tmw_fields.number_field :record, step: '0.01',  placeholder: "半角数字(kg)", class: "w-full border rounded p-2 focus:outline-none focus:ring-2 focus:ring-blue-400" %>
   <% end %>
 </div>
 

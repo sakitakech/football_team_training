@@ -45,6 +45,8 @@ Rails.application.routes.draw do
 
   root "static_pages#top"
   get "/privacy", to: "static_pages#privacy"
+  get "/terms_of_service", to: "static_pages#terms_of_service"
+  get "/how_to_use", to: "static_pages#how_to_use"
 
   resources :charts, only: [ :index ]
 

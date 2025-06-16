@@ -29,8 +29,6 @@
     <div class="hidden lg:block">
     <% if user_signed_in? %>
       <%= render 'shared/footer' %>
-    <% else %>
-      <%= render 'shared/before_login_footer' %>
     <% end %>
   </div>
 
@@ -45,7 +43,6 @@
 
   
 
-
   <main class="flex-grow pb-12">
     <%= yield %>
   </main>
@@ -53,13 +50,11 @@
   <div class="block lg:hidden">
     <% if user_signed_in? %>
       <%= render 'shared/footer' %>
-    <% else %>
-      <%= render 'shared/before_login_footer' %>
     <% end %>
   </div>
 
-  <% unless user_signed_in? %>
-    <%= render 'shared/before_login_privacy' %>
-  <% end %>
+
+    <%= render 'shared/fotter_fixed' %>
+
   </body>
 </html>
