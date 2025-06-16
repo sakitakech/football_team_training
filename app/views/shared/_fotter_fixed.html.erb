@@ -2,8 +2,8 @@
   <div class="<%= current_user&.admin? ? 'bg-green-600' : 'bg-blue-600' %> text-white py-2">
     <div class="flex justify-center space-x-6">
       <%= link_to "<<プライバシーポリシー>>", privacy_path, class: "text-sm text-white hover:underline" %>
-      <%= link_to "<<利用規約>>", "#", class: "text-sm text-white hover:underline" %>
-      <%= link_to "<<使い方>>", "#", class: "text-sm text-white hover:underline" %>
+      <%= link_to "<<利用規約>>", terms_of_service_path, class: "text-sm text-white hover:underline" %>
+      <%= link_to "<<使い方>>", how_to_use_path, class: "text-sm text-white hover:underline" %>
     </div>
   </div>
 </div>
