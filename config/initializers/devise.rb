@@ -310,4 +310,5 @@ Devise.setup do |config|
   # config.sign_in_after_change_password = true
 
   config.omniauth :line, ENV["LINE_CHANNEL_ID"], ENV["LINE_CHANNEL_SECRET"]
+  require Rails.root.join("config/initializers/omniauth/strategies/line")
 end
