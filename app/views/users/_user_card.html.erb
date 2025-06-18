@@ -11,9 +11,9 @@
   <div class="mt-2 flex flex-wrap gap-2 text-sm">
     <%= link_to "トレーニング", user_trainings_path(user),
       class: "text-xs px-3 py-1 rounded border border-gray-300 bg-white text-gray-700 hover:bg-gray-100 hover:border-gray-400 transition" %>
-    <%= link_to "カレンダー", calendar_path(user_id: user.id),
+    <%= link_to "カレンダー", calendar_path(user_id: user.id,position_id: user.position_id),
       class: "text-xs px-3 py-1 rounded border border-gray-300 bg-white text-gray-700 hover:bg-gray-100 hover:border-gray-400 transition" %>
-    <%= link_to "チャート", charts_path(user_id: user.id),
+    <%= link_to "チャート", charts_path(user_id: user.id,position_id: user.position_id),
       class: "text-xs px-3 py-1 rounded border border-gray-300 bg-white text-gray-700 hover:bg-gray-100 hover:border-gray-400 transition" %>
   </div>
 

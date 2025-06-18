@@ -9,13 +9,15 @@ class CalendarController < ApplicationController
         .where(team_id: current_user.team_id)
         .order("positions.id ASC", "last_name ASC")
         .group_by(&:position)
-
+      @selected_position_id = params[:position_id].to_i if params[:position_id].present?
       @selected_user_id = params[:user_id].to_i if params[:user_id].present?
       @user_position_map = @team_members.map { |u| [ u.id, u.position_id ] }.to_h
     else
       @team_members = [ current_user ]
       @grouped_members = { current_user.position => [ current_user ] }
       @user_position_map = { current_user.id => current_user.position_id }
+      @selected_user_id = current_user.id
+      @selected_position_id = current_user.position_id
     end
   end
 end
