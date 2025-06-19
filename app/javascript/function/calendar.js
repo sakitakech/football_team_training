@@ -10,9 +10,28 @@ document.addEventListener("turbo:load", () => {
   const userLabel = document.getElementById("selectedUserLabel")
   const defaultUserId = calendarEl.dataset.userId || null
 
+  const teamId = calendarEl.dataset.teamId
+
   let allEvents = []
   let userToPosition = {} // ✅ user_id -> position_id マッピング
 
+  const defaultPositionId = calendarEl.dataset.positionId || null
+  if (defaultPositionId && positionSelect) {
+    positionSelect.value = defaultPositionId
+  }
+
+
+  if (teamId === "none") {
+    if (positionSelect) {
+      positionSelect.disabled = true
+      positionSelect.classList.add("bg-gray-200", "cursor-not-allowed")
+    }
+    if (memberSelect) {
+      memberSelect.disabled = true
+      memberSelect.classList.add("bg-gray-200", "cursor-not-allowed")
+    }
+  }
+  
   fetch("/api/calendar/histories")
     .then(response => response.json())
     .then(data => {

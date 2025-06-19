@@ -3,9 +3,9 @@
   <div>
     <label for="positionSelect" class="block text-sm font-bold text-gray-700 mb-1">ポジションを選択</label>
     <select id="positionSelect" class="w-full border border-gray-300 rounded px-4 py-2 bg-white text-black focus:outline-none focus:ring-2 focus:ring-blue-500">
-      <option value="">ポジションを選択</option>
+      <option value="">すべてのポジション</option>
       <% @positions.each do |pos| %>
-        <option value="<%= pos.id %>"><%= pos.name %></option>
+        <option value="<%= pos.id %>" <%= "selected" if @selected_position_id == pos.id %>><%= pos.name %></option>
       <% end %>
     </select>
   </div>
@@ -14,7 +14,7 @@
   <div>
     <label for="memberSelect" class="block text-sm font-bold text-gray-700 mb-1">選手を選択</label>
     <select id="memberSelect" class="w-full border border-gray-300 rounded px-4 py-2 bg-white text-black focus:outline-none focus:ring-2 focus:ring-blue-500">
-      <option value="">選手を選択</option>
+      <option value="">すべての選手</option>
       <% @grouped_members.each do |position, members| %>
         <optgroup label="--- <%= position.short_name %> ---">
           <% members.each do |member| %>
@@ -36,10 +36,12 @@
 </div>
 
 
-<!-- ✅ カレンダー表示 -->
+
 <div
   data-controller="calendar"
   data-user-id="<%= @selected_user_id %>"
   data-user-position-map="<%= @user_position_map.to_json %>"
+  data-position-id="<%= @selected_position_id %>" 
+  data-team-id="<%= current_user.team_id || "none" %>" 
   class="p-4 bg-white rounded shadow">
 </div>
