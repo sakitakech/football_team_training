@@ -1,20 +1,30 @@
-<div class="flex flex-col items-center justify-center min-h-[80vh] text-center px-4">
-
+<div class="flex flex-col items-center justify-center min-h-[80vh] text-center px-4 relative z-10">
+  <!-- トップメッセージ -->
   <h1 class="text-7xl font-extrabold mb-2">F T T</h1>
   <h2 class="text-gray-500 mb-8">~football team training~</h2>
 
   <% if user_signed_in? %>
-   <div class="text-7xl font-bold text-gray-400"> WELCOME </div>
-   <% else %>
-   <div class="flex flex-col gap-3 mb-6">
-     <%= link_to "ログイン", user_session_path, class: login_button_class %>
-     <%= link_to "サインアップ", new_member_registration_path, class: button_class %>
-  </div>
+    <div class="text-7xl font-bold text-gray-400">WELCOME</div>
+  <% else %>
+    <div class="flex flex-col gap-3 mb-6">
+      <%= link_to "ログイン", user_session_path, class: login_button_class %>
+      <%= link_to "サインアップ", new_member_registration_path, class: button_class %>
+    </div>
   <% end %>
 
-  <h2 class="mt-4">チームでトレーニング状況の記録、</h2>
-  <h2>チームメイトとトレーニングの共有ができます。</h2>
+  <h2 class="mt-4 text-lg text-gray-700">チームでトレーニング状況の記録、</h2>
+  <h2 class="text-lg text-gray-700">チームメイトとトレーニングの共有ができます。</h2>
 
 
+  <a href="#how_to_use" class="mt-10 animate-bounce text-blue-600 hover:underline">
+    ▼ 使い方を見る
+  </a>
 </div>
 
+<div id="how_to_use" class="pt-20 -mt-20 bg-gray-50">
+  <%= render "static_pages/how_to_use" %>
+</div>
+
+<div class="text-center">
+   <p>使い方はフッターからも確認できます。</p>
+</div>

@@ -1,0 +1,74 @@
+<div class="max-w-4xl mx-auto px-6 py-12 space-y-12 text-gray-800">
+
+  <!-- ✅ タイトル -->
+  <h1 class="text-3xl font-semibold border-b pb-4">アプリの使い方</h1>
+
+  <!-- ✅ グラフ -->
+  <section class="bg-gray-50 border border-gray-300 rounded-2xl shadow-lg p-6">
+    <h2 class="text-xl font-semibold mb-4">トレーニングの推移を確認する</h2>
+    <p class="mb-6 text-gray-700">
+      登録されたマックス重量の変化をグラフで視覚的に確認できます。努力の成果が見えることで、継続するモチベーションにもつながります。
+    </p>
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <%= image_tag "howtouse/graph1.png", alt: "グラフ画面", class: "w-full rounded shadow" %>
+      <%= image_tag "howtouse/graph2.png", alt: "グラフ画面", class: "w-full rounded shadow" %>
+    </div>
+  </section>
+
+  <!-- ✅ カレンダー -->
+  <section class="bg-gray-50 border border-gray-300 rounded-2xl shadow-lg p-6">
+    <h2 class="text-xl font-semibold mb-4">カレンダーで履歴を把握</h2>
+    <p class="mb-6 text-gray-700">
+      実施したトレーニング日がカレンダー上に表示され、<strong>自分のトレーニング頻度や習慣が一目で分かります</strong>。
+      チームに所属している場合、<strong>他の選手のカレンダーも確認できる</strong>ため、練習の参考になります。
+    </p>
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <%= image_tag "howtouse/calendarsolo.png", alt: "カレンダー", class: "w-full rounded shadow" %>
+      <%= image_tag "howtouse/calendarmany.png", alt: "チームカレンダー", class: "w-full rounded shadow" %>
+    </div>
+  </section>
+
+  <!-- ✅ チーム所属 -->
+  <section class="bg-gray-50 border border-gray-300 rounded-2xl shadow-lg p-6">
+    <h2 class="text-xl font-semibold mb-4">チームに所属するメリット</h2>
+    <p class="mb-4 text-gray-700">
+      アプリは個人でも利用可能ですが、チームに所属することで、<strong>チームメイトのカレンダー・グラフ・トレーニング内容を閲覧可能</strong>になります。
+    </p>
+    <p class="mb-6 text-gray-700">
+      管理者はメンバー全員のトレーニング頻度を一括で確認できます。チームとしての意識が高まり、継続にもつながります。
+    </p>
+    <%= image_tag "howtouse/header.png", alt: "ヘッダー", class: "w-full rounded shadow mb-4" %>
+    <p class="text-gray-700">
+      チームは<strong>自分で作成</strong>するか、<strong>既に所属しているユーザーからの招待</strong>で参加できます。
+      ヘッダーから操作できます。
+    </p>
+  </section>
+
+  <!-- ✅ 管理者の機能 -->
+  <section class="bg-gray-50 border border-gray-300 rounded-2xl shadow-lg p-6">
+    <h2 class="text-xl font-semibold mb-4">管理者にできること</h2>
+    <p class="mb-6 text-gray-700">
+      管理者は以下の操作が可能です。
+    </p>
+    <ul class="list-disc list-inside text-gray-700 mb-4 space-y-1">
+      <li>チーム情報の編集（リーグやチーム名）</li>
+      <li>参加リクエストの承認・拒否</li>
+      <li>メンバーの管理（除外・管理者追加・譲渡など）</li>
+    </ul>
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <%= image_tag "howtouse/team.png", alt: "チーム編集", class: "w-full rounded shadow" %>
+      <%= image_tag "howtouse/newmember.png", alt: "参加依頼", class: "w-full rounded shadow" %>
+      <%= image_tag "howtouse/adminindex.png", alt: "選手管理", class: "w-full rounded shadow" %>
+    </div>
+  </section>
+
+  <!-- ✅ 注意点セクション -->
+  <section class="bg-red-50 border-l-4 border-red-400 p-6 rounded-md shadow">
+    <h2 class="text-xl font-semibold text-red-700 mb-2">ご利用上の注意</h2>
+    <ul class="list-disc list-inside text-sm text-gray-700 space-y-1">
+      <li><strong class="text-red-600">アカウントを削除した場合、すべてのトレーニングデータが完全に削除され復旧できません</strong>。</li>
+      <li>管理者が1人しかいない場合、その管理者は脱退・削除ができません。脱退には事前に別のメンバーを管理者に追加・譲渡、もしくはチームを削除する必要があります。</li>
+      <li>一人につき同時に２チーム以上に所属できません。</li>
+    </ul>
+  </section>
+  </div>
