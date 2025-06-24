@@ -15,16 +15,18 @@
   <h2 class="mt-4 text-lg text-gray-700">チームでトレーニング状況の記録、</h2>
   <h2 class="text-lg text-gray-700">チームメイトとトレーニングの共有ができます。</h2>
 
-
+<% unless user_signed_in? %>
   <a href="#how_to_use" class="mt-10 animate-bounce text-blue-600 hover:underline">
     ▼ 使い方を見る
   </a>
 </div>
 
-<div id="how_to_use" class="pt-20 -mt-20 bg-gray-50">
-  <%= render "static_pages/how_to_use" %>
-</div>
 
-<div class="text-center">
-   <p>使い方はフッターからも確認できます。</p>
-</div>
+  <div id="how_to_use" class="pt-20 -mt-20 bg-gray-50">
+    <%= render "static_pages/how_to_use" %>
+  </div>
+
+  <div class="text-center">
+    <p>使い方はフッターからも確認できます。</p>
+  </div>
+<% end %>
